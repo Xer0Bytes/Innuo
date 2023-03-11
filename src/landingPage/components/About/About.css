@@ -1,0 +1,240 @@
+/* ----------------for the about us section */
+
+#card{
+  
+  background-color: #CAA3DA;
+  border-radius: 2em;
+  padding:1em 0em 4.4em 0em
+}
+
+#card:hover{
+  border-bottom-width: 20px;
+  border-color: #333;
+  transform: translateY(-5px);
+}
+
+#part {
+  width: 90vw;
+  height: 80vh;
+  position: relative;
+  left: 7%;
+  overflow: hidden;
+}
+
+@keyframes anim6 {
+  from {
+    top: -100%;
+  }
+  to {
+    top: 0%;
+  }
+}
+
+#part1,
+  #part2,
+  #part3,
+  /* #part4, */
+  #part5,
+  #part6 {
+  width: 3.8em;
+  height: 1.18em;
+  font-family: Neucha;
+  font-size: 10em;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  left: 3%;
+}
+
+@media screen and (max-width: 600px) {
+  #part1,
+  #part2,
+  #part3,
+  #part5,
+  #part6 {
+    width: 50%;
+    height: 1.2em;
+    font-size: 3.4em;
+  }
+
+  #part4 {
+    margin-top: -9em;
+    width: 12.5em;
+    height: 13em;
+    font-size: 1.2em;
+    line-height: 1em;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  #part1,
+  #part2,
+  #part3,
+  #part5,
+  #part6 {
+    width: 50%;
+    height: 1.2em;
+    font-size: 5em;
+  }
+
+  #part4 {
+    margin-top: -8.2em;
+    width: 13em;
+    height: 15em;
+    font-size: 1.8em;
+    line-height: 1.2em;
+  }
+}
+
+@media screen and (max-width: 1340px) {
+  #part1,
+  #part2,
+  #part3,
+  #part5,
+  #part6 {
+    width: 50%;
+    height: 1.2em;
+    font-size: 7.5em;
+  }
+
+  #part4 {
+    margin-top: -30%;
+    width: 48%;
+    height: 70%;
+    font-size: 2.5em;
+    line-height: 105%;
+  }
+}
+
+#part1 {
+  transform: skewY(-15deg);
+  margin-top: 2%;
+}
+
+#part2 {
+  transform: skewY(15deg);
+  margin-left: -0.05em;
+}
+
+#part3 {
+  transform: skewY(-15deg);
+}
+
+#part4 {
+  /* 
+    transform: skewY(15deg);
+    margin-left: -4px; */
+  font-family: Neucha;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  top: 20%;
+  left: 100%;
+  animation: anim6 3s forwards 1s;
+  text-align: justify;
+}
+
+@keyframes anim6 {
+  from {
+    top: 20%;
+    left: 100%;
+  }
+  to {
+    top: -6%;
+    left: 48%;
+  }
+}
+
+@keyframes anim5 {
+  from {
+    left: -100%;
+  }
+  to {
+    left: 0%;
+  }
+}
+
+/* #part5 {
+  margin-top: -50px;
+  transform: skewY(-15deg);
+} */
+
+#part6 {
+  margin-top: -2%;
+  transform: skewY(15deg);
+  margin-left: -5px;
+}
+
+#text01,
+  #text02,
+  #text03,
+  /* #text04, */
+  #text05,
+  #text06 {
+  width: 3.74em;
+  /* height: 200px; */
+  position: relative;
+  display: inline-block;
+  color: white;
+  transition: all 0.4s;
+}
+
+#text01 {
+  color: #177b85;
+}
+
+#text03,
+  /* #text04, */
+  #text05,
+  #text06 {
+  color: black;
+  opacity: 0.1;
+}
+
+#text04 {
+  /* color: #fa9baf; */
+  color:#333;
+}
+
+#text01,
+#text03,
+#text05 {
+  left: 100%;
+  animation: anim8 3s forwards 1s;
+}
+
+#text02,
+  /* #text04, */
+  #text06 {
+  color: black;
+  left: 0%;
+  animation: anim7 3s forwards 1s;
+}
+@keyframes anim8 {
+  from {
+    left: 100%;
+  }
+  to {
+    left: 0%;
+  }
+}
+
+@keyframes anim7 {
+  from {
+    left: 0%;
+  }
+  to {
+    left: -100%;
+  }
+}
+
+/* @media (max-width: 768px){
+    @keyframes anim7 {
+      from {
+        left: 100%;
+      }
+      to {
+        left: -100%;
+      }
+    }
+  } */

@@ -1,27 +1,36 @@
-import React, { useRef } from "react";
-import Navbar from "./components/Navbar.jsx";
-import Home from "./components/Home.jsx";
-import About from "./components/About.jsx";
-import Contact from './components/Contact.jsx'
+//import others
+import React from "react";
+import { motion } from "framer-motion";
+
+//import components and css
+import Home from "./components/Home/Home.jsx";
+import About from "./components/About/About.jsx";
+import Contact from "./components/Contact/Contact.jsx";
+import Product from "./components/Product/Product.jsx";
+import Navbar from "./components/Navbar/Navbar.jsx";
 import "./landingPage.css";
-import IntersectObs from "./constants/UseIntersectionObserver.jsx";
 
 const LandingPage = () => {
-  const aboutRef = useRef();
-  const contactRef = useRef();
-
   return (
     <div id="main lp_body">
-      <Navbar/>
-      <Home/>
-      <section ref={aboutRef} class="h-[80vh]" id="about"> 
-        <br />
-        {IntersectObs(aboutRef) ? <About /> : null}
+      <Navbar />
+      <Home />
+      <section id="product">
+        <motion.div
+          animate={{ y: 0, scale: 1 }}
+          intial={{ scale: 0, y: -300 }}
+          transition={{ type: "tween", duration: 10 }}
+        >
+          <Product />
+        </motion.div>
       </section>
 
-      <section ref={contactRef} id="contact" class="h-[54vh]">
-        <br />
-        {IntersectObs(contactRef) ? <Contact /> : null}
+      <section id="about" className="mt-20" >
+        <About/>
+      </section>
+
+      <section id="contact">
+        <Contact />
       </section>
     </div>
   );

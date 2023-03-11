@@ -4,90 +4,87 @@ import twitter from '../assets/twitter.svg'
 import instagram from '../assets/instagram.svg'
 import linkedin from '../assets/linkedin.svg'
 
-export const navLinks = [
-  {
-    id: "home",
-    title: "Home",
-  },
-  {
-    id: "features",
-    title: "Features",
-  },
-  {
-    id: "product",
-    title: "Product",
-  },
-  {
-    id: "clients",
-    title: "Clients",
-  },
-];
+// export const navLinks = [
+//   {
+//     id: "home",
+//     title: "Home",
+//   },
+//   {
+//     id: "features",
+//     title: "Features",
+//   },
+//   {
+//     id: "product",
+//     title: "Product",
+//   },
+//   {
+//     id: "clients",
+//     title: "Clients",
+//   },
+// ];
 
 
 export const footerLinks = [
   {
-    title: "Useful Links",
+    title: "Help & Info",
     links: [
       {
-        name: "Content",
-        link: "https://www.hoobank.com/content/",
+        name: "Help Center",
+        link: "",
       },
       {
-        name: "How it Works",
-        link: "https://www.hoobank.com/how-it-works/",
+        name: "FAQ",
+        link: "",
       },
       {
-        name: "Create",
-        link: "https://www.hoobank.com/create/",
+        name: "Suggestions",
+        link: "",
       },
       {
-        name: "Explore",
-        link: "https://www.hoobank.com/explore/",
+        name: "Terms and Conditions",
+        link: "",
       },
       {
-        name: "Terms & Services",
-        link: "https://www.hoobank.com/terms-and-services/",
+        name: "Support",
+        link: "",
       },
     ],
   },
   {
-    title: "Community",
+    title: "Learn More",
     links: [
       {
-        name: "Help Center",
-        link: "https://www.hoobank.com/help-center/",
+        name: "History of Sign Language",
+        link: "",
       },
       {
-        name: "Partners",
-        link: "https://www.hoobank.com/partners/",
+        name: "Deaf Culture",
+        link: "",
       },
       {
-        name: "Suggestions",
-        link: "https://www.hoobank.com/suggestions/",
+        name: "Sign Language Around the World",
+        link: "",
       },
       {
-        name: "Blog",
-        link: "https://www.hoobank.com/blog/",
-      },
-      {
-        name: "Newsletters",
-        link: "https://www.hoobank.com/newsletters/",
+        name: "Sign Language Interpreting",
+        link: "",
       },
     ],
   },
-  // {
-  //   title: "Partner",
-  //   links: [
-  //     {
-  //       name: "Our Partner",
-  //       link: "https://www.hoobank.com/our-partner/",
-  //     },
-  //     {
-  //       name: "Become a Partner",
-  //       link: "https://www.hoobank.com/become-a-partner/",
-  //     },
-  //   ],
-  // },
+  
+  {
+    title: "Contact",
+    links: [
+      {
+        name: "Address: Dhaka, Bangladesh",
+        link: "https://maps.google.com/",
+      },
+      {
+        name: "Email: teaminnuo@gmail.com",
+        link: "https://mail.google.com",
+      },
+    ],
+  },
 ];
 
 export const socialMedia = [
