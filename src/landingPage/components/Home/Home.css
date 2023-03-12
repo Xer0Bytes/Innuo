@@ -15,8 +15,7 @@
     /* animation: slide-left-and-fade-out 5s ease-out forwards; */
     animation: anim 2s forwards, anim2 2s forwards 3s;
   
-    
-  }
+   }
   
   #box1:after {
     content: "";

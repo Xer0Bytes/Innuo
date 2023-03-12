@@ -1,8 +1,6 @@
 import React from "react"
 
 import './Home.css'
-import pic1 from '../../assets/1b.png'
-import pic2 from '../../assets/2a.png'
 
 const Home = () => {
   return (
@@ -10,8 +8,6 @@ const Home = () => {
       <div id="hero-sec">
         <div id="hero-pictures" class=" md:w-50 overflow-hidden">
           <div id="box1">
-            <img src={pic1} />
-            <img src={pic2} />
           </div>
         </div>
 
