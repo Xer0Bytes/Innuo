@@ -16,13 +16,7 @@ const LandingPage = () => {
       <Navbar />
       <Home />
       <section id="product">
-        <motion.div
-          animate={{ y: 0, scale: 1 }}
-          intial={{ scale: 0, y: -300 }}
-          transition={{ type: "tween", duration: 10 }}
-        >
           <Product />
-        </motion.div>
       </section>
 
       <section id="about" className="mt-20" >
