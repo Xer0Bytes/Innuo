@@ -3,7 +3,7 @@ import "./About.css";
 
 const About = () => {
   return (
-    <div id="part" class="pt-20">
+    <div id="part" class="pt-20 mb-20">
       <div id="card">
         <div id="firstpart">
           <span id="part1">
@@ -27,13 +27,13 @@ const About = () => {
 
         <div
           id="part4"
-          class="mt-[-150em] w-[23em] h-[10.75em] text-[2.4em] leading-[1.4em]"
+          class="mt-[-10.9em] w-[20em] h-[11em] text-[1.89em] leading-[1.3em]"
         >
           <div id="text04">
             We are passionate about making sign language accessible to everyone,
             regardless of their hearing ability. <br />
-            Learning a new language can be challenging, and we strive to provide
-            a supportive and inclusive environment for our users. <br />
+             Our goal is  to provide
+            a supportive and inclusive environment for our users. <br /> 
             Thank you for choosing our platform to learn sign language. We look
             forward to helping you on your signing journey!
           </div>

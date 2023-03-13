@@ -1,38 +1,33 @@
 #hero-pictures {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-  }
-  
-  #box1 {
-    width: 839px;
-    height: 933px;
-    background-image: url(../../assets/1b.png);
-    background-size: cover;
-    position: relative;
-    bottom: -100%;
-    left: 50%;
-    /* animation: slide-left-and-fade-out 5s ease-out forwards; */
-    animation: anim 2s forwards, anim2 2s forwards 3s;
-  
-   }
-  
-  #box1:after {
-    content: "";
-    position: absolute;
-    width: 839px;
-    height: 933px;
-    background-image: url(../../assets/2a.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    left: 0px;
-    z-index:-1;
-  }
-  
-  
-  
-  
-  @keyframes anim {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#box1 {
+  width: 524px;
+  height: 583px;
+  background-image: url(../../assets/1b.png);
+  background-size: cover;
+  position: relative;
+  left: 40%;
+  /* animation: slide-left-and-fade-out 5s ease-out forwards; */
+  animation:anim2 2s forwards 3s;
+}
+
+#box1:after {
+  content: "";
+  position: absolute;
+  width: 524px;
+  height: 583px;
+  background-image: url(../../assets/2a.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  left: 0px;
+  z-index: -1;
+}
+
+/* @keyframes anim {
     from {
       bottom: -100%;
     }
@@ -40,19 +35,19 @@
       bottom: 0%;
     }
   }
-  
-  @keyframes anim2 {
-    from {
-      left: 50%;
-      width: 839px;
-    }
-    to {
-      left: 55%;
-      width: 0px;
-    }
+   */
+@keyframes anim2 {
+  from {
+    left: 40%;
+    width: 524px;
   }
-  
-  /* @keyframes slide-left-and-fade-out {
+  to {
+    left: 53%;
+    width: 0px;
+  }
+}
+
+/* @keyframes slide-left-and-fade-out {
     0% {
       opacity: 1;
       transform: translateX(0);
@@ -73,84 +68,80 @@
       background-image: url(./assets/2a.png);
     }
   } */
-  
-  
-  
-  
-  #box2 {
-    width: 85%;
-    height: auto;
-    position: absolute;
-    top: 20%;
-    left: 10%;
-    overflow: hidden;
-  }
-  
-  #text {
-    position: relative;
+
+#box2 {
+  width: 85%;
+  height: auto;
+  position: absolute;
+  top: 15%;
+  left: 8%;
+  overflow: hidden;
+}
+
+#text {
+  position: relative;
+  left: -100%;
+  animation: anim3 2s forwards 3s;
+  text-align: justify;
+}
+
+@keyframes anim3 {
+  from {
     left: -100%;
-    animation: anim3 2s forwards 3s;
-    text-align: justify;
   }
-  
-  @keyframes anim3 {
-    from {
-      left: -100%;
-    }
-    to {
-      left: 0%;
-    }
+  to {
+    left: 0%;
   }
-  
-  #text_1 {
-    font-family: "Neucha";
-    color: #fa9baf;
-    font-size: 8.5em;
-    font-weight: 500;
-    line-height: 130px;
-  }
-  
-  #text_2 {
-    font-family: "Neucha";
-    padding-top: 20px;
-    color: #000;
-    font-size: 3em;
-    font-weight: 300;
-    line-height: 60px;
-    width: 50%;
-  }
-  
-  
-  .btn {
-    /* padding: 0.5em 1em; */
-    padding: 0 0.9em;
-    /* transition: all 0.3s ease 0s; */
-    outline: none;
-    border-radius: 45px;
-    background-color: transparent;
-    transition: all 0.2s ease-in-out;
-    font-family: Neucha;
-  }
-  
-  .get-started {
-    background-color: #fed885;
-    font-weight: bold;
-    border: 3px solid #333;
-    color: #333;
-  }
-  
-  .get-started:hover {
-    transform: translateY(-5px);
-    border-bottom-width: 13px;
-  }
-  
-  .get-started i {
-    margin-left: 8px;
-  }
-  
-  .circle-arrow {
-    display: inline-block;
-    margin-left: 10px;
-    transform: rotate(45deg);
-  }
-  
+}
+
+#text_1 {
+  font-family: "Neucha";
+  color: #41cdda;
+  font-size: 6em;
+  font-weight: bolder;
+  line-height: 110px;
+  text-shadow: 7px 7px 0 #333;
+}
+
+#text_2 {
+  font-family: "Neucha";
+  padding-top: .5em;
+  color: #333;
+  font-size: 2em;
+  font-weight: 300;
+  line-height: 38px;
+  width: 50%;
+}
+
+.btn {
+  /* padding: 0.5em 1em; */
+  padding: 0 0.8em;
+  /* transition: all 0.3s ease 0s; */
+  outline: none;
+  border-radius: 45px;
+  background-color: transparent;
+  transition: all 0.2s ease-in-out;
+  font-family: Neucha;
+}
+
+.get-started {
+  background-color: #fed885;
+  font-weight: bold;
+  border: 3px solid #333;
+  color: #333;
+}
+
+.get-started:hover {
+  transform: translateY(-5px);
+  border-bottom-width: 13px;
+}
+
+.get-started i {
+  margin-left: 8px;
+}
+
+.circle-arrow {
+  display: inline-block;
+  margin-left: 10px;
+  transform: rotate(45deg);
+}

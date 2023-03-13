@@ -31,32 +31,33 @@
 
 #logo {
   float: left;
-  margin-left: 100px;
-  margin-top: 14px;
+  margin-left: 1.2em;
+  margin-top: .3em;
   cursor: pointer;
   display: flex;
 }
 
 #logo-text {
   font-family: "Neucha";
-  font-size: 40px;
-  color: #177b85;
+  font-size: 2em;
+  color: #333;
   margin-left: 10px;
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: .3em;
 }
 
 #logo img {
-  width: 50px;
+  width: 40px;
 }
 
 #menu {
   font-family: "Neucha";
-  font-size: 25px;
-  color: #177b85;
+  font-size: 1.3em;
+  color: #333;
+  font-weight: 600;
   letter-spacing: 2px;
-  margin-right: 150px;
-  margin-top: 40px;
+  margin-right: 50px;
+  margin-top: 0.65em;
   float: right;
 }
 
@@ -66,8 +67,9 @@
 
 #menu ul li {
   display: inline-block;
-  margin-left: 100px;
+  margin-left: 2em;
   cursor: pointer;
+  /* height:4em; */
 }
 
 #menu ul li a {
@@ -106,25 +108,43 @@
 }
 
 .nav-sign-up{  
-  border: 5px solid #FFC6CD;
+  border: 3px solid #333;
   background-color: #fed885;
-  padding: 0.2em 1em 0.2em 1em;
-  margin-left:-10px
+  padding: 0.1em 1em 0.1em 1em;
+  margin-left:-10px;
+  /* height:2.4em; */
 }
 
 .nav-sign-in, .nav-sign-up{
-  font-size:28px;
+  font-size:1.1em;
 }
 
-
+.nav-sign-in{
+  border: 3px solid #333;
+  padding: 0.1em 1em 0.1em 1em;
+}
 .nav-sign-in:hover{
   transform: translateY(-5px);
-  font-weight: bold;
+  border-bottom-width: 13px;
 }
 
 .nav-sign-up:hover{
   transform: translateY(-5px);
-  font-weight: bold;
-  background-color: #FFC6CD;
-  border: 5px solid #fed885;
+  border-bottom-width: 13px;
+}
+
+.signupin-link{
+  text-decoration: none;
+}
+
+.signupin-link:hover{
+  color:#333 !important;
+}
+
+.signupin-link:after {
+  content: "";
+}
+
+.signupin-link:hover:after {
+  width: 0% !important;
 }

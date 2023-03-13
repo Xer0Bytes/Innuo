@@ -26,6 +26,9 @@ const LandingPage = () => {
       <section id="contact">
         <Contact />
       </section>
+
+      <div>
+      </div>
     </div>
   );
 };

@@ -28,14 +28,13 @@ const Product = () => {
                 <h3 class="card-text__title">Learning made easy online</h3>
 
                 <p class="card-text__description">
-                Fit sign language lessons more easily into your busy schedule and start communicating with the deaf and hard of hearing community and 
-                you can learn at your own pace without feeling overwhelmed.
+                Fit sign language lessons more easily into your busy schedule and start communicating with the deaf and hard of hearing community.
                 </p>
               </div>
             </div>
 
             <motion.div class="how-works__media how-works__media--left" 
-            animate={{scale:0.8}} initial={{scale:0}}
+            animate={{scale:0.85}} initial={{scale:0}}
             transition={{delay: 1}}>
               <img
                 alt="Busuu Japanese exercise correction"
@@ -52,8 +51,7 @@ const Product = () => {
                 <h3 class="card-text__title">Learning made enjoyable</h3>
 
                 <p class="card-text__description">
-                Our interactive lessons include gamified approach that will keep you motivated and make your learning experience enjoyable. 
-                With our interactive approach, you'll be able to learn sign language more quickly and confidently.
+                Our interactive lessons include gamified approach that will keep you motivated and make your learning experience enjoyable.
                 </p>
               </div>
             </div>
@@ -79,8 +77,7 @@ const Product = () => {
 
                 <p class="card-text__description">
                 Our ranking system is designed to motivate you and help you see how far you've come. 
-                It's also a great way to challenge yourself and stay engaged in the learning process so you can feel
-                a sense of accomplishment as you climb the ranks.
+                It's also a great way to challenge yourself!
                 </p>
               </div>
             </div>
