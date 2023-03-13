@@ -6,37 +6,37 @@ import './Contact.css'
 const Footer = () => {
   return (
     <section
-      className={`flex justify-center items-center text-white sm:py-10 py-3 flex-col bg-[#177b85] font-Neucha animate-slide-up opacity-0 transform translate-neg-y-full`}
+      className={`flex justify-center items-center text-white sm:py-10 py-3 flex-col bg-[#333] font-Neucha animate-slide-up opacity-0 transform translate-neg-y-full`}
     >
       <div
         className={`flex justify-center items-start md:flex-row flex-col mb-8 w-full p-8 md:p-4`}>
-        <div className="flex-[1] flex flex-col justify-start mr-10 sm:items-center sm:min-w-[90%] md:min-w-0">
+        <div className="flex-[1] flex flex-col justify-start mr-6 sm:items-center sm:min-w-[90%] md:min-w-0">
           <img
             src={logo}
             alt="hoobank"
             className="w-[266px] h-[72.14px] object-contain"
           />
           <p
-            className={`font-normal text-dimWhite text-left text-[40px] leading-[38px] font-Neucha mt-4 max-w-[312px]`}
+            className={`font-normal text-[#FFC6CD] text-left text-[1.8em] leading-[1.3em] font-Neucha mt-4 max-w-[310px]`}
           >
             Master sign language with ease - learn, connect, and communicate confidently.
           </p>
         </div>
 
-        <div className="flex-[2] w-full flex flex-row justify-between items-center flex-wrap md:mt-0 mt-10 mr-5">
+        <div className="flex-[2] w-full flex flex-row justify-between items-center flex-wrap md:mt-0 mt-10 mr-4">
           {footerLinks.map((footerlink) => (
             <div
               key={footerlink.title}
               className={`flex flex-col ss:my-1 my-4 min-w-[150px]`}
             >
-              <h4 className="font-medium text-[40px] leading-[27px] text-white">
+              <h4 className="font-medium text-[2.3em] leading-[.7em] text-white">
                 {footerlink.title}{" "}
               </h4>
               <ul className="list-none mt-4">
                 {footerlink.links.map((link, index) => (
                   <li
                     key={link.name}
-                    className={`font-normal text-[30px] leading-[40px] text-dimWhite hover:text-black cursor-pointer ${
+                    className={`font-normal text-[1.5em] leading-[1.4em] text-dimWhite hover:text-[#FED885] cursor-pointer ${
                       index !== footerlink.links.length - 1 ? "mb-4" : "mb-0"
                     }`}
                   >
@@ -50,7 +50,7 @@ const Footer = () => {
       </div>
 
       <div className="w-full flex justify-between items-center pl-5 pr-5 md:flex-row flex-col pt-6 border-t-[1px] border-t-[#3F3E45]">
-      <p className="font-normal text-center text-[30px] leading-[27px] text-white">
+      <p className="font-normal text-center text-[1.5em] leading-[.4em] text-white">
         Copyright Ⓒ 2023 Xer0Bytes. All Rights Reserved.
       </p>
 
