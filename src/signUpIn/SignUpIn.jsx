@@ -1,18 +1,24 @@
-import React from 'react'
-import FormsContainer from './components/Forms/FormsContainer.jsx'
-import Panels from './components/Panels/Panels.jsx'
-import './SignUpIn.css'
-// import {getMode} from './components/Panels/ChangePanel.js'
-// import './components/Panels/ChangePanel.js'
+import { Route, Routes, Navigate } from "react-router-dom";
+import Main from "./components/Main";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import EmailVerify from "./components/EmailVerify";
+import ForgotPassword from "./components/ForgotPassword";
+import PasswordReset from "./components/PasswordReset";
+
+import React from "react";
 
 export const SignUpIn = () => {
-  // var modeChangeClass = `container ${getMode() ? 'sth': 'sign-up-mode'}`;
+  const user = localStorage.getItem("token");
   return (
-    <div className="container">
-        <FormsContainer />
-        <Panels />
-    </div>
-  )
+    <Routes>
+      {user && <Route path="/" exact element={<Main />} />}
+      <Route path="/signup" exact element={<Signup />} />
+      <Route path="/login" exact element={<Login />} />
+      <Route path="/" element={<Navigate replace to="/login" />} />
+      <Route path="/users/:id/verify/:token" element={<EmailVerify />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
+    </Routes>
+  );
 };
-
-export default SignUpIn
