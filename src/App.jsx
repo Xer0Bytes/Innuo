@@ -18,8 +18,8 @@ function App() {
         </Route>
         <Route path="/register" element={<Signup />}></Route>
         {
-        // user && 
-        <Route path="/user-dashboard" element={<Main />} />}
+         user && 
+        <Route path="/user-dashboard" exact element={<Main />} />}
         <Route path="/register" exact element={<Signup />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/" element={<Navigate replace to="/login" />} />
@@ -27,6 +27,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
         {/* <Route path="/password-reset" element={<PasswordReset />} /> */}
+        {/* <Route component={Error} /> */}
       </Routes>
     </BrowserRouter>
   );
