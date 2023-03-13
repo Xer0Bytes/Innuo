@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import QuestionList from "../data/questions.json";
-import QuizResult from "./QuizResult.jsx";
-import Question from "./Question.jsx";
+import QuestionList from '../data/questions.json'
+import QuizResult from './QuizResult'
+import Question from './Question'
 
 function QuizScreen({retry}){
     const [currentQuestionIndex, setCurrentQuestion] = useState(0);
