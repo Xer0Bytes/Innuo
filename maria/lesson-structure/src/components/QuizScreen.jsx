@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 import QuestionList from '../data/questions.json'
 import QuizResult from './QuizResult'
 import Question from './Question'
 
 function QuizScreen({retry}){
-    const [currentQuestionIndex, setCurrentQuestion] = useState(0);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [markedAnswers, setMarkedAnswers] = useState(new Array(QuestionList.length));
     const isQuestionEnd = currentQuestionIndex === QuestionList.length;
 
@@ -28,7 +28,7 @@ function QuizScreen({retry}){
             {
                 isQuestionEnd ? (
                     <QuizResult
-                         return={calculatedResult()}
+                         result={calculatedResult()}
                          retry={retry}
                     />
                 ) : (
