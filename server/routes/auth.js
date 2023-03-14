@@ -24,10 +24,10 @@ router.post("/", async (req, res) => {
 			return res.status(401).send({ message: "Invalid Email or Password" });
 
 		if (!user.verified) {
-			let token = await Token.findOne({ userId: user._id });
+			let token = await Token.findOne({ userEmail: user.email });
 			if (!token) {
 				token = await new Token({
-					userId: user._id,
+					userEmail: user.email,
 					token: crypto.randomBytes(32).toString("hex"),
 				}).save();
 				const url = `${process.env.BASE_URL}users/${user._id}/verify/${token.token}`;

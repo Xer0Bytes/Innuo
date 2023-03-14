@@ -24,7 +24,7 @@ const Navbar = () => {
     };
   }, []);
 
-  const navbarClass = `transition-all duration-1500 ${
+  const navbarClass = `transition-all duration-1500 fixed top-0 w-[100vw] z-10  pb-2 ${
     scrolled ? "blurred fixed top-0 left-0 right-0 z-50 bg-[#FED885]" : ""
   }`;
 
@@ -35,7 +35,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav class="fixed top-0 w-[100vw] z-10  pb-2" className={navbarClass}>
+      <nav className={navbarClass}>
         <div id="main">
           <div id="box3 ">
             <div id="container">
