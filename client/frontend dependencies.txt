@@ -1,0 +1,2 @@
+some global yarn install (might need mods in powershell for some execution properties or sth idk)
+framer-motion: yarn add framer-motion
