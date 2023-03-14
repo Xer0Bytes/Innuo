@@ -23,10 +23,10 @@ router.post("/", async (req, res) => {
 				.status(409)
 				.send({ message: "User with given email does not exist!" });
 
-		let token = await Token.findOne({ userId: user._id });
+		let token = await Token.findOne({ userEmail: user.email });
 		if (!token) {
 			token = await new Token({
-				userId: user._id,
+				userEmail: user.email,
 				token: crypto.randomBytes(32).toString("hex"),
 			}).save();
 		}
@@ -49,7 +49,7 @@ router.get("/:id/:token", async (req, res) => {
 		if (!user) return res.status(400).send({ message: "Invalid link" });
 
 		const token = await Token.findOne({
-			userId: user._id,
+			userEmail: user.email,
 			token: req.params.token,
 		});
 		if (!token) return res.status(400).send({ message: "Invalid link" });
