@@ -19,7 +19,7 @@ const LandingPage = () => {
           <Product />
       </section>
 
-      <section id="about" className="mt-20" >
+      <section id="about" >
         <About/>
       </section>
 

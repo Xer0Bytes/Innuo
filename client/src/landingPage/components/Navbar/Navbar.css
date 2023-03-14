@@ -8,7 +8,7 @@
   opacity: 0;
   top: -100%;
   position: relative;
-  animation: anim4 2s forwards 2.5s;
+  animation: anim4 2s forwards 2s;
 }
 
 #main {
