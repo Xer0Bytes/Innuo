@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require('dotenv').config();
 
 module.exports = () => {
 	const connectionParams = {
@@ -6,6 +7,7 @@ module.exports = () => {
 		useUnifiedTopology: true,
 	};
 	try {
+		mongoose.set("strictQuery", false);
 		mongoose.connect(process.env.DB, connectionParams);
 		console.log("Connected to database successfully");
 	} catch (error) {
