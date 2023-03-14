@@ -12,7 +12,7 @@
   position: relative;
   left: 40%;
   /* animation: slide-left-and-fade-out 5s ease-out forwards; */
-  animation:anim2 2s forwards 3s;
+  animation:anim2 2s forwards 1.5s;
 }
 
 #box1:after {
@@ -81,7 +81,7 @@
 #text {
   position: relative;
   left: -100%;
-  animation: anim3 2s forwards 3s;
+  animation: anim3 2s forwards 2s;
   text-align: justify;
 }
 

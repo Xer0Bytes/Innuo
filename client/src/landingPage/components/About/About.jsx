@@ -1,10 +1,25 @@
 import React from "react";
 import "./About.css";
+import { motion } from "framer-motion";
+
+const sectionAppearAnimate = {
+  onscreen: { scale: 1 },
+  offscreen: { scale: 0 },
+  transition: { delay: 1, duration: 3, type: "spring", bounce: 0.4, stiffness: 500},
+};
+
 
 const About = () => {
   return (
-    <div id="part" class="pt-20 mb-20">
-      <div id="card">
+    <motion.div
+      id="part"
+      class="pt-20 mb-20"
+      initial={"offscreen"}
+      whileInView={"onscreen"}
+      transition={{ staggerChildren: 0.5 }}
+      viewport={{ once: false, amount: 0.6 }}
+    >
+      <motion.div id="card" variants={sectionAppearAnimate}>
         <div id="firstpart">
           <span id="part1">
             <span id="text01">ABOUT US</span>
@@ -32,8 +47,8 @@ const About = () => {
           <div id="text04">
             We are passionate about making sign language accessible to everyone,
             regardless of their hearing ability. <br />
-             Our goal is  to provide
-            a supportive and inclusive environment for our users. <br /> 
+            Our goal is to provide a supportive and inclusive environment for
+            our users. <br />
             Thank you for choosing our platform to learn sign language. We look
             forward to helping you on your signing journey!
           </div>
@@ -43,8 +58,8 @@ const About = () => {
         {/* <div id="part6">
           <div id="text06">ABOUT US</div>
         </div> */}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
