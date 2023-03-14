@@ -1,0 +1,25 @@
+/* -----=================for footer */
+/* #contact{
+  overflow: hidden;
+} */
+
+@import url('https://cdn.tailwindcss.com');
+@import url("https://fonts.googleapis.com/css?family=Neucha");
+
+*{
+    font-family: Neucha;
+}
+.animate-slide-up {
+    animation: slide-up 3s forwards;
+  }
+  
+  @keyframes slide-up {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
