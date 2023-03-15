@@ -72,8 +72,6 @@ router.get("/verify/:token", async (req, res, next) => {
 	
 		let user;
 
-		
-
 		if (!token) {
 		  return next(new ErrorResponse("Invalid Link", 400));
 		} else {
@@ -90,7 +88,7 @@ router.get("/verify/:token", async (req, res, next) => {
 		}
 
 		await User.findOneAndUpdate({ email: user.email }, { verified: true });
-		await Token.deleteMany({ email: user.email });
+		//await Token.deleteMany({ email: user.email });
 		res.status(200).send({ message: "Email verified successfully" });
 		// res.redirect("http://localhost:5173/login");
 	  } catch (error) {
