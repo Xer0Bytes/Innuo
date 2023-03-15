@@ -9,7 +9,7 @@ const PasswordReset = () => {
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
   const param = useParams();
-  const url = `http://localhost:7000/api/password-reset/${param.id}/${param.token}`;
+  const url = `http://localhost:7000/api/password-reset/${param.email}/${param.token}`;
 
   useEffect(() => {
     const verifyUrl = async () => {
