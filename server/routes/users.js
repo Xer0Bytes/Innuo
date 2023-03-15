@@ -33,8 +33,8 @@ router.post("/", async (req, res) => {
 		// const url = `http://localhost:5173/users/${user.id}/verify/${token.token}`;
 		const url = `http://localhost:5173/EmailVerify/${user.email}/${token.token}`;
 
-		console.log(token.token);
-		console.log(url);
+		// console.log(token.token);
+		// console.log(url);
 
 		const message = `
 		<!DOCTYPE html>
@@ -62,6 +62,7 @@ router.post("/", async (req, res) => {
 	}
 });
 
+//verify email link
 router.get("/verify/:token", async (req, res, next) => {
 	try {
 		console.log(req);
@@ -89,7 +90,7 @@ router.get("/verify/:token", async (req, res, next) => {
 		}
 
 		await User.findOneAndUpdate({ email: user.email }, { verified: true });
-		//await Token.deleteMany({ email: user.email });
+		await Token.deleteMany({ email: user.email });
 		res.status(200).send({ message: "Email verified successfully" });
 		// res.redirect("http://localhost:5173/login");
 	  } catch (error) {
