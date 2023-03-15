@@ -13,7 +13,9 @@ router.post("/", async (req, res) => {
 		const emailSchema = Joi.object({
 			email: Joi.string().email().required().label("Email"),
 		});
+
 		const { error } = emailSchema.validate(req.body);
+
 		if (error)
 			return res.status(400).send({ message: error.details[0].message });
 
@@ -24,6 +26,7 @@ router.post("/", async (req, res) => {
 				.send({ message: "User with given email does not exist!" });
 
 		let token = await Token.findOne({ userEmail: user.email });
+
 		if (!token) {
 			token = await new Token({
 				userEmail: user.email,
@@ -31,37 +34,71 @@ router.post("/", async (req, res) => {
 			}).save();
 		}
 
-		const url = `${process.env.BASE_URL}password-reset/${user._id}/${token.token}/`;
-		await sendEmail(user.email, "Password Reset", url);
+		const url = `http://localhost:5173/password-reset/${user.email}/${token.token}`;
+
+		const message = `
+		<!DOCTYPE html>
+		<html>
+        <head>
+        <title>Forgot Password</title>
+        </head>
+        <body>
+        <p><strong>Dear ${user.name},</strong></p>
+        <p>This is an email to verify your email in case you forgot your password. Click below link to verify your email and be redirected to reset your password.</p>
+        <p><a href='${url}'>Verify Email</a></p>
+        </body>
+        </html>`;
+
+		await sendEmail(user.email, "Forgot Password", message);
 
 		res
 			.status(200)
 			.send({ message: "Password reset link sent to your email account" });
 	} catch (error) {
+		console.log(error);
 		res.status(500).send({ message: "Internal Server Error" });
 	}
 });
 
 // verify password reset link
-router.get("/:id/:token", async (req, res) => {
+router.get("/verify/:token", async (req, res, next) => {
 	try {
-		const user = await User.findOne({ _id: req.params.id });
-		if (!user) return res.status(400).send({ message: "Invalid link" });
-
+		console.log(req);
 		const token = await Token.findOne({
-			userEmail: user.email,
-			token: req.params.token,
+		  token: req.params.token,
 		});
-		if (!token) return res.status(400).send({ message: "Invalid link" });
+	
+		let user;
 
-		res.status(200).send("Valid Url");
-	} catch (error) {
-		res.status(500).send({ message: "Internal Server Error" });
-	}
+		
+
+		if (!token) {
+		  return next(new ErrorResponse("Invalid Link", 400));
+		} else {
+		  console.log("token paisi!");
+		  user = await User.findOne({
+			email: token.userEmail,
+		  });
+	
+		  if (!user) {
+			return next(new ErrorResponse("User doesn't exist!", 400));
+		  } else {
+			console.log("user paisi!");
+		  }
+		}
+
+		await User.findOneAndUpdate({ email: user.email }, { verified: true });
+		//await Token.deleteMany({ email: user.email });
+		res.status(200).send({ message: "Email verified successfully" });
+		// res.redirect("http://localhost:5173/login");
+	  } catch (error) {
+		next(new ErrorResponse("An error occured", 400));
+	  }
+
 });
 
 //  set new password
-router.post("/:id/:token", async (req, res) => {
+router.post("/:email/:token", async (req, res) => {
 	try {
 		const passwordSchema = Joi.object({
 			password: passwordComplexity().required().label("Password"),
@@ -70,11 +107,11 @@ router.post("/:id/:token", async (req, res) => {
 		if (error)
 			return res.status(400).send({ message: error.details[0].message });
 
-		const user = await User.findOne({ _id: req.params.id });
+		const user = await User.findOne({ email: req.params.email });
 		if (!user) return res.status(400).send({ message: "Invalid link" });
 
 		const token = await Token.findOne({
-			userId: user._id,
+			userEmail: user.email,
 			token: req.params.token,
 		});
 		if (!token) return res.status(400).send({ message: "Invalid link" });
