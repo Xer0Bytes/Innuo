@@ -30,8 +30,22 @@ router.post("/", async (req, res) => {
 					userEmail: user.email,
 					token: crypto.randomBytes(32).toString("hex"),
 				}).save();
-				const url = `${process.env.BASE_URL}users/${user._id}/verify/${token.token}`;
-				await sendEmail(user.email, "Verify Email", url);
+				const url = `http://localhost:5173/EmailVerify/${user.email}/${token.token}`;
+
+				const message = `
+				<!DOCTYPE html>
+				<html>
+				<head>
+				<title>Verify Email</title>
+				</head>
+				<body>
+				<p><strong>Dear ${user.name},</strong></p>
+				<p>Thanks for registration! Verify your email to access our website. Click below link to verify your email.</p>
+				<p><a href='${url}'>Verify Email</a></p>
+				</body>
+				</html>`;
+
+				await sendEmail(user.email, "Verify Email", message);
 			}
 
 			return res
@@ -40,8 +54,9 @@ router.post("/", async (req, res) => {
 		}
 
 		const token = user.generateAuthToken();
-		res.status(200).send({ data: token, message: "logged in successfully" });
+		res.status(200).send({ data: token, message: "Logged in successfully!" });
 	} catch (error) {
+		console.log(error);
 		res.status(500).send({ message: "Internal Server Error" });
 	}
 });
