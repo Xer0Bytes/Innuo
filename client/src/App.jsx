@@ -18,7 +18,7 @@ function App() {
           {/* <Route path="/register" element={<Signup/>} /> */}
         </Route>
         <Route path="/register" element={<Signup />}></Route>
-        {user && <Route path="/user-dashboard" exact element={<Main />} />}
+        {/* {user && <Route path="/user-dashboard" exact element={<Main />} />} */}
 
         {user && <Route path="/userDashboard" exact element={<Dashboard />} />}
 

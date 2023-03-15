@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import "./ForgotPassword.css";
+import { motion } from "framer-motion";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -29,7 +30,13 @@ const ForgotPassword = () => {
 
   return (
     <div className={"container_fp"}>
-      <form className={"form_container_fp"} onSubmit={handleSubmit}>
+      <motion.form
+        className={"form_container_fp"}
+        onSubmit={handleSubmit}
+        animate={{ y: 0 }}
+        initial={{ y: 250 }}
+        transition={{ duration: 2, type: "spring", stiffness: 120 }}
+      >
         <h1>Oops, Forgot Your Password?</h1>
 
         <div className="input-field forgotpass_input">
@@ -49,7 +56,7 @@ const ForgotPassword = () => {
         <button type="submit" className={"forgotpass_btn"}>
           Submit
         </button>
-      </form>
+      </motion.form>
     </div>
   );
 };

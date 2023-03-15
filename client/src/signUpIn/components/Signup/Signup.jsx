@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./signup.css";
 import register from '../../assets/register.svg'
+import { motion } from "framer-motion";
 
 const Signup = () => {
   const [data, setData] = useState({
@@ -36,11 +37,14 @@ const Signup = () => {
 
   return (
     <div className={"signup_container"}>
-      <div className={"signup_form_container"}>
+      <motion.div className={"signup_form_container"}
+      animate={{ x: 0 }}
+      initial={{ x: -250 }}
+      transition={{ duration: 2, type: "spring", stiffness: 120 }}>
         <div className={"signup_left"}>
         <img src={register} alt="register_svg" className="register_svg"/>
           <h1>One of us ? </h1>
-		  <p>Pick up right where you left off!</p>
+		    <p>Pick up right where you left off!</p>
           <Link to="/login">
             <button type="button" className={"side_btn transparent"}>
               Sign in
@@ -110,7 +114,7 @@ const Signup = () => {
             </button>
           </form>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
