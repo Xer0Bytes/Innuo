@@ -33,8 +33,8 @@ router.post("/", async (req, res) => {
 		// const url = `http://localhost:5173/users/${user.id}/verify/${token.token}`;
 		const url = `http://localhost:5173/EmailVerify/${user.email}/${token.token}`;
 
-		// console.log(token.token);
-		// console.log(url);
+		console.log(token.token);
+		console.log(url);
 
 		const message = `
 		<!DOCTYPE html>
