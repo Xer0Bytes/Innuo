@@ -24,6 +24,7 @@ const navbar = () => {
           <span className='nav_dash_username'><h1>Welcome, Nafisa!</h1></span>
           <DropDown />
 
+          {/* Have to remove token during logout here */}
           <Link to="/">
             <button type="button" className={"nav_dash_logout"}>
               LOG OUT
