@@ -25,7 +25,7 @@ function App() {
         <Route path="/" element={<Navigate replace to="/login" />} />
         <Route path="/EmailVerify/:email/:token" element={<EmailVerify />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
+        <Route path="/password-reset/:email/:token" element={<PasswordReset />} />
         {/* <Route path="/password-reset" element={<PasswordReset />} /> */}
         {/* <Route component={Error} /> */}
       </Routes>
