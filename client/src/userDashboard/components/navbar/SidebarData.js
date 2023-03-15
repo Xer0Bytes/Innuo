@@ -1,6 +1,6 @@
 import React from 'react';
 import {FaCartPlus, FaEnvelopeOpenText, FaTrophy} from 'react-icons/fa';
-import {AiFillHome, AiFillSetting, AiOutlineClose} from 'react-icons/ai';
+import {AiFillHome, AiFillSetting, AiFillShop, AiFillShopping, AiOutlineClose} from 'react-icons/ai';
 import {IoIosPaper, IoMdPeople, IoMdHelpCircle, IoIosTrophy, IoIosLogOut} from 'react-icons/io';
 
 export const SidebarData = [
@@ -19,19 +19,19 @@ export const SidebarData = [
   {
     title: 'Resources',
     path: '',
-    icon: FaCartPlus,
-    cName: 'nav-text'
-  },
-  {
-    title: 'Settings',
-    path: '',
-    icon: AiFillSetting,
+    icon: AiFillShop,
     cName: 'nav-text'
   },
   {
     title: 'Achievements',
     path: '',
     icon: IoIosTrophy,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Settings',
+    path: '',
+    icon: AiFillSetting,
     cName: 'nav-text'
   },
   {

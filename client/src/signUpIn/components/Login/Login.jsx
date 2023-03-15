@@ -2,7 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Login.css";
-import log from '../../assets/log.svg'
+import log from "../../assets/log.svg";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [data, setData] = useState({ email: "", password: "" });
@@ -32,7 +33,12 @@ const Login = () => {
 
   return (
     <div className={"login_container"}>
-      <div className={"login_form_container"}>
+      <motion.div
+        className={"login_form_container"}
+        animate={{ x: 0 }}
+        initial={{ x: 250 }}
+        transition={{ duration: 2, type: "spring", stiffness: 120 }}
+      >
         <div className={"login_left"}>
           <form className={"form_container_si"} onSubmit={handleSubmit}>
             <h1>Ready, Set, Login!</h1>
@@ -62,7 +68,11 @@ const Login = () => {
                 className={"login_input"}
               />
             </div>
-            <Link to="/forgot-password" class="forgot_pass_writing" style={{ alignSelf: "flex-center" }}>
+            <Link
+              to="/forgot-password"
+              class="forgot_pass_writing"
+              style={{ alignSelf: "flex-center" }}
+            >
               <p style={{ padding: "0 15px" }}>Forgot Password? Click Here!</p>
             </Link>
             {error && <div className={"error_msg"}>{error}</div>}
@@ -72,17 +82,17 @@ const Login = () => {
           </form>
         </div>
         <div className={"login_right"}>
-        <img src={log} alt="log_svg" className="login_svg"/>
+          <img src={log} alt="log_svg" className="login_svg" />
           <h1>New Here ?</h1>
-		  <p>Unlock the power of sign language!</p>
-      
+          <p>Unlock the power of sign language!</p>
+
           <Link to="/register">
             <button type="button" className={"side_btn transparent"}>
               Sign Up
             </button>
           </Link>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

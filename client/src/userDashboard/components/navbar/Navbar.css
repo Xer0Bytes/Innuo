@@ -79,7 +79,7 @@
   align-items: center;
 }
 
-span {
+.nav_dash_li {
   margin-left: .77em;
   margin-top:2%;
 }
