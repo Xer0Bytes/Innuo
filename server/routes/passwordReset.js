@@ -61,38 +61,26 @@ router.post("/", async (req, res) => {
 });
 
 // verify password reset link
-router.get("/verify/:token", async (req, res, next) => {
+router.get("/:email/:token", async (req, res, next) => {
 	try {
-		console.log(req);
-		const token = await Token.findOne({
-		  token: req.params.token,
-		});
-	
-		let user;
-
 		
+		const user = await User.findOne({email: req.params.email});
+		if(!user) return res.status(400).send({message: "Invalid link"});
 
-		if (!token) {
-		  return next(new ErrorResponse("Invalid Link", 400));
-		} else {
-		  console.log("token paisi!");
-		  user = await User.findOne({
-			email: token.userEmail,
-		  });
-	
-		  if (!user) {
-			return next(new ErrorResponse("User doesn't exist!", 400));
-		  } else {
-			console.log("user paisi!");
-		  }
-		}
+		const token = await Token.findOne({
+			userEmail: user.email,
+		  	token: req.params.token,
+		});
 
-		await User.findOneAndUpdate({ email: user.email }, { verified: true });
+		if (!token) return res.status(400).send({message: "Invalid link"});
+
+		res.status(200).send("Valid Url");
+
 		//await Token.deleteMany({ email: user.email });
-		res.status(200).send({ message: "Email verified successfully" });
+		// res.status(200).send({ message: "Email verified successfully" });
 		// res.redirect("http://localhost:5173/login");
 	  } catch (error) {
-		next(new ErrorResponse("An error occured", 400));
+		res.status(500).send({message: "Internal Server Error"});
 	  }
 
 });
