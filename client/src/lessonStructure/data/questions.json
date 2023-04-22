@@ -1,0 +1,27 @@
+[
+    {
+        "title":"In which decade was the American Institute of Electrical Engineers (AIEE) founded?",
+        "options":["1850s","1880s","1930s","1950s"],
+        "correctOptionIndex":"1"
+    },
+    {
+        "title":"Which is part of a database that holds only one type of information?",
+        "options":["Report","Field","Record","File"],
+        "correctOptionIndex":"1"
+    },
+    {
+        "title":"OS computer abbreviation usually means",
+        "options":["Order of Significance","Open Software","Operating System","Optical Sensor"],
+        "correctOptionIndex":"2"
+    },
+    {
+        "title":"Blue is what number on the resistor color code",
+        "options":["1","4","2","6"],
+        "correctOptionIndex":"3"
+    },
+    {
+        "title":"What frequency range is the High Frequency band?",
+        "options":["100 kHz","1 GHz","30 to 300 MHz","3 to 30 MHz"],
+        "correctOptionIndex":"3"
+    }
+]
