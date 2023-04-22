@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import ProgressBar from "./ProgressBar";
-import TestImg from "../assets/react.svg";
+import MCQFormat from "./MCQFormat";
 
 function Question({
   question,
@@ -9,10 +9,12 @@ function Question({
   currentQuestionIndex,
   setAnswer,
 }) {
-  const [selectedOption, setSelectedOption] = useState(null);
   const timer = useRef(null);
-  // console.log(currentQuestionIndex);
-  // const progressBar = useRef(null);
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  function handleOptionSelect(optionIndex) {
+    setSelectedOption(optionIndex);
+  }
 
   function gotoNextQuestion() {
     if (timer.current) {
@@ -23,15 +25,6 @@ function Question({
     });
     setSelectedOption(null);
   }
-
-  // useEffect(() => {
-  //   progressBar.current.classList.remove("active");
-  //   setTimeout(() => {
-  //     progressBar.current.classList.add("active");
-  //   }, 0);
-  //   timer.current = setTimeout(gotoNextQuestion, 10 * 1000); //10 seconds
-  //   return gotoNextQuestion;
-  // }, [question]);
 
   return (
     <div className="question">
@@ -46,40 +39,10 @@ function Question({
           of
           <b> {totalQuestions} </b>
         </div>
-        <div className="main">
-          <div className="title">
-            {/* <span>Question:</span> */}
-{/* insert condition here instead of 1 ================================ */}
-            {1? <span><p>{question.title}</p><span className="question-img">
-              <img src={TestImg} /></span></span>: ''}
-           
-          </div>
-          <div className="options">
-            {question.options.map((option, index) => {
-              return (
-                <div
-                  className={
-                    index == selectedOption ? "option active" : "option"
-                  }
-                  key={index}
-                  onClick={() => setSelectedOption(index)}
-                >
-{/* insert condition here instead of 1 ================================ */}
-                  {1 ? (
-                    <span>
-                      {option}
-                      <div className="option-img">
-                        <img src={TestImg} />
-                      </div>
-                    </span>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
+
+        {/* ==== mcq removed */}
+        <MCQFormat currQuestion={question} optionSelected={handleOptionSelect} selectedOption={selectedOption}/>
+
         <div className="control">
           <button className="quiz_next_btn" onClick={gotoNextQuestion}>
             Next
