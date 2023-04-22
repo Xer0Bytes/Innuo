@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaCogs, FaEdit, FaEnvelope, FaUser } from "react-icons/fa";
+import {MdManageAccounts} from "react-icons/md"
 import { IoIosLogOut, IoIosArrowDown, IoMdHelp } from "react-icons/io";
 import DropdownItem from "./DropDownItem.jsx";
 import "./DropDown.css";
+import { Link } from "react-router-dom";
 
 export const DropDown = () => {
   const [open, setOpen] = useState(false);
@@ -24,7 +26,7 @@ export const DropDown = () => {
     };
   });
   return (
-    <div className="menu-container" ref={menuRef}>
+    <div className="pr-4 menu-container" ref={menuRef}>
       <div
         className="menu-trigger"
         onClick={() => {
@@ -43,9 +45,13 @@ export const DropDown = () => {
           <span>nafisamaliyat@iut-dhaka.edu</span>
         </h2>
         <ul className="nav_dash_ddmt">
-          <DropdownItem Icon={FaUser} text={"My Profile"} />
-          <DropdownItem Icon={FaCogs} text={"Settings"} />
-          <DropdownItem Icon={IoIosLogOut} text={"Logout"} />
+          {/* <DropdownItem Icon={FaUser} text={"My Profile"} /> */}
+          <Link to="/profile">
+            <DropdownItem Icon={MdManageAccounts} text={"Profile"} />
+          </Link>
+          <Link to="/">
+            <DropdownItem Icon={IoIosLogOut} text={"Logout"} />
+          </Link>
         </ul>
       </div>
     </div>

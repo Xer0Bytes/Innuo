@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {FaBars} from 'react-icons/fa';
 import {AiOutlineClose} from 'react-icons/ai';
 import { Link } from 'react-router-dom';
@@ -15,7 +15,7 @@ const navbar = () => {
 
   return (
     <>
-        <div className='navbar_dashboard'>
+        <div className={`navbar_dashboard`}>
 
           <span to='#' className='menu-bars menu-bars_bar' onClick={showSidebar}>
             <FaBars className='text-[#333]' />
@@ -24,12 +24,12 @@ const navbar = () => {
           <span className='nav_dash_username'><h1>Welcome, Nafisa!</h1></span>
           <DropDown />
 
-          {/* Have to remove token during logout here */}
+          {/* Have to remove token during logout here
           <Link to="/">
             <button type="button" className={"nav_dash_logout"}>
               LOG OUT
             </button>
-          </Link>
+          </Link> */}
 
         </div>
 
