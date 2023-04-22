@@ -7,7 +7,7 @@ const Home = () => {
     <section id="home" class="mb-28 ">
       <div id="hero-sec">
         <div id="hero-pictures" class="overflow-hidden">
-          <div id="box1"></div>
+          <div id="box1" className="mt-20"></div>
         </div>
 
         <div id="box2">
