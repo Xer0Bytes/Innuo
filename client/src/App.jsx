@@ -1,13 +1,15 @@
 import React from "react";
 import LandingPage from "./landingPage/LandingPage.jsx";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Main from "./signUpIn/components/Dashboard/Dashboard";
+// import Main from "./signUpIn/components/Dashboard/Dashboard";
 import Signup from "./signUpIn/components/Signup/Signup";
 import Login from "./signUpIn/components/Login/Login";
 import EmailVerify from "./signUpIn/components/EmailVerify";
 import ForgotPassword from "./signUpIn/components/ForgotPassword/ForgotPassword";
 import PasswordReset from "./signUpIn/components/PasswordReset/PasswordReset";
 import Dashboard from './userDashboard/UserDashboard'
+import Quiz from './lessonStructure/Quiz'
+import Profile from "./profile/Profile.jsx";
 
 function App() {
   const user = localStorage.getItem("token");
@@ -21,6 +23,7 @@ function App() {
         {/* {user && <Route path="/user-dashboard" exact element={<Main />} />} */}
 
         {user && <Route path="/userDashboard" exact element={<Dashboard />} />}
+        {user && <Route path="/quiz" exact element={<Quiz />} />}
 
         <Route path="/register" exact element={<Signup />} />
         <Route path="/login" exact element={<Login />} />
@@ -30,6 +33,10 @@ function App() {
         <Route
           path="/password-reset/:email/:token"
           element={<PasswordReset />}
+        />
+        <Route
+          path="/profile"
+          element={<Profile />}
         />
         {/* <Route path="/password-reset" element={<PasswordReset />} /> */}
         {/* <Route component={Error} /> */}
