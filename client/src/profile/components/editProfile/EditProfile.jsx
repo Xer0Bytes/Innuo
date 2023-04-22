@@ -136,7 +136,7 @@ const EditProfile = () => {
               >
                 <input
                   type="text"
-                  className="editprofile_input text-[grey] peer block w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none"
+                  className="cursor-not-allowed editprofile_input text-[grey] peer block w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none"
                   defaultValue="nafisamaliyat@iut-dhaka.edu"
                   onChange={handleChange}
                 />
