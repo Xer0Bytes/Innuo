@@ -48,7 +48,7 @@ const ForgotPassword = () => {
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             required
-            className={"input"}
+            className={"forgotpass_input"}
           />
         </div>
         {error && <div className={"error_msg"}>{"error"}</div>}
