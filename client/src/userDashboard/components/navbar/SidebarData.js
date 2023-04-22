@@ -1,12 +1,11 @@
-import React from 'react';
-import {FaCartPlus, FaEnvelopeOpenText, FaTrophy} from 'react-icons/fa';
-import {AiFillHome, AiFillSetting, AiFillShop, AiFillShopping, AiOutlineClose} from 'react-icons/ai';
-import {IoIosPaper, IoMdPeople, IoMdHelpCircle, IoIosTrophy, IoIosLogOut} from 'react-icons/io';
+import {MdManageAccounts} from 'react-icons/md';
+import {AiFillHome, AiFillShop} from 'react-icons/ai';
+import {IoIosPaper, IoIosTrophy, IoIosLogOut} from 'react-icons/io';
 
 export const SidebarData = [
   {
     title: 'Home',
-    path: '/dashboard',
+    path: '/userDashboard',
     icon: AiFillHome,
     cName: 'nav-text'
   },
@@ -29,9 +28,9 @@ export const SidebarData = [
     cName: 'nav-text'
   },
   {
-    title: 'Settings',
-    path: '',
-    icon: AiFillSetting,
+    title: 'Profile',
+    path: '/profile',
+    icon: MdManageAccounts,
     cName: 'nav-text'
   },
   {
