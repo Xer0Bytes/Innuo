@@ -1,0 +1,14 @@
+[
+    {
+        "title":"This is the symbol for 'A'",
+        "img" :"../assets/A.jpg"
+    },
+    {
+        "title":"This is the symbol for 'B'",
+        "img" :"../assets/B.png"
+    },
+    {
+        "title":"This is the symbol for 'C'",
+        "img" :"../assets/C.png"
+    }
+]

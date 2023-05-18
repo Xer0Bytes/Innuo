@@ -1,0 +1,127 @@
+.move_left{
+  margin-left:250px;
+}
+
+.navbar_dashboard {
+  background-color: #FFC6CD ;
+  height: 80px;
+  display: flex;
+  justify-content: space-between; /* add this */
+  align-items: center;
+}
+
+.menu-bars {
+  margin-left: 2rem;
+  font-size: 2rem;
+  background: none;
+  cursor:pointer;
+}
+.menu-bars_bar{
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+.nav-menu {
+  /* background-color: #FED885 ; */
+  /* background-color:rgb(254, 216, 133, 0.6); */
+  background-color:rgb(255, 198, 205, 0.8);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); /* for Safari */
+  width: 250px;
+  height: 100vh;
+  justify-content: center;
+  /* position: fixed; */
+  top: 0;
+  /* left: -100%; */
+  transition: 350ms;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh; /* Adjust the height as needed */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* .nav-menu.active {
+  left: 0;
+  transition: 350ms;
+  z-index: 9999999;
+} */
+
+.nav-text {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 8px 0px 8px 3px;
+  list-style: none;
+  height: 80px;
+}
+
+.sidebar_logo{
+  height:120px;
+  margin: auto;
+  padding-top: 20px;
+}
+
+.nav-text a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.6em;
+  text-transform: uppercase;
+  width: 95%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 4px;
+}
+
+.nav-text a:hover {
+  background-color: #FA9BAF;
+}
+
+.nav-menu-items {
+  width: 100%;
+  margin:auto;
+  padding-top:20px;
+}
+
+.navbar-toggle {
+  /* background-color:rgb(255, 198, 205, 0.8);
+  backdrop-filter: blur(5px); */
+  /* -webkit-backdrop-filter: blur(5px);  */
+  /* for Safari */
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.nav_dash_li {
+  margin-left: .77em;
+  margin-top:2%;
+}
+
+.nav_dash_icon{
+  width:22%;
+}
+
+
+.nav_dash_logout{
+  border: 3px solid #333;
+  background-color: #F5946B;
+  font-size:1.6em;
+  padding: 0 0.8em;
+  outline: none;
+  border-radius: 45px;
+  transition: all 0.2s ease-in-out;
+  font-family: Neucha;
+  height:50px;
+  position: relative; /* add this */
+  right: 12%; /* add this */
+}
+
+.nav_dash_logout:hover{
+  transform: translateY(-5px);
+  border-bottom-width: 10px;
+}
