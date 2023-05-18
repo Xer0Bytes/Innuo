@@ -59,12 +59,12 @@ const Navbar = () => {
                     <a href="#contact">CONTACT</a>
                   </li>
                   <li>
-                    <Link to="/login" class="signupin-link ">
+                    <Link to="/login" className="signupin-link ">
                       <button className="btn nav-sign-in ">Sign in </button>
                     </Link>
                   </li>
                   <li>
-                    <Link to="/register" class="signupin-link ">
+                    <Link to="/register" className="signupin-link ">
                       <button className="btn nav-sign-up font-bold">SIGN UP</button>
                     </Link>
                   </li>

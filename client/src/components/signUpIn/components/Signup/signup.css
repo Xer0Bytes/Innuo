@@ -40,7 +40,6 @@
 
 .side_btn {
   border-radius: 45px;
-  font-family: Neucha;
   cursor: pointer;
   transition: 0.5s;
 }
@@ -78,7 +77,7 @@
 }
 
 .form_container_su h1 {
-  font-size: 4.8rem;
+  font-size: 3.8rem;
   color: #333;
   margin-bottom: 10px;
   /* text-shadow: 5px 5px 0 rgb(51, 51, 51, 0.4); */
@@ -104,7 +103,7 @@
   height: 60px;
   border-radius: 55px;
   display: grid;
-  grid-template-columns: 15% 85%;
+  grid-template-columns: 10% 90%;
   padding: 0 0.4rem;
   position: relative;
   border: 1px solid #333;
@@ -124,7 +123,7 @@
   border: none;
   line-height: 1;
   font-weight: 600;
-  font-size: 1.45rem;
+  font-size: 1.15rem;
   color: #333;
 }
 

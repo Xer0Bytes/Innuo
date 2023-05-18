@@ -11,7 +11,6 @@
   background-size: cover;
   position: relative;
   left: 40%;
-  /* animation: slide-left-and-fade-out 5s ease-out forwards; */
   animation:anim2 2s forwards 1.5s;
 }
 
@@ -27,15 +26,6 @@
   z-index: -1;
 }
 
-/* @keyframes anim {
-    from {
-      bottom: -100%;
-    }
-    to {
-      bottom: 0%;
-    }
-  }
-   */
 @keyframes anim2 {
   from {
     left: 40%;
@@ -47,33 +37,12 @@
   }
 }
 
-/* @keyframes slide-left-and-fade-out {
-    0% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    25%{
-      opacity: 0;
-      transform: translateX(-50%);
-      background-image: url(./assets/1b.png);
-    }
-    50%{
-      opacity: 0;
-      background-image: url(./assets/2a.png);
-      transform: translateX(50%);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(25%);
-      background-image: url(./assets/2a.png);
-    }
-  } */
 
 #box2 {
   width: 85%;
   height: auto;
   position: absolute;
-  top: 15%;
+  top:18%;
   left: 8%;
   overflow: hidden;
 }
@@ -95,33 +64,28 @@
 }
 
 #text_1 {
-  font-family: "Neucha";
   color: #41cdda;
   font-size: 6em;
   font-weight: bolder;
-  line-height: 110px;
+  line-height: 100px;
   text-shadow: 7px 7px 0 #333;
 }
 
 #text_2 {
-  font-family: "Neucha";
   padding-top: .5em;
   color: #333;
-  font-size: 2em;
+  font-size: 1.6em;
   font-weight: 300;
   line-height: 38px;
   width: 50%;
 }
 
 .btn {
-  /* padding: 0.5em 1em; */
   padding: 0 0.8em;
-  /* transition: all 0.3s ease 0s; */
   outline: none;
   border-radius: 45px;
   background-color: transparent;
   transition: all 0.2s ease-in-out;
-  font-family: Neucha;
 }
 
 .get-started {
