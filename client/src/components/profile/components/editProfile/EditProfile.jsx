@@ -38,10 +38,10 @@ const EditProfile = () => {
 
   return (
     <div className="w-full mb-8">
-      <div className="w-[80%] mr-auto ml-auto block rounded-[10px] bg-white p-8 pt-4 pb-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
-        <span className="text-bold grid grid-cols-3 ">
-          <div className="col-span-2">
-            <h1>Edit Your Profile Details</h1>
+      <div className="w-[80%] mr-auto ml-auto block rounded-[10px] bg-white p-8 pt-4 pb-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.2),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+        <span className="text-bold grid grid-cols-3 mb-2">
+          <div className="col-span-2 my-auto">
+            <span className="text-2xl font-bold ">Edit Your Profile Details</span>
           </div>
           {showEditProfileButton && (
             <button
@@ -84,7 +84,7 @@ const EditProfile = () => {
                       drag and drop
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG OR JPG
+                      PNG/JPG
                     </p>
                   </div>
 
@@ -112,8 +112,8 @@ const EditProfile = () => {
                 </span>
               )}
 
-              <div className="grid grid-cols-3 gap-1 text-xl">
-                <div className=" mt-auto mb-auto col-span-1">Name</div>
+              <div className="grid grid-cols-3 gap-1">
+                <div className=" mt-auto mb-auto col-span-1  text-xl">Name</div>
                 <div
                   className="relative mb-6 input-field col-span-2"
                   data-te-input-wrapper-init
@@ -123,21 +123,21 @@ const EditProfile = () => {
                     onChange={handleChange}
                     defaultValue="Nafisa"
                     //=================GIVE THE USERNAME IN THE DEFFAULT VALUE FIELD!!!!!!!!===========
-                    className="editprofile_input text-[#333] peer block w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none"
+                    className=" text-md editprofile_input text-[#333] peer block w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none"
                   />
                 </div>
               </div>
 
               {/* <!--Email input--> */}
-              <div className="grid grid-cols-3 gap-1 text-xl">
-                <div className="mt-auto mb-auto col-span-1">Email Address</div>
+              <div className="grid grid-cols-3 gap-1 ">
+                <div className="mt-auto mb-auto col-span-1 text-xl">Email Address</div>
                 <div
                   className="relative mb-6 input-field col-span-2"
                   data-te-input-wrapper-init
                 >
                   <input
                     type="text"
-                    className="cursor-not-allowed editprofile_input text-[grey] peer block w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none"
+                    className="text-md cursor-not-allowed editprofile_input text-[grey] peer block w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none"
                     defaultValue="nafisamaliyat@iut-dhaka.edu"
                     onChange={handleChange}
                   />
@@ -145,7 +145,7 @@ const EditProfile = () => {
               </div>
 
               {/* <!--Submit button--> */}
-              <div className="w-full mr-auto ml-auto  text-center">
+              <div className="w-full mr-auto ml-auto text-md text-center mt-2">
                 <button
                   type="submit"
                   className="savechanges_btn"
@@ -155,7 +155,7 @@ const EditProfile = () => {
                   Save Changes
                 </button>
                 <span
-                  className="ml-6 text-xl underline cursor-pointer"
+                  className="ml-6 text-md underline cursor-pointer"
                   onClick={handleClearForm}
                 >
                   Cancel

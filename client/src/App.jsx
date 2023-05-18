@@ -1,7 +1,6 @@
 import React from "react";
 import LandingPage from "./components/landingPage/LandingPage.jsx";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-// import Main from "./signUpIn/components/Dashboard/Dashboard";
 import Signup from "./components/signUpIn/components/Signup/Signup";
 import Login from "./components/signUpIn/components/Login/Login";
 import EmailVerify from "./components/signUpIn/components/EmailVerify";
@@ -12,6 +11,7 @@ import Quiz from './components/lessonStructure/Quiz'
 import Profile from "./components/profile/Profile.jsx";
 import Ranking from "./components/ranking/Ranking.jsx";
 import Achievements from "./components/achievements/Achievements.jsx";
+import './App.css'
 
 function App() {
   const user = localStorage.getItem("token");
