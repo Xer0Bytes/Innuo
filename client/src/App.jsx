@@ -1,15 +1,17 @@
 import React from "react";
-import LandingPage from "./landingPage/LandingPage.jsx";
+import LandingPage from "./components/landingPage/LandingPage.jsx";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // import Main from "./signUpIn/components/Dashboard/Dashboard";
-import Signup from "./signUpIn/components/Signup/Signup";
-import Login from "./signUpIn/components/Login/Login";
-import EmailVerify from "./signUpIn/components/EmailVerify";
-import ForgotPassword from "./signUpIn/components/ForgotPassword/ForgotPassword";
-import PasswordReset from "./signUpIn/components/PasswordReset/PasswordReset";
-import Dashboard from './userDashboard/UserDashboard'
-import Quiz from './lessonStructure/Quiz'
-import Profile from "./profile/Profile.jsx";
+import Signup from "./components/signUpIn/components/Signup/Signup";
+import Login from "./components/signUpIn/components/Login/Login";
+import EmailVerify from "./components/signUpIn/components/EmailVerify";
+import ForgotPassword from "./components/signUpIn/components/ForgotPassword/ForgotPassword";
+import PasswordReset from "./components/signUpIn/components/PasswordReset/PasswordReset";
+import Dashboard from './components/userDashboard/UserDashboard'
+import Quiz from './components/lessonStructure/Quiz'
+import Profile from "./components/profile/Profile.jsx";
+import Ranking from "./components/ranking/Ranking.jsx";
+import Achievements from "./components/achievements/Achievements.jsx";
 
 function App() {
   const user = localStorage.getItem("token");
@@ -23,7 +25,10 @@ function App() {
         {/* {user && <Route path="/user-dashboard" exact element={<Main />} />} */}
 
         {user && <Route path="/userDashboard" exact element={<Dashboard />} />}
-        {user && <Route path="/quiz" exact element={<Quiz />} />}
+        {user && <Route path="/quiz/:lesson" exact element={<Quiz />} />}
+        {user && <Route path='/ranking' exact element= {<Ranking />} />}
+        {user && <Route path='/achievements' exact element= {<Achievements />} />}
+
 
         <Route path="/register" exact element={<Signup />} />
         <Route path="/login" exact element={<Login />} />
