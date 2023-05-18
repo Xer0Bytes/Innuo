@@ -3,8 +3,8 @@ import "./About.css";
 import { motion } from "framer-motion";
 
 const sectionAppearAnimate = {
-  onscreen: { scale: 1 },
-  offscreen: { scale: 0 },
+  onscreen: { scale: 1 , opacity:1},
+  offscreen: { scale: 0.5, opacity:0 },
   transition: { delay: 1, duration: 3, type: "spring", bounce: 0.4, stiffness: 500},
 };
 
@@ -13,7 +13,7 @@ const About = () => {
   return (
     <motion.div
       id="part"
-      class="pt-20 mb-20"
+      className="pt-20 mb-20"
       initial={"offscreen"}
       whileInView={"onscreen"}
       transition={{ staggerChildren: 0.5 }}
@@ -32,7 +32,7 @@ const About = () => {
         <br />
 
         <div id="secondpart">
-          <span id="part3" class="">
+          <span id="part3" className="">
             <span id="text03">ABOUT US</span>
           </span>
           <span id="part6">
@@ -42,7 +42,7 @@ const About = () => {
 
         <div
           id="part4"
-          class="mt-[-10.9em] w-[20em] h-[11em] text-[1.89em] leading-[1.3em]"
+          className="mt-[-11.5em] w-[25em] h-[11.5em] text-[1.56em] leading-[1.4em]"
         >
           <div id="text04">
             We are passionate about making sign language accessible to everyone,

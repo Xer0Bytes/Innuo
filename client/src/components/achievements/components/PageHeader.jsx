@@ -13,7 +13,6 @@ const PageHeader = ({ title, video }) => {
         ) : (
           <img src={video} className="w-[260px]" alt="Video Thumbnail" />
         )}
-      {/* <img src={video}  className="w-[220px]"/> */}
     </div>
     <div className="text-5xl uppercase text-[#41CDDA] font-bold w-full text-center text-uppercase">{title}</div>
   </div>

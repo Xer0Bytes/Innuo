@@ -4,25 +4,6 @@ import twitter from '../assets/twitter.svg'
 import instagram from '../assets/instagram.svg'
 import linkedin from '../assets/linkedin.svg'
 
-// export const navLinks = [
-//   {
-//     id: "home",
-//     title: "Home",
-//   },
-//   {
-//     id: "features",
-//     title: "Features",
-//   },
-//   {
-//     id: "product",
-//     title: "Product",
-//   },
-//   {
-//     id: "clients",
-//     title: "Clients",
-//   },
-// ];
-
 
 export const footerLinks = [
   {

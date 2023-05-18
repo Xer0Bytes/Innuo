@@ -1,15 +1,14 @@
 import React from "react";
-import Navbar from "../userDashboard/components/navbar/Navbar";
-import Container from "./components/container/Container";
+import Container from "./components/displayProfileContainer/DisplayProfileContainer";
+import Sidebar from '../userDashboard/components/sidebar/Sidebar'
 import Background from "./components/background/Background";
-// import ChangePassword from "./components/changePassword/ChangePassword";
 import EditProfile from "./components/editProfile/EditProfile.jsx"
 
 const Settings = () => {
   return (
     <span style={{background:'#edf2f7'}}>
       <div className="">
-      <Navbar className="" />
+      <Sidebar className="" />
       <div className="overflow-x-hidden flex items-center justify-center move_left">
         <main className="profile-page min-w-[98%] ">
           <Background />

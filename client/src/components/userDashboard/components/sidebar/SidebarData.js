@@ -15,18 +15,6 @@ export const SidebarData = [
     icon: MdLeaderboard,
     cName: 'nav-text'
   },
-  // {
-  //   title: 'Lessons',
-  //   path: '',
-  //   icon: IoIosPaper,
-  //   cName: 'nav-text'
-  // },
-  // {
-  //   title: 'Resources',
-  //   path: '',
-  //   icon: AiFillShop,
-  //   cName: 'nav-text'
-  // },
   {
     title: 'Achievements',
     path: '/achievements',
