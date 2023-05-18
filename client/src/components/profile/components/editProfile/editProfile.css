@@ -67,9 +67,7 @@
 }
 
 .editprofile_btn, .savechanges_btn {
-  max-width: 8em;
-  /* margin-left: auto; */
-  /* margin-right: auto; */
+  max-width: 10em;
   width: 100%;
   background-color: var(--pink);
   border: 3px solid var(--primary-text-color);

@@ -22,10 +22,9 @@
   #part3,
   #part5,
   #part6 {
-  width: 3.8em;
-  height: 1.3em;
-  font-family: Neucha;
-  font-size: 7em;
+  width: 5em;
+  height: 1.25em;
+  font-size: 5.8em;
   position: relative;
   overflow: hidden;
   display: inline-block;
@@ -34,24 +33,15 @@
 }
 
 #part1 {
-  /* transform: skewY(-15deg); */
   margin-top: 0%;
 }
 
 #part2 {
-  /* transform: skewY(15deg); */
   margin-left: -0.05em;
 }
 
-/* #part3 {
-  transform: skewY(-15deg);
-} */
 
 #part4 {
-  /* 
-    transform: skewY(15deg);
-    margin-left: -4px; */
-  font-family: Neucha;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -70,8 +60,7 @@
   #text03,
   #text05,
   #text06 {
-  width: 3.74em;
-  /* height: 200px; */
+  width: 6em;
   position: relative;
   display: inline-block;
   transition: all 0.4s;
@@ -82,7 +71,6 @@
 }
 
 #text03,
-  /* #text04, */
   #text05,
   #text06 {
   color: black;
@@ -90,7 +78,6 @@
 }
 
 #text04 {
-  /* color: #fa9baf; */
   color:#333;
 }
 
@@ -101,7 +88,6 @@
 }
 
 #text02,
-  /* #text04, */
   #text06 {
   color: #CAA3DA;
   left: -100%;

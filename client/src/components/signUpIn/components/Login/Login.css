@@ -43,6 +43,8 @@ input:-webkit-autofill:active{
 }
 
 .form_container_si h1 {
+  width:80%;
+  text-align:center;
 	font-size: 4rem;
 	color: #333;
 	margin-bottom: 10px;
@@ -58,7 +60,7 @@ input:-webkit-autofill:active{
   height: 60px;
   border-radius: 55px;
   display: grid;
-  grid-template-columns: 15% 85%;
+  grid-template-columns: 10% 90%;
   padding: 0 0.4rem;
   position: relative;
   border: 1px solid #333;
@@ -78,7 +80,7 @@ input:-webkit-autofill:active{
   border: none;
   line-height: 1;
   font-weight: 600;
-  font-size: 1.45rem;
+  font-size: 1.15rem;
   color: #333;
 }
 
@@ -151,6 +153,11 @@ input:-webkit-autofill:active{
 .signin_btn:hover {
   transform: translateY(-5px);
   border-bottom-width: 10px;
+}
+
+
+.forgot_pass_writing{
+  margin:0 2%;
 }
 
 .forgot_pass_writing:hover{
