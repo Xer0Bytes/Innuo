@@ -5,11 +5,12 @@ import Background from "./components/background/Background";
 import EditProfile from "./components/editProfile/EditProfile.jsx"
 import DeleteProfile from "./components/DeleteProfileContainer/DeleteProfileContainer";
 
-const Settings = () => {
+const Profile = () => {
+  const currentUser = localStorage.getItem("currentUser");
   return (
     <span style={{background:'#edf2f7'}}>
       <div >
-      <Sidebar activePage={'Profile'}/>
+      <Sidebar activePage={'Profile'} isContributer={currentUser.isContributer}/>
       <div className="overflow-x-hidden flex items-center justify-center move_left">
         <main className="profile-page min-w-[98%] ">
           <Background />
@@ -25,4 +26,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default Profile;
