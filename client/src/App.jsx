@@ -15,7 +15,8 @@ import "./App.css";
 import { Contribute } from "./components/contribute/Contribute.jsx";
 
 function App() {
-  const user = localStorage.getItem("token");
+  // const user = localStorage.getItem("token");
+  const user=1;
   return (
     <BrowserRouter>
       <Routes>
@@ -31,23 +32,20 @@ function App() {
         {user && <Route path="/contribute" exact element={<Contribute />} />}
         {user && <Route path="/profile" element={<Profile />} />}
 
-        {!user && <Route exact path="/" element={<LandingPage />}></Route>}
-        {!user && <Route path="/register" element={<Signup />}></Route>}
-        {!user && <Route path="/register" exact element={<Signup />} />}
-        {!user && <Route path="/login" exact element={<Login />} />}
-        {!user && <Route path="/" element={<Navigate replace to="/login" />} />}
-        {!user && (
-          <Route path="/EmailVerify/:email/:token" element={<EmailVerify />} />
-        )}
-        {!user && (
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-        )}
-        {!user && (
-          <Route
-            path="/password-reset/:email/:token"
-            element={<PasswordReset />}
-          />
-        )}
+        <Route exact path="/" element={<LandingPage />}></Route>
+        <Route path="/register" element={<Signup />}></Route>
+        <Route path="/register" exact element={<Signup />} />
+        <Route path="/login" exact element={<Login />} />
+        <Route path="/" element={<Navigate replace to="/login" />} />
+
+        <Route path="/EmailVerify/:email/:token" element={<EmailVerify />} />
+
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+
+        <Route
+          path="/password-reset/:email/:token"
+          element={<PasswordReset />}
+        />
 
         {/* <Route element={<NotFound />} /> */}
       </Routes>

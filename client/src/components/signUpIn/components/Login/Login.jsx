@@ -9,24 +9,60 @@ import newRequest from "../../../../utils/newRequest";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  const config_header = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  //   try {
+  //     const res = await newRequest.post(
+  //       "/auth/login",
+  //       { email, password },
+  //       config,
+  //       {
+  //         httpsAgent: new https.Agent({
+  //           rejectUnauthorized: false,
+  //         }),
+  //       }
+  //     );
+  //     console.log(res.data);
+  //     localStorage.setItem("currentUser", JSON.stringify(res.data));
+  //     navigate("/userDashboard");
+  //   } catch (error) {
+  //     if (error.response && error.response.data) {
+  //       setError(error.response.data);
+  //     } else {
+  //       setError("An error occurred during login.");
+  //     }
+  //   }
+  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await newRequest.post("/auth/login", {email, password});
-      localStorage.setItem("currentUser", JSON.stringify(res.data))
-      navigate("/userDashboard"); 
-    } catch (error) {
-      if (error.response && error.response.data) {
-        setError(error.response.data);
+      const res = await newRequest.post(
+        "/auth/login",
+        { email, password },
+        config_header
+      );
+      localStorage.setItem("currentUser", JSON.stringify(res.data));
+      navigate("/userDashboard");
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
       } else {
+        // console.log(err);
         setError("An error occurred during login.");
       }
     }
   };
-
   return (
     <div className={"login_container"}>
       <motion.div
@@ -45,7 +81,7 @@ const Login = () => {
                 type="email"
                 placeholder="Email"
                 name="email"
-                onChange={(e)=>setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 value={email}
                 required
                 className={"login_input"}
@@ -58,7 +94,7 @@ const Login = () => {
                 type="password"
                 placeholder="Password"
                 name="password"
-                onChange={(e)=>setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 value={password}
                 required
                 className={"login_input"}
