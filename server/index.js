@@ -1,23 +1,50 @@
-require("dotenv").config();
-const express = require("express");
+import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+
+import userRoute from "./routes/user.route.js";
+import tokenRoute from "./routes/token.route.js";
+import achievementRoute from "./routes/achievement.route.js";
+import topicRoute from "./routes/topic.route.js";
+import moduleRoute from "./routes/module.route.js";
+import questionRoute from "./routes/question.route.js";
+import authRoute from "./routes/auth.route.js";
+
 const app = express();
-const cors = require("cors");
-const connection = require("./db");
-const userRoutes = require("./routes/users");
-const authRoutes = require("./routes/auth");
-const passwordResetRoutes = require("./routes/passwordReset");
+dotenv.config();
 
-// database connection
-connection();
+const connection = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO);
+    console.log("Connected successfully!");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// middlewares
-app.use(express.json());
-app.use(cors());
+//Middlewares
+//allow input apart from user input in json format
+app.use(express.json()); 
+app.use(cookieParser());
 
-// routes
-app.use("/api/users", userRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/password-reset", passwordResetRoutes);
+//Routing
+app.use("/api/user", userRoute);
+app.use("/api/token", tokenRoute);
+app.use("/api/achievement", achievementRoute);
+app.use("/api/topic", topicRoute);
+app.use("/api/question", questionRoute);
+app.use("/api/module", moduleRoute);
+app.use("/api/auth", authRoute);
 
-const port = process.env.PORT || 7000;
-app.listen(port, console.log(`Listening on port ${port}...`));
+app.use((err, req, res, next)=>{
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "Something went wrong!";
+
+  return res.status(errorStatus).send(errorMessage);
+});
+
+app.listen(7000, () => {
+  connection();
+  console.log("Backend server is running!");
+});
