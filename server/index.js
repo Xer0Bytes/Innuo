@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
 import userRoute from "./routes/user.route.js";
-import tokenRoute from "./routes/token.route.js";
 import achievementRoute from "./routes/achievement.route.js";
 import topicRoute from "./routes/topic.route.js";
 import moduleRoute from "./routes/module.route.js";
@@ -30,7 +29,6 @@ app.use(cookieParser());
 
 //Routing
 app.use("/api/user", userRoute);
-app.use("/api/token", tokenRoute);
 app.use("/api/achievement", achievementRoute);
 app.use("/api/topic", topicRoute);
 app.use("/api/question", questionRoute);
