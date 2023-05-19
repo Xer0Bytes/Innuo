@@ -9,7 +9,7 @@ const FileUpload = ({ id, label, onFileChange, required }) => {
     <>
       <div className="mb-2 ml-8">
         <label
-          className=" text-sm font-medium text-gray-900 dark:text-white"
+          className=" text-sm font-medium text-gray-900"
           htmlFor={`${id}`}
         >
           {label}
