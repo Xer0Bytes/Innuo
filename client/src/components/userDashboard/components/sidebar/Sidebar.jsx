@@ -5,13 +5,13 @@ import "./Sidebar.css";
 import logo from "../../assets/logo.png";
 import { AiFillFileAdd } from "react-icons/ai";
 
-const Sidebar = ({ activePage, userType }) => {
+const Sidebar = ({ activePage, isContributer }) => {
   const handleLogout = () => {
     localStorage.removeItem("token");
   };
 
   const modifiedSidebarData = [...SidebarData];
-  if (userType === "Contributor") {
+  if (isContributer === "true") {
     const contributeItem = {
       title: "Contribute",
       path: "/contribute",
