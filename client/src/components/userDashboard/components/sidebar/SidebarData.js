@@ -1,6 +1,8 @@
 import {MdManageAccounts, MdLeaderboard} from 'react-icons/md';
-import {AiFillHome, AiFillShop} from 'react-icons/ai';
-import {IoIosPaper, IoIosTrophy, IoIosLogOut} from 'react-icons/io';
+import {AiFillAccountBook, AiFillHome, AiFillShop, AiFillFileAdd} from 'react-icons/ai';
+import {IoIosPaper, IoIosTrophy, IoIosLogOut, IoMdBook} from 'react-icons/io';
+import {FaChalkboardTeacher} from 'react-icons/fa';
+import {BsFillBookFill, BsFillPenFill} from 'react-icons/bs'
 
 export const SidebarData = [
   {

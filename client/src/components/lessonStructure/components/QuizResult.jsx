@@ -1,20 +1,18 @@
-import animatedStar from "../assets/star.mp4";
+import LottiePlayer from "react-lottie-player";
+import endQuizAnimation from "../assets/astronautResultScreen.json";
 
 function QuizResult({ result, xpPoints, retry }) {
   return (
-    <div className="result-screen">
-      <video autoPlay loop className="w-[300px]">
-        <source src={animatedStar} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      {/* <h2>Result: {result.percentage}%</h2> */}
-      <span  className="-mt-28">
-        <h2>You earned +{xpPoints} XP!</h2>
-        {/* <p>
-        Selected {result.correct} correct options out of {result.total} questions.
-        
-      </p> */}
-        <button onClick={retry} className="quiz_retry_btn mt-2">
+    <div className="result-screen overflow-y-hidden	">
+      <LottiePlayer
+        loop
+        animationData={endQuizAnimation}
+        play
+        className="w-[30em]"
+      />
+      <span className="-mt-[8em]">
+        <h2 className="text-2xl">You earned +{xpPoints} XP!</h2>
+        <button onClick={retry} className="quiz_retry_btn mt-12">
           Next
         </button>
       </span>

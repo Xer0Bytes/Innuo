@@ -2,15 +2,20 @@ import React from "react";
 import AchievementCard from "./components/AchievementCard";
 import Sidebar from "../userDashboard/components/sidebar/Sidebar";
 import PageHeader from "./components/PageHeader";
-import achievementVid from "./assets/achievementVid.mp4";
+import AnimatedAchievement from "./assets/animatedAchievement.json";
 import firstStep from "./assets/firstStep.png";
 
 const Achievements = () => {
   return (
     <>
-      <Sidebar />
+      <Sidebar activePage={"Achievements"} />
       <div className="move_left p-2">
-        <PageHeader title={"Achievement"} video={achievementVid} />
+        <PageHeader
+          title={"Achievement"}
+          lottieAnimationData={AnimatedAchievement}
+          isLooped={false}
+          width={'w-[18em]'}
+        />
 
         <div className="flex flex-wrap gap-4 justify-center pt-4">
           <AchievementCard
