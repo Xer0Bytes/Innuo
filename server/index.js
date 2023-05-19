@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 import userRoute from "./routes/user.route.js";
 import achievementRoute from "./routes/achievement.route.js";
@@ -26,6 +27,7 @@ const connection = async () => {
 //allow input apart from user input in json format
 app.use(express.json()); 
 app.use(cookieParser());
+app.use(cors({origin:"http://localhost:5173", credential: true}))
 
 //Routing
 app.use("/api/user", userRoute);
