@@ -6,9 +6,10 @@ import PageHeader from "../achievements/components/PageHeader";
 import AnimatedAstronautDashboard from "./assets/astronautDashboard.json";
 
 export const UserDashboard = () => {
+  const currentUser = localStorage.getItem("currentUser");
   return (
     <div>
-      <Sidebar activePage={'Home'} userType={'Contributor'}/>
+      <Sidebar activePage={'Home'}  isContributer={currentUser.isContributer}/>
       <div>
         <div className=" h-full grid place-items-center left-[270px] right-[280px]">
           <PageHeader

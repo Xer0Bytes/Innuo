@@ -6,9 +6,10 @@ import AnimatedAchievement from "./assets/animatedAchievement.json";
 import firstStep from "./assets/firstStep.png";
 
 const Achievements = () => {
+  const currentUser = localStorage.getItem("currentUser");
   return (
     <>
-      <Sidebar activePage={"Achievements"} />
+      <Sidebar activePage={"Achievements"}  isContributer={currentUser.isContributer}/>
       <div className="move_left p-2">
         <PageHeader
           title={"Achievement"}
