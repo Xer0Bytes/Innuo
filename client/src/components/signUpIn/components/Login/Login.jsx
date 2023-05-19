@@ -12,11 +12,11 @@ const Login = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
 
   const config_header = {
+
     header: {
       "Content-Type": "application/json",
     },
@@ -51,6 +51,7 @@ const Login = () => {
         "/auth/login",
         { email, password },
         config_header
+
       );
       localStorage.setItem("currentUser", JSON.stringify(res.data));
       navigate("/userDashboard");
