@@ -1,5 +1,7 @@
 import React from "react";
 const Container = () => {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
   return (
     <section className="relative py-6 mb-[-.5em] rounded-[10px] mt-[-8em] max-w-[85%]  mx-auto px-4">
       <div className="profile_container mx-auto px-4">
@@ -11,7 +13,7 @@ const Container = () => {
                   <div className="relative">
                     <img
                       alt="..."
-                      src="https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"
+                      src= {currentUser.pfpLink ||"https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"}
                       className="shadow-xl rounded-full w-[150px] h-[150px] align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
                     />
                   </div>
@@ -20,11 +22,11 @@ const Container = () => {
 
               <div className="text-center mt-24">
                 <h3 className="text-3xl font-semibold leading-normal mt-12 text-blueGray-700 mb-2">
-                  Jenna Stones
+                {currentUser.name}
                 </h3>
                 <div className="text-xl leading-normal mt-0 mb-2 text-blueGray-400">
                   <i className="fas fa-star mr-2 text-lg text-yellow"></i>
-                  EXP Earned: 0
+                  EXP Earned: {currentUser.experiencePoints}
                 </div>
                 <div className="mb-2 text-blueGray-600 mt-2 text-xl">
                   <i className="fas fa-language mr-2 text-lg text-blueGray-400"></i>

@@ -5,9 +5,10 @@ import PageHeader from "../achievements/components/PageHeader";
 import RankingAnimation from "./assets/AnimatedRanking.json";
 
 const Ranking = () => {
+  const currentUser = localStorage.getItem("currentUser");
   return (
     <>
-      <Sidebar activePage={'Ranking'}/>
+      <Sidebar activePage={'Ranking'}  isContributer={currentUser.isContributer}/>
       <div className="move_left p-2">
         <PageHeader
           title={"Ranking"}
