@@ -1,32 +1,28 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import log from "../../assets/log.svg";
 import { motion } from "framer-motion";
+import newRequest from "../../../../utils/newRequest";
 
 const Login = () => {
-  const [data, setData] = useState({ email: "", password: "" });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  const handleChange = ({ currentTarget: input }) => {
-    setData({ ...data, [input.name]: input.value });
-  };
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:7000/api/auth";
-      const { data: res } = await axios.post(url, data);
-      localStorage.setItem("token", res.data);
-      window.location = "/userDashboard";
+      const res = await newRequest.post("/auth/login", {email, password});
+      localStorage.setItem("currentUser", JSON.stringify(res.data))
+      navigate("/userDashboard"); 
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
-        setError(error.response.data.message);
+      if (error.response && error.response.data) {
+        setError(error.response.data);
+      } else {
+        setError("An error occurred during login.");
       }
     }
   };
@@ -49,8 +45,8 @@ const Login = () => {
                 type="email"
                 placeholder="Email"
                 name="email"
-                onChange={handleChange}
-                value={data.email}
+                onChange={(e)=>setEmail(e.target.value)}
+                value={email}
                 required
                 className={"login_input"}
               />
@@ -62,15 +58,15 @@ const Login = () => {
                 type="password"
                 placeholder="Password"
                 name="password"
-                onChange={handleChange}
-                value={data.password}
+                onChange={(e)=>setPassword(e.target.value)}
+                value={password}
                 required
                 className={"login_input"}
               />
             </div>
             <Link
               to="/forgot-password"
-              class="forgot_pass_writing"
+              className="forgot_pass_writing"
               style={{ alignSelf: "flex-center" }}
             >
               <p style={{ padding: "0 15px" }}>Forgot Password? Click Here!</p>
