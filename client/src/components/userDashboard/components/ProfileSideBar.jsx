@@ -3,7 +3,7 @@ import React from "react";
 const ProfileSideBar = () => {
   return (
     <div
-      className="bg-[#B7EDDF] min-w-[300px] min-h-full fixed top-0 right-0 p-3"
+      className="bg-[#FFC6CD] min-w-[300px] min-h-full fixed top-0 right-0 p-3 hidden lg:block"
     >
       <h3 className="text-center text-[2.15em] font-bold leading-normal pt-2 text-blueGray-700">
         Welcome Back!

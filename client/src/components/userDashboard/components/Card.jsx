@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import SubCard from "../SubCard/SubCard";
+import SubCard from "./SubCard";
 
 export const Card = ({ module_name }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <motion.div className="pt-4 pb-1" onClick={() => setIsOpen(!isOpen)}>
-      <div className="min-w-[40em] cursor-default p-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <motion.div
+      className=" pt-4 pb-1 ml-[16em] lg:ml-0"
+      onClick={() => setIsOpen(!isOpen)}
+    >
+      <div className="bg-[#B7EDDF] min-w-[50em] cursor-default p-3 border border-gray-200 rounded-lg shadow shadow-lg">
         <h5 className="mb-1 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
           {module_name}
         </h5>

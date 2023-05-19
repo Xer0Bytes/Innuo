@@ -75,7 +75,7 @@
   border-radius: 4px;
 }
 
-.nav-text a:hover {
+.nav-text a:hover , .nav-text .active{
   background-color: #FA9BAF;
 }
 

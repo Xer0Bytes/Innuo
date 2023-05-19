@@ -58,18 +58,11 @@ function Question({
 
   return (
     <div className="question">
-      {/* <div className="progress-bar" ref={progressBar}></div> */}
       <ProgressBar
         width={((currentProgress) / totalQuestions) * 100}
         className="quiz_progress"
       />
       <div className="question_content">
-        {/* <div className="question-count">
-          <b> {currentQuestionIndex} </b>
-          of
-          <b> {totalQuestions} </b>
-        </div> */}
-
         <MCQFormat
           currQuestion={question}
           setOptionSelected={handleOptionSelect}
