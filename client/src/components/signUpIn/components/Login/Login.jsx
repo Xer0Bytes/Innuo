@@ -15,7 +15,8 @@ const Login = () => {
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
 
-  const config = {
+  const config_header = {
+
     header: {
       "Content-Type": "application/json",
     },
@@ -49,7 +50,8 @@ const Login = () => {
       const res = await newRequest.post(
         "/auth/login",
         { email, password },
-        config
+        config_header
+
       );
       localStorage.setItem("currentUser", JSON.stringify(res.data));
       navigate("/userDashboard");
@@ -57,7 +59,7 @@ const Login = () => {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
-        console.log(err);
+        // console.log(err);
         setError("An error occurred during login.");
       }
     }

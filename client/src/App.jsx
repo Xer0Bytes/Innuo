@@ -15,7 +15,8 @@ import "./App.css";
 import { Contribute } from "./components/contribute/Contribute.jsx";
 
 function App() {
-  const user = localStorage.getItem("token");
+  // const user = localStorage.getItem("token");
+  const user=1;
   return (
     <BrowserRouter>
       <Routes>
@@ -36,18 +37,16 @@ function App() {
         <Route path="/register" exact element={<Signup />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/" element={<Navigate replace to="/login" />} />
-        (
-          <Route path="/EmailVerify/:email/:token" element={<EmailVerify />} />
-        )
-        (
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-        )
-        (
-          <Route
-            path="/password-reset/:email/:token"
-            element={<PasswordReset />}
-          />
-        )
+
+
+        <Route path="/EmailVerify/:email/:token" element={<EmailVerify />} />
+
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+
+        <Route
+          path="/password-reset/:email/:token"
+          element={<PasswordReset />}
+        />
 
         {/* <Route element={<NotFound />} /> */}
       </Routes>
