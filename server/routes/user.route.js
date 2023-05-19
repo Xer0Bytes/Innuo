@@ -6,4 +6,5 @@ const router = express.Router();
 
 router.delete("/:id", verifyToken, deleteUser)
 
+
 export default router;
