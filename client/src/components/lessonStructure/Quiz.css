@@ -1,52 +1,32 @@
+
 .quiz_start_btn, .quiz_next_btn , .quiz_retry_btn{
   padding: 0 2em;
-  background: #111;
-  color: #fff;
+  background: #FED885;
+  color: #000;
   border: 3px solid #000;
   outline: none;
   cursor: pointer;
   border-radius: 45px;
   font-size: 1.5em;
-  /* transition: all 0.3s ease 0s; */
   outline: none;
   transition: all 0.2s ease-in-out;
-  max-height: 50px;
+  height: 45px;
 }
 
+
 .quiz_start_btn:hover, .quiz_next_btn:hover , .quiz_retry_btn:hover{
-  background-color: blue;
   transform: translateY(-2px);
   border-bottom-width: 13px;
 }
 
-/* .quiz_nav {
-  position: sticky;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #fff;
-} */
 
 .quiz_nav .logo {
   color: #111;
 }
 
-/* .quiz-container {
-  position: relative;
-  margin: 40px auto 20px;
-  width: 100%;
-  max-width: 90vw;
-  min-height: 350px;
-  background: #fff;
-} */
 
 .join-screen, .quiz-screen, .result-screen {
   width: 100%;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -56,18 +36,19 @@
   padding: 20px;
 }
 .join-screen{
-  background-color: #9DC3C2;
+  background-color: #B7EDDF;
+  min-height: 100vh;
+}
+.lesson-name-join-screen{
+  margin-bottom:.5em;
+  font-weight:bold;
 }
 
-/* .result-screen {
-  width: 100%;
-  height: 350px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-} */
+
+.result-screen{
+  background-color: #B7EDDF;  
+}
+
 
 .quiz-screen .question{
   min-width: 95%;
@@ -94,14 +75,6 @@
   color: #333;
 }
 
-/* .quiz-screen .question .progress-bar {
-  width: 0%;
-  height: 5px;
-} */
-
-/* .quiz-screen .question .progress-bar .active {
-  animation: progress 10s linear;
-} */
 
 .quiz-screen .question .question-count {
   margin: 10px 0px;
@@ -144,7 +117,7 @@
 }
 
 .quiz-screen .question .main .options .option.active {
-  background: #9DC3C2;
+  background: #B7EDDF;
   color: #333;
 }
 
@@ -167,25 +140,6 @@
 
 
 
-
-@keyframes progress {
-  0% {
-    width: 0%;
-    background: #555;
-  }
-  79% {
-    width: 79%;
-    background: #555;
-  }
-  80% {
-    width: 80%;
-    background: orangered;
-  }
-  100% {
-    width: 100%;
-    background: orangered;
-  }
-}
 
 
 
