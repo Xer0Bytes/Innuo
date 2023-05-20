@@ -1,42 +1,23 @@
 import mongoose from 'mongoose';
+import Module from './module.model.js';
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
-  name: {
-    type: String,
-    required: true
+const topicSchema = new Schema({
+  topicID: {
+    type: Number,
+    required: true,
+    unique: true,
   },
-  email: {
+  topicTitle: {
     type: String,
     required: true,
-    unique: true
   },
-  password: {
-    type: String,
-    required: true
-  },
-  verifiedEmail: {
-    type: Boolean,
-    default: false
-  },
-  experiencePoints: {
-    type: Number,
-    default: 0
-  },
-  pfpLink: {
-    type: String,
-    required: false
-  },
-  achieved: {
-    type: [Number],
-    default: undefined
-  },
-  modulesCompleted: {
-    type: [Number],
-    default: undefined
+  modules: {
+    type: [Module.schema],
+    default: undefined,
   },
 }, {
     timestamps: true
 });
 
-export default mongoose.model("User", userSchema)
+export default mongoose.model("Topic", topicSchema)
