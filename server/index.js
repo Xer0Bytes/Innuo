@@ -11,6 +11,7 @@ import topicRoute from "./routes/topic.route.js";
 import moduleRoute from "./routes/module.route.js";
 import questionRoute from "./routes/question.route.js";
 import authRoute from "./routes/auth.route.js";
+import quizRoute from "./routes/quiz.route.js";
 
 const app = express();
 dotenv.config();
@@ -38,6 +39,7 @@ app.use("/api/topic", topicRoute);
 app.use("/api/question", questionRoute);
 app.use("/api/module", moduleRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/quiz", quizRoute);
 
 app.use((err, req, res, next)=>{
   const errorStatus = err.status || 500;
