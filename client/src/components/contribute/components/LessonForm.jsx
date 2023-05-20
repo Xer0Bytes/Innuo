@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { Dropdown } from "./Dropdown";
 import InputField from "./InputField";
 import FileUpload from "./FileUpload";
@@ -10,7 +10,6 @@ const LessonForm = () => {
     lessonFormModuleName: "",
     lessonFormLessonID: "",
     lessonFormLessonText: "",
-    lessonFormLessonText: "",
     lessonFormLessonImage: null,
   });
 
@@ -21,11 +20,36 @@ const LessonForm = () => {
     }));
   };
 
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(null);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Do something with the form data
+    try {
+      // Do something with the form data
+      setSuccess(true);
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("An error occurred");
+      }
+    }
     console.log(formData);
   };
+
+  useEffect(() => {
+    const clearMessages = () => {
+      setError(null);
+      setSuccess(false);
+    };
+
+    if (error || success) {
+      const timer = setTimeout(clearMessages, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error, success]);
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -51,6 +75,7 @@ const LessonForm = () => {
           onValueChange={(value) =>
             handleInputChange("lessonFormLessonID", value)
           }
+          required={true}
         />
         <InputField
           id={"lesson-text"}
@@ -58,6 +83,7 @@ const LessonForm = () => {
           onValueChange={(value) =>
             handleInputChange("lessonFormLessonText", value)
           }
+          required={true}
         />
         <FileUpload
           id={"lesson-image"}
@@ -65,7 +91,34 @@ const LessonForm = () => {
           onFileChange={(file) =>
             handleInputChange("lessonFormLessonImage", file)
           }
+          required={true}
         />
+        <div className="w-full mr-auto ml-auto text-md text-center mt-6">
+          {error && (
+            <div className="flex items-center bg-red-300 p-4 mb-3 rounded w-full">
+              <div className="flex-grow text-left  pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
+                {error}
+              </div>
+            </div>
+          )}
+
+          {success && !error && (
+            <div className="flex items-center bg-green-300 p-4 mb-3 rounded w-full">
+              <div className="flex-grow text-left  text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
+                Information entered successfully!
+              </div>
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="savechanges_btn"
+            data-te-ripple-init
+            data-te-ripple-color="light"
+          >
+            Add Module
+          </button>
+        </div>
       </form>
     </>
   );
