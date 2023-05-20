@@ -10,8 +10,8 @@ import upload from "../../../utils/upload";
 const LessonForm = () => {
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
-    lessonFormTopicName: "",
-    lessonFormModuleName: "",
+    lessonFormTopicName: "Alphabets",
+    lessonFormModuleName: "Module 1 : A, B & C",
     lessonFormLessonID: "",
     lessonFormLessonText: "",
     lessonFormLessonImage: null,
@@ -50,7 +50,7 @@ const LessonForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(formData.lessonFormLessonImage);
+      console.log("lesson submit hoise");
 
       const url = await upload(formData.lessonFormLessonImage);
       console.log(url);
@@ -126,7 +126,7 @@ const LessonForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} onChange={getValues}>
+      <form onSubmit={handleSubmit} id="lesson-form">
         <Dropdown
           id={"select-topic-for-lesson"}
           label={"Select Topic"}

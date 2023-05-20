@@ -10,8 +10,8 @@ import newRequest from "../../../utils/newRequest";
 const QuestionForm = () => {
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
-    questionFormTopicName: "",
-    questionFormModuleName: "",
+    questionFormTopicName: "Alphabets",
+    questionFormModuleName: "Module 1 : A, B & C",
     questionFormQuestionID: "",
     questionFormQuestionText: "",
     questionFormChoice1Text: "",
@@ -36,6 +36,8 @@ const QuestionForm = () => {
   };
 
   const handleSubmit = async (e) => {
+    
+    console.log("question submit hoise");
     e.preventDefault();
     try {
 
@@ -114,7 +116,7 @@ const QuestionForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id="question-form">
         <Dropdown
           id={"select-topic-for-question"}
           label={"Select Topic"}

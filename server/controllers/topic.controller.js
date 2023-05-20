@@ -6,7 +6,6 @@ export const addTopic = async (req, res, next) => {
     const newTopic = new Topic({
         ...req.body,
     })
-
     await newTopic.save();
 
     //all topics
