@@ -1,10 +1,10 @@
-import React, {useState}  from "react";
+import React, { useState } from "react";
 import InputField from "./InputField";
 import newRequest from "../../../utils/newRequest";
 import { useNavigate } from "react-router-dom";
 
 const TopicForm = () => {
-    const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
     topicFormTopicID: "",
     topicFormTopicName: "",
@@ -16,7 +16,7 @@ const TopicForm = () => {
       [field]: value,
     }));
   };
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const config_header = {
     header: {
       "Content-Type": "application/json",
@@ -29,8 +29,8 @@ const TopicForm = () => {
     // Do something with the form data
     try {
       const res = await newRequest.post(
-        "/topic/contribute",
-        { topicID: formData.topicFormTopicID, topicTitle: formData.topicFormTopicName },
+        "/topic/contribute", { topicID: formData.topicFormTopicID, topicTitle: formData.topicFormTopicName},
+
         config_header
       );
       console.log(res.data);
@@ -41,7 +41,8 @@ const TopicForm = () => {
         setError(err.response.data.message);
       } else {
         // console.log(err);
-        setError("An error occurred during login.");
+        setError("An error occurred during database insertion.");
+
       }
     }
     console.log(formData);
@@ -64,16 +65,16 @@ const TopicForm = () => {
           }
         />
 
-<div className="w-full mr-auto ml-auto text-md text-center mt-6">
-                <button
-                  type="submit"
-                  className="savechanges_btn"
-                  data-te-ripple-init
-                  data-te-ripple-color="light"
-                >
-                  Add Topic
-                </button>
-              </div>
+        <div className="w-full mr-auto ml-auto text-md text-center mt-6">
+          <button
+            type="submit"
+            className="savechanges_btn"
+            data-te-ripple-init
+            data-te-ripple-color="light"
+          >
+            Add Topic
+          </button>
+        </div>
       </form>
     </>
   );

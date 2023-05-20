@@ -43,7 +43,7 @@ const ModuleForm = () => {
         setError(err.response.data.message);
       } else {
         // console.log(err);
-        setError("An error occurred during login.");
+        setError("An error occurred during database insertion.");
       }
     }
     console.log(formData);

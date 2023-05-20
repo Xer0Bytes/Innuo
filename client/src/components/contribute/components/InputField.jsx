@@ -7,7 +7,7 @@ const InputField = ({ id, label, onValueChange, required }) => {
 //   flex items-center flex-col
   return (
     <>
-      <div class="mb-2 ml-8">
+      <div className="mb-2 ml-8">
         <label
           htmlFor={`${id}`}
           className="block text-sm font-medium text-gray-900 text-left justify-left"
