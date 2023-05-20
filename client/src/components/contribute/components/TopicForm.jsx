@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InputField from "./InputField";
 import newRequest from "../../../utils/newRequest";
 import { useNavigate } from "react-router-dom";
@@ -10,13 +10,14 @@ const TopicForm = () => {
     topicFormTopicName: "",
   });
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
   const handleInputChange = (field, value) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [field]: value,
     }));
   };
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const config_header = {
     header: {
       "Content-Type": "application/json",
@@ -29,24 +30,42 @@ const TopicForm = () => {
     // Do something with the form data
     try {
       const res = await newRequest.post(
-        "/topic/contribute", { topicID: formData.topicFormTopicID, topicTitle: formData.topicFormTopicName},
+        "/topic/contribute",
+        {
+          topicID: formData.topicFormTopicID,
+          topicTitle: formData.topicFormTopicName,
+        },
 
         config_header
       );
-      console.log(res.data);
+      setSuccess(true);
+      // console.log(res.data);
       localStorage.setItem("allTopics", JSON.stringify(res.data));
-      navigate("/contribute");
+      // navigate("/contribute");
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
         // console.log(err);
-        setError("An error occurred during database insertion.");
-
+        setError("An error occurred!");
       }
     }
     console.log(formData);
   };
+
+  useEffect(() => {
+    const clearMessages = () => {
+      setError(null);
+      setSuccess(false);
+    };
+
+    if (error || success) {
+      const timer = setTimeout(clearMessages, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error, success]);
+
+  
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -56,6 +75,7 @@ const TopicForm = () => {
           onValueChange={(value) =>
             handleInputChange("topicFormTopicID", value)
           }
+          required={true}
         />
         <InputField
           id={"topic-name"}
@@ -63,9 +83,25 @@ const TopicForm = () => {
           onValueChange={(value) =>
             handleInputChange("topicFormTopicName", value)
           }
+          required={true}
         />
 
         <div className="w-full mr-auto ml-auto text-md text-center mt-6">
+          {error && (
+            <div className="flex items-center bg-red-300 p-4 mb-3 rounded w-full">
+              <div className="flex-grow text-left  pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
+                {error}
+              </div>
+            </div>
+          )}
+
+          {success && !error && (
+            <div className="flex items-center bg-green-300 p-4 mb-3 rounded w-full">
+              <div className="flex-grow text-left  text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
+                Information entered successfully!
+              </div>
+            </div>
+          )}
           <button
             type="submit"
             className="savechanges_btn"

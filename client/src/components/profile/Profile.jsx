@@ -6,11 +6,10 @@ import EditProfile from "./components/editProfile/EditProfile.jsx"
 import DeleteProfile from "./components/DeleteProfileContainer/DeleteProfileContainer";
 
 const Profile = () => {
-  const currentUser = localStorage.getItem("currentUser");
   return (
     <span style={{background:'#edf2f7'}}>
       <div >
-      <Sidebar activePage={'Profile'} isContributer={currentUser.isContributer}/>
+      <Sidebar activePage={'Profile'}/>
       <div className="overflow-x-hidden flex items-center justify-center move_left">
         <main className="profile-page min-w-[98%] ">
           <Background />

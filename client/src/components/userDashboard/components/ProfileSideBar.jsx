@@ -1,7 +1,8 @@
 import React from "react";
-
+import getCurrentUser from "../../../utils/getCurrentUser";
+import avatar from '../assets/avatar.jpg'
 const ProfileSideBar = () => {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentUser = getCurrentUser();
   return (
     <div
       className="bg-[#FFC6CD] min-w-[300px] min-h-full fixed top-0 right-0 p-3 hidden lg:block"
@@ -12,7 +13,7 @@ const ProfileSideBar = () => {
       <div className="w-full px-4 lg:order-2 flex justify-center">
         <img
           alt="profile picture"
-          src= {currentUser.pfpLink ||"https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"}
+          src= {currentUser.pfpLink ||avatar}
           className="shadow-xl mt-6 rounded-full w-[150px] h-[150px] align-middle border-none max-w-[150px]"
         />
       </div>
