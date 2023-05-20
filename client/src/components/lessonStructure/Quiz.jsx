@@ -13,7 +13,7 @@ function Quiz() {
       <div className="quiz-container"> 
       {/* no css for quiz-container  */}
         {isQuizStarted ? (
-          <QuizScreen xpPoints= {15} userExp={userExp} setUserExp={setUserExp} retry={() => setIsQuizStarted(false)} />
+          <QuizScreen module_name={module_name} xpPoints= {15} userExp={userExp} setUserExp={setUserExp} retry={() => setIsQuizStarted(false)} />
         ) : (
           <JoinScreen module_name={module_name} start={() => setIsQuizStarted(true)} />
         )}

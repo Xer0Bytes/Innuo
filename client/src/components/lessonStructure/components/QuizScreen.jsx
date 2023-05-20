@@ -4,9 +4,9 @@ import LessonList from "../data/lesson.json";
 import QuizResult from "./QuizResult";
 import Question from "./Question";
 import Lesson from "./Lesson";
-//fetch the question and lessons here===================
+//fetch the question and lessons here based on the module name???===================
 
-function QuizScreen({ xpPoints, retry, userExp, setUserExp }) {
+function QuizScreen({ module_name, xpPoints, retry, userExp, setUserExp }) {
   // import question array, lesson
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const isLessonEnd = currentLessonIndex === LessonList.length;
@@ -16,6 +16,7 @@ function QuizScreen({ xpPoints, retry, userExp, setUserExp }) {
   );
   const isQuestionEnd = currentQuestionIndex === QuestionList.length;
 
+  //ignore this function since we dont calculate result
   function calculatedResult() {
     let correct = 0;
     QuestionList.forEach((question, index) => {
@@ -36,7 +37,6 @@ function QuizScreen({ xpPoints, retry, userExp, setUserExp }) {
         <QuizResult
           xpPoints={xpPoints}
           userExp={userExp}
-          setUserExp={setUserExp}
           result={calculatedResult()}
           retry={retry}
         />
