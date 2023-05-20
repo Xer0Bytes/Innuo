@@ -21,10 +21,17 @@ const QuestionForm = () => {
     questionFormChoice3Image: null,
     questionFormChoice4Image: null,
   });
+  const [error, setError] = useState(null);
   const handleSubmit = (e) => {
     event.preventDefault();
     // Do something with the form data
     console.log(formData);
+  };
+  const handleInputChange = (field, value) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [field]: value,
+    }));
   };
   return (
     <>
