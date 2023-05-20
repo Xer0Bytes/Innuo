@@ -10,7 +10,7 @@ const upload = async (file) => {
 
   try {
     const res = await axios.post(
-      `https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/upload`,
+      `https://api.cloudinary.com/v1_1/dgcmjva7h/upload`,
       data,
       {
         onUploadProgress: (ProgressEvent) => {
