@@ -18,3 +18,15 @@ export const addTopic = async (req, res, next) => {
     console.log(err);
   }
 };
+
+export const getAllTopics = async (req, res, next) => {
+  try {
+    //all topics
+    const topics = await Topic.find({});
+
+    res.status(200).send(topics);
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+};
