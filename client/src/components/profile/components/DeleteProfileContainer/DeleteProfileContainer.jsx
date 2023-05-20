@@ -3,7 +3,7 @@ import React from "react";
 const DeleteProfile = () => {
   return (
     <div className="w-full mb-8">
-      <div className="w-[80%] mr-auto ml-auto block rounded-[10px] bg-white p-8 pt-4 pb-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.2),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
+      <div className="w-[80%] mr-auto ml-auto block rounded-[10px] bg-white p-8 pt-4 pb-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.2),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
         <span className="text-bold grid grid-cols-3 mb-2">
           <div className="col-span-2 my-auto">
             <span className="text-2xl font-bold text-red">

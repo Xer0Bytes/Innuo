@@ -1,7 +1,4 @@
 import axios from "axios";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const upload = async (file) => {
   const data = new FormData();
@@ -10,7 +7,7 @@ const upload = async (file) => {
 
   try {
     const res = await axios.post(
-      `https://api.cloudinary.com/v1_1/dgcmjva7h/upload`,
+      "https://api.cloudinary.com/v1_1/dgcmjva7h/upload",
       data,
       {
         onUploadProgress: (ProgressEvent) => {
