@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TestImg from "../assets/react.svg";
+import TestImg from "../assets/test.gif";
 
 function MCQFormat({
   currQuestion,
@@ -19,7 +19,7 @@ function MCQFormat({
           <span>
             <p>{currQuestion.title}</p>
             <span className="question-img">
-              <img src={TestImg} />
+              <img src={TestImg} className="w-[200px] rounded-lg"/>
             </span>
           </span>
         ) : (
@@ -39,7 +39,7 @@ function MCQFormat({
                 <span>
                   {option}
                   <div className="option-img">
-                    <img src={TestImg} className="w-[200px]"/>
+                    <img src={TestImg} className="w-[200px] rounded-lg"/>
                   </div>
                 </span>
               ) : (
