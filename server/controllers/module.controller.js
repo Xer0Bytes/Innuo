@@ -47,6 +47,7 @@ export const getAllModules = async (req, res, next) => {
 };
 
 export const addLesson = async (req, res, next) => {
+  console.log("entered the function");
   try {
 
     const topic = await Topic.findOne({topicTitle: req.body.topicTitle,

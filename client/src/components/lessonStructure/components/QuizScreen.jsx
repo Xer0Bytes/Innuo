@@ -4,8 +4,10 @@ import LessonList from "../data/lesson.json";
 import QuizResult from "./QuizResult";
 import Question from "./Question";
 import Lesson from "./Lesson";
+//fetch the question and lessons here===================
 
-function QuizScreen({ xpPoints, retry }) {
+function QuizScreen({ xpPoints, retry, userExp, setUserExp }) {
+  // import question array, lesson
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const isLessonEnd = currentLessonIndex === LessonList.length;
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -31,7 +33,13 @@ function QuizScreen({ xpPoints, retry }) {
   return (
     <div className="quiz-screen">
       {isQuestionEnd && isLessonEnd ? (
-        <QuizResult xpPoints={xpPoints} result={calculatedResult()} retry={retry} />
+        <QuizResult
+          xpPoints={xpPoints}
+          userExp={userExp}
+          setUserExp={setUserExp}
+          result={calculatedResult()}
+          retry={retry}
+        />
       ) : (
         <>
           {isLessonEnd ? (
@@ -40,7 +48,7 @@ function QuizScreen({ xpPoints, retry }) {
               question={QuestionList[currentQuestionIndex]}
               totalQuestions={LessonList.length + QuestionList.length}
               currentQuestionIndex={currentQuestionIndex + 1}
-              currentProgress = {currentQuestionIndex + LessonList.length}
+              currentProgress={currentQuestionIndex + LessonList.length}
               setAnswer={(index) => {
                 setMarkedAnswers((arr) => {
                   let newArr = [...arr];
@@ -49,6 +57,8 @@ function QuizScreen({ xpPoints, retry }) {
                 });
                 setCurrentQuestionIndex(currentQuestionIndex + 1);
               }}
+              userExp={userExp}
+              setUserExp={setUserExp}
             />
           ) : (
             //if quiz has not ended continue with the next lesson
