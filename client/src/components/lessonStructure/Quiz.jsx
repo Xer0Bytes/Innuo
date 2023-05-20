@@ -5,7 +5,7 @@ import QuizScreen from './components/QuizScreen'
 import JoinScreen from './components/JoinScreen'
 
 function Quiz() {
-  const { lesson } = useParams();
+  const { module_name } = useParams();
   const [isQuizStarted, setIsQuizStarted] = useState(false);
   return (
     <>
@@ -14,7 +14,7 @@ function Quiz() {
         {isQuizStarted ? (
           <QuizScreen xpPoints= {15} retry={() => setIsQuizStarted(false)} />
         ) : (
-          <JoinScreen lesson_name={lesson} start={() => setIsQuizStarted(true)} />
+          <JoinScreen module_name={module_name} start={() => setIsQuizStarted(true)} />
         )}
       </div>
     </>

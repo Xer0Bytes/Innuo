@@ -6,7 +6,6 @@ import MCQFormat from "./MCQFormat";
 function Question({
   question,
   totalQuestions,
-  currentQuestionIndex,
   currentProgress,
   setAnswer,
 }) {
@@ -24,6 +23,7 @@ function Question({
     setAllowSelectOption(true);
   }, [question]);
 
+  //select option selection
   function handleOptionSelect(optionIndex) {
     setSelectedOption(optionIndex);
   }
@@ -41,7 +41,7 @@ function Question({
 
   //on click of check button
   function checkAnswerButtonClick() {
-    if (selectedOption != question.correctOptionIndex | selectedOption == null) {
+    if (selectedOption != question.correctOptionIndex | selectedOption === null) {
       setAnswerCorrect(false);
     } else {
       setAnswerCorrect(true);
@@ -101,7 +101,7 @@ function Question({
           {!answerCorrect && showCheckedAnswer && (
             <div className="flex items-center bg-red-300 p-4 rounded w-full">
               <div className="flex-grow text-left  pl-5 text-[#333] text-bold rounded-[7px]  text-[1.6em]">
-                Correct answer is {Number(question.correctOptionIndex)+1}
+                {/* Correct answer is {Number(question.correctOptionIndex)+1} */}
               </div>
               <div className="ml-4">
                 <button
