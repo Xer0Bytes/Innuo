@@ -12,38 +12,11 @@ const Login = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
   const config_header = {
-
     header: {
       "Content-Type": "application/json",
     },
   };
-
-  //   try {
-  //     const res = await newRequest.post(
-  //       "/auth/login",
-  //       { email, password },
-  //       config,
-  //       {
-  //         httpsAgent: new https.Agent({
-  //           rejectUnauthorized: false,
-  //         }),
-  //       }
-  //     );
-  //     console.log(res.data);
-  //     localStorage.setItem("currentUser", JSON.stringify(res.data));
-  //     navigate("/userDashboard");
-  //   } catch (error) {
-  //     if (error.response && error.response.data) {
-  //       setError(error.response.data);
-  //     } else {
-  //       setError("An error occurred during login.");
-  //     }
-  //   }
-  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -51,9 +24,15 @@ const Login = () => {
         "/auth/login",
         { email, password },
         config_header
-
       );
       localStorage.setItem("currentUser", JSON.stringify(res.data));
+
+      const resTopic = await newRequest.post(
+        "/topic/getTopics",
+        {},
+        config_header
+      );
+      localStorage.setItem("allTopics", JSON.stringify(resTopic.data));
       navigate("/userDashboard");
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
