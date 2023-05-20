@@ -11,7 +11,6 @@ const Sidebar = ({ activePage}) => {
   const handleLogout = () => {
     localStorage.removeItem("token");
   };
-  console.log(currentUser.isContributer);
   const modifiedSidebarData = [...SidebarData];
   if (currentUser.isContributer === true) {
     const contributeItem = {
