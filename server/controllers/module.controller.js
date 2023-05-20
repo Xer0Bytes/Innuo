@@ -47,9 +47,9 @@ export const getAllModules = async (req, res, next) => {
 };
 
 export const addLesson = async (req, res, next) => {
-  console.log("entered the function");
+ 
   try {
-
+    //checking if module exists for this topic
     const topic = await Topic.findOne({topicTitle: req.body.topicTitle,
       "modules.moduleTitle": req.body.moduleTitle});
 

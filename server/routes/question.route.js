@@ -1,8 +1,8 @@
 import express from "express";
-import { deleteUser } from "../controllers/user.controller.js";
+import { addQuestions } from "../controllers/question.controller.js";
 
 const router = express.Router();
 
-router.get("/test", deleteUser)
+router.post("/addQuestions", addQuestions)
 
 export default router;
