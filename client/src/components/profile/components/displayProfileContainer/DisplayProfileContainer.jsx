@@ -1,6 +1,7 @@
 import React from "react";
+import getCurrentUser from "../../../../utils/getCurrentUser";
 const Container = () => {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentUser = getCurrentUser();
 
   return (
     <section className="relative py-6 mb-[-.5em] rounded-[10px] mt-[-8em] max-w-[85%]  mx-auto px-4">

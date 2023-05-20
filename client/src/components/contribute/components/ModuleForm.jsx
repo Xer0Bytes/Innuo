@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { Dropdown } from "./Dropdown";
 import InputField from "./InputField";
 import { useNavigate } from "react-router-dom";
 import newRequest from "../../../utils/newRequest";
+import getAllTopics from "../../../utils/getAllTopics";
 
 const ModuleForm = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const ModuleForm = () => {
     moduleFormModuleID: "",
     moduleFormModuleName: "",
   });
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const handleInputChange = (field, value) => {
     setFormData((prevFormData) => ({
@@ -18,7 +20,7 @@ const ModuleForm = () => {
       [field]: value,
     }));
   };
-  const navigate=useNavigate();
+  // const navigate = useNavigate();
   const config_header = {
     header: {
       "Content-Type": "application/json",
@@ -27,32 +29,46 @@ const ModuleForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData);
-    // Do something with the form data
     try {
       const res = await newRequest.post(
         "/module/contribute",
-        { topicTitle: formData.moduleFormTopicName, moduleID: formData.moduleFormModuleID, moduleTitle: formData.moduleFormModuleName },
+        {
+          topicTitle: formData.moduleFormTopicName,
+          moduleID: formData.moduleFormModuleID,
+          moduleTitle: formData.moduleFormModuleName,
+        },
         config_header
       );
-      console.log(res.data);
+      setSuccess(true);
+      // console.log(res.data);
       //localStorage.setItem("allModules", JSON.stringify(res.data));
-      navigate("/contribute");
+      // navigate("/contribute");
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
-        // console.log(err);
-        setError("An error occurred during database insertion.");
+        setError("An error occurred");
       }
     }
     console.log(formData);
   };
 
-  const allTopics = JSON.parse(localStorage.getItem("allTopics"));
+  useEffect(() => {
+    const clearMessages = () => {
+      setError(null);
+      setSuccess(false);
+    };
+
+    if (error || success) {
+      const timer = setTimeout(clearMessages, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error, success]);
+
+  const allTopics = getAllTopics();
 
   const topicTitles = allTopics.map((item) => item.topicTitle);
-  console.log(topicTitles);
+  // console.log(topicTitles);
 
   return (
     <>
@@ -71,6 +87,7 @@ const ModuleForm = () => {
           onValueChange={(value) =>
             handleInputChange("moduleFormModuleID", value)
           }
+          required={true}
         />
         <InputField
           id={"module-name"}
@@ -78,8 +95,25 @@ const ModuleForm = () => {
           onValueChange={(value) =>
             handleInputChange("moduleFormModuleName", value)
           }
+          required={true}
         />
         <div className="w-full mr-auto ml-auto text-md text-center mt-6">
+          {error && (
+            <div className="flex items-center bg-red-300 p-4 mb-3 rounded w-full">
+              <div className="flex-grow text-left  pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
+                {error}
+              </div>
+            </div>
+          )}
+
+          {success && !error && (
+            <div className="flex items-center bg-green-300 p-4 mb-3 rounded w-full">
+              <div className="flex-grow text-left  text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
+                Information entered successfully!
+              </div>
+            </div>
+          )}
+
           <button
             type="submit"
             className="savechanges_btn"
