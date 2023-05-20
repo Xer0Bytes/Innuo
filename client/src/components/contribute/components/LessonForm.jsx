@@ -120,6 +120,7 @@ const LessonForm = () => {
   const allTopics = getAllTopics();
   const topicTitles = allTopics.map((item) => item.topicTitle);
   
+  //All Modules from local storage
   const allModules = getAllModules();
   const moduleTitles = allModules.map((item) => item.moduleTitle);
 

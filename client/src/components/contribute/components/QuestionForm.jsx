@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Dropdown } from "./Dropdown";
 import InputField from "./InputField";
 import FileUpload from "./FileUpload";
+import getAllTopics from "../../../utils/getAllTopics";
+import getAllModules from "../../../utils/getAllModules";
+import upload from "../../../utils/upload";
+import newRequest from "../../../utils/newRequest";
 
 const QuestionForm = () => {
   const [formData, setFormData] = useState({
@@ -21,29 +25,73 @@ const QuestionForm = () => {
     questionFormChoice3Image: null,
     questionFormChoice4Image: null,
   });
-  const [error, setError] = useState(null);
 
+  const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const handleSubmit = (e) => {
+
+  const config_header = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Do something with the form data
+
+      let questionFormQuestionImage = null;
+      let questionFormChoice1Image = null;
+      let questionFormChoice2Image = null;
+      let questionFormChoice3Image = null;
+      let questionFormChoice4Image = null;
+
+      if(formData.questionFormQuestionImage) questionFormQuestionImage = await upload(formData.questionFormQuestionImage);
+      if(formData.questionFormChoice1Image) questionFormChoice1Image = await upload(formData.questionFormChoice1Image);
+      if(formData.questionFormChoice2Image) questionFormChoice2Image = await upload(formData.questionFormChoice2Image);
+      if(formData.questionFormChoice3Image) questionFormChoice3Image = await upload(formData.questionFormChoice3Image);
+      if(formData.questionFormChoice4Image) questionFormChoice4Image = await upload(formData.questionFormChoice4Image);
+  
+      const res = await newRequest.post(
+        "/question/addQuestions",
+        {
+          topicTitle : formData.questionFormTopicName,
+          moduleTitle : formData.questionFormModuleName,
+          questionID : formData.questionFormQuestionID,
+          questionText : formData.questionFormQuestionText,
+          choice1Text : formData.questionFormChoice1Text,
+          choice2Text : formData.questionFormChoice2Text,
+          choice3Text : formData.questionFormChoice3Text,
+          choice4Text : formData.questionFormChoice4Text,
+          correctChoice : formData.questionFormCorrectChoice,
+          questionImageURL : questionFormQuestionImage,
+          choice1ImageURL : questionFormChoice1Image,
+          choice2ImageURL : questionFormChoice2Image,
+          choice3ImageURL : questionFormChoice3Image,
+          choice4ImageURL : questionFormChoice4Image
+        },
+        config_header
+      );
+      //onsole.log(formData);
       setSuccess(true);
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
         setError("An error occurred");
+        console.log(error);
       }
     }
     console.log(formData);
   };
+
+
   const handleInputChange = (field, value) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [field]: value,
     }));
   };
+
   useEffect(() => {
     const clearMessages = () => {
       setError(null);
@@ -56,21 +104,29 @@ const QuestionForm = () => {
     }
   }, [error, success]);
 
+  //All Topics from local storage
+  const allTopics = getAllTopics();
+  const topicTitles = allTopics.map((item) => item.topicTitle);
+  
+  //All Modules from local storage
+  const allModules = getAllModules();
+  const moduleTitles = allModules.map((item) => item.moduleTitle);
+
   return (
     <>
       <form onSubmit={handleSubmit}>
         <Dropdown
           id={"select-topic-for-question"}
           label={"Select Topic"}
-          values={["Alphabets"]}
+          values={topicTitles}
           onValueChange={(value) =>
-            handleInputChange("questionFormModuleName", value)
+            handleInputChange("questionFormTopicName", value)
           }
         />
         <Dropdown
           id={"select-module-for-question"}
           label={"Select Module"}
-          values={["Module One: A, B & C"]}
+          values={moduleTitles}
           onValueChange={(value) =>
             handleInputChange("questionFormModuleName", value)
           }
