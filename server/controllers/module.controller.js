@@ -32,3 +32,15 @@ export const addModule = async (req, res, next) => {
     console.log(err);
   }
 };
+
+export const getAllModules = async (req, res, next) => {
+  try {
+    //all topics
+    const modules = await Module.find({});
+
+    res.status(200).send(modules);
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+};
