@@ -14,13 +14,22 @@ export const Card = ({ topic_name, modules }) => {
         <h5 className="mb-1 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
           {topic_name}
         </h5>
-        {isOpen && modules && (
-          <span>
-            {modules.map((module) => (
-              <SubCard key={module.moduleID} module_name={module.moduleTitle} />
-            ))}
-          </span>
-        )}
+        {isOpen &&
+          (modules ? (
+            <span>
+              {modules.map((module) => (
+                <SubCard
+                  key={module.moduleID}
+                  module_name={module.moduleTitle}
+                  module_exist={true}
+                />
+              ))}
+            </span>
+          ) : (
+            <>
+              <SubCard module_name={"Modules under this topic is not available yet"} module_exist={false}/>
+            </>
+          ))}
       </div>
     </motion.div>
   );
