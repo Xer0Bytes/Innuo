@@ -13,6 +13,7 @@ export const Dropdown = ({
     if (selectedValue == "Add Topic") setTopicValue("topic");
     else if (selectedValue == "Add Module") setTopicValue("module");
     else if (selectedValue == "Add Question") setTopicValue("question");
+    else if (selectedValue == "Add Lesson") setTopicValue("lesson");
     else onValueChange(event.target.value);
   };
   return (
