@@ -39,6 +39,7 @@ const ModuleForm = () => {
         },
         config_header
       );
+      localStorage.setItem("allModules", JSON.stringify(res.data));
       setSuccess(true);
       // console.log(res.data);
       //localStorage.setItem("allModules", JSON.stringify(res.data));
