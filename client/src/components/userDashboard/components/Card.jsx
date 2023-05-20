@@ -4,7 +4,6 @@ import SubCard from "./SubCard";
 
 export const Card = ({ topic_name, modules }) => {
   const [isOpen, setIsOpen] = useState(false);
-  console.log(modules);
   return (
     <motion.div
       className=" pt-4 pb-1 ml-[16em] lg:ml-0"
