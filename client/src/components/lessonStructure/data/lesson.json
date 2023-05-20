@@ -1,14 +1,14 @@
 [
     {
-        "title":"This is the symbol for 'A'",
-        "img" :"../assets/A.jpg"
+        "lessonText":"This is the symbol for 'A'",
+        "lessonImageURL" :"https://www.wikihow.com/images/thumb/8/86/Learn-American-Sign-Language-Step-8-Version-7.jpg/550px-nowatermark-Learn-American-Sign-Language-Step-8-Version-7.jpg.webp"
     },
     {
-        "title":"This is the symbol for 'B'",
-        "img" :"../assets/B.png"
+        "lessonText":"This is the symbol for 'B'",
+        "img" :"https://www.wikihow.com/images/thumb/8/86/Learn-American-Sign-Language-Step-8-Version-7.jpg/550px-nowatermark-Learn-American-Sign-Language-Step-8-Version-7.jpg.webp"
     },
     {
-        "title":"This is the symbol for 'C'",
-        "img" :"../assets/C.png"
+        "lessonText":"This is the symbol for 'C'",
+        "lessonImageURL" :"https://www.wikihow.com/images/thumb/8/86/Learn-American-Sign-Language-Step-8-Version-7.jpg/550px-nowatermark-Learn-American-Sign-Language-Step-8-Version-7.jpg.webp"
     }
 ]
