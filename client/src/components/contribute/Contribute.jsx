@@ -13,7 +13,7 @@ export const Contribute = () => {
       <Sidebar activePage={"Contribute"} />
       <div className="move_left">
         <div className="p-4">
-          <div className="p-4 border-2 items-center border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-3 w-3/4 mx-auto items-center">
+          <div className="p-4 border-2 items-center border-dashed rounded-lg border-gray-700 mt-3 w-3/4 mx-auto items-center">
             <div className="text-6xl text-[#FA9BAF] font-bold w-full text-center text-uppercase mb-8">
               {formType === "topic" && "Add Topic Form"}
               {formType === "module" && "Add Module Form"}
