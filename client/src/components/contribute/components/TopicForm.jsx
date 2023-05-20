@@ -29,11 +29,8 @@ const TopicForm = () => {
     // Do something with the form data
     try {
       const res = await newRequest.post(
-        "/topic/contribute",
-        {
-          topicID: formData.topicFormTopicID,
-          topicTitle: formData.topicFormTopicName,
-        },
+        "/topic/contribute", { topicID: formData.topicFormTopicID, topicTitle: formData.topicFormTopicName},
+
         config_header
       );
       console.log(res.data);
@@ -45,6 +42,7 @@ const TopicForm = () => {
       } else {
         // console.log(err);
         setError("An error occurred during database insertion.");
+
       }
     }
     console.log(formData);
