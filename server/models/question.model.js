@@ -1,42 +1,31 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
+import Choice from './choice.model.js';
 
-const userSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  verifiedEmail: {
-    type: Boolean,
-    default: false
-  },
-  experiencePoints: {
+const questionSchema = new Schema({
+  questionID: {
     type: Number,
-    default: 0
+    required: true,
+    unique: true,
   },
-  pfpLink: {
+  questionText: {
     type: String,
-    required: false
+    required: false,
   },
-  achieved: {
-    type: [Number],
-    default: undefined
+  questionImageURL: {
+    type: String,
+    required: false,
   },
-  modulesCompleted: {
-    type: [Number],
-    default: undefined
+  choices: {
+    type: [Choice.schema],
+    default: undefined,
   },
+  correctChoice: {
+    type: Number,
+    required: true,
+  }
 }, {
     timestamps: true
 });
 
-export default mongoose.model("User", userSchema)
+export default mongoose.model("Question", questionSchema)
