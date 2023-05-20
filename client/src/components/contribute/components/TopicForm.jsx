@@ -25,9 +25,11 @@ const TopicForm = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log("topic submit hoise");
     e.preventDefault();
     // console.log(formData);
     // Do something with the form data
+    console.log("frontend function e dhukse");
     try {
       const res = await newRequest.post(
         "/topic/contribute",
@@ -68,7 +70,7 @@ const TopicForm = () => {
   
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id="topic-form">
         <InputField
           id={"topic-id"}
           label={"Topic ID"}

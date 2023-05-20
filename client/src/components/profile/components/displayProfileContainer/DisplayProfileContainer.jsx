@@ -1,5 +1,6 @@
 import React from "react";
 import getCurrentUser from "../../../../utils/getCurrentUser";
+import avatar from '../../../userDashboard/assets/avatar.jpg'
 const Container = () => {
   const currentUser = getCurrentUser();
 
@@ -14,7 +15,7 @@ const Container = () => {
                   <div className="relative">
                     <img
                       alt="..."
-                      src= {currentUser.pfpLink ||"https://demos.creative-tim.com/notus-js/assets/img/team-2-800x800.jpg"}
+                      src= {currentUser.pfpLink ||avatar}
                       className="shadow-xl rounded-full w-[150px] h-[150px] align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
                     />
                   </div>
