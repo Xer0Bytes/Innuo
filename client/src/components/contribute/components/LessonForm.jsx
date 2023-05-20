@@ -4,6 +4,8 @@ import InputField from "./InputField";
 import FileUpload from "./FileUpload";
 import getAllTopics from "../../../utils/getAllTopics";
 import getAllModules from "../../../utils/getAllModules";
+import newRequest from "../../../utils/newRequest";
+import upload from "../../../utils/upload";
 
 const LessonForm = () => {
   const [formData, setFormData] = useState({
@@ -15,14 +17,26 @@ const LessonForm = () => {
     lessonFormLessonImage: null,
   });
 
+  // const handleInputChange = (field, value) => {
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     [field]: value,
+  //   }));
+  //   console.log(formData.lessonFormTopicName);
+  // };
+
   const handleInputChange = (field, value) => {
+    let fieldValue = value;
+    if (value && value.target) {
+      fieldValue = value.target.value; // Extract value from event object
+    }
+  
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [field]: value,
+      [field]: fieldValue,
     }));
-    console.log(formData.lessonFormTopicName);
   };
-
+  
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
 
@@ -31,16 +45,45 @@ const LessonForm = () => {
     console.log(formData);
   };
 
-  const handleSubmit = (e) => {
+  const config_header = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Do something with the form data
+      console.log(formData.lessonFormLessonImage);
+
+      //const url = await upload(formData.lessonFormLessonImage);
+      const url = "waiting for cloudinary configuration...";
+      console.log(url);
+
+      //handle and convert it into base 64
+
+
+      const res = await newRequest.post(
+        "/module/lesson",
+        {
+          topicTitle : formData.lessonFormTopicName,
+          moduleTitle : formData.lessonFormModuleName,
+          lessonID : formData.lessonFormLessonID,
+          lessonText : formData.lessonFormLessonText,
+          lessonImageURL : url,
+        },
+        config_header
+      );
+      console.log(formData);
       setSuccess(true);
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
         setError("An error occurred");
+        console.log(err);
       }
     }
     console.log(formData);
