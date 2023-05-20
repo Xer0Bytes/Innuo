@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import TestImg from "../assets/test.gif";
 
 function MCQFormat({
@@ -8,11 +8,11 @@ function MCQFormat({
   allowSelectOption,
 }) {
   function selectTheOption(index) {
-    if (allowSelectOption == true) 
+    if (allowSelectOption == true)
       setOptionSelected(index);
   }
   return (
-    <div className="main">
+    <form className="main">
       <div className="title">
         {/* insert condition here instead of 1 ================================ */}
         {1 ? (
@@ -49,7 +49,7 @@ function MCQFormat({
           );
         })}
       </div>
-    </div>
+    </form>
   );
 }
 
