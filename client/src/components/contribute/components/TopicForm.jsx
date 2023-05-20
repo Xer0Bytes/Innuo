@@ -1,5 +1,7 @@
 import React, {useState}  from "react";
 import InputField from "./InputField";
+import newRequest from "../../../utils/newRequest";
+import { useNavigate } from "react-router-dom";
 
 const TopicForm = () => {
     const [formData, setFormData] = useState({
@@ -7,9 +9,41 @@ const TopicForm = () => {
     topicFormTopicID: "",
     topicFormTopicName: "",
   });
-  const handleSubmit = (e) => {
-    event.preventDefault();
+  const [error, setError] = useState(null);
+  const handleInputChange = (field, value) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [field]: value,
+    }));
+  };
+  const navigate=useNavigate();
+  const config_header = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // console.log(formData);
     // Do something with the form data
+    try {
+      const res = await newRequest.post(
+        "/topic/contribute",
+        { topicID: formData.topicFormTopicID, topicTitle: formData.topicFormTopicName },
+        config_header
+      );
+      console.log(res.data);
+      localStorage.setItem("allTopics", JSON.stringify(res.data));
+      navigate("/contribute");
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        // console.log(err);
+        setError("An error occurred during login.");
+      }
+    }
     console.log(formData);
   };
   return (
