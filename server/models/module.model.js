@@ -6,6 +6,7 @@ const moduleSchema = new Schema({
   moduleID: {
     type: Number,
     required: true,
+    unique: true,
   },
   moduleTitle: {
     type: String,
@@ -13,6 +14,10 @@ const moduleSchema = new Schema({
   },
   lessons: {
     type: [Lesson.schema],
+    default: undefined,
+  },
+  questions: {
+    type: [Number],
     default: undefined,
   }
 }, {
