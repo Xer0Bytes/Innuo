@@ -5,6 +5,7 @@ const lessonSchema = new Schema({
   lessonID: {
     type: Number,
     required: true,
+    unique: true,
   },
   lessonText: {
     type: String,
