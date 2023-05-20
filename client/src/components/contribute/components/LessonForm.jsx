@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Dropdown } from "./Dropdown";
 import InputField from "./InputField";
 import FileUpload from "./FileUpload";
+import getAllTopics from "../../../utils/getAllTopics";
+import getAllModules from "../../../utils/getAllModules";
 
 const LessonForm = () => {
   const [formData, setFormData] = useState({
@@ -18,10 +20,16 @@ const LessonForm = () => {
       ...prevFormData,
       [field]: value,
     }));
+    console.log(formData.lessonFormTopicName);
   };
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
+
+  const getValues = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,21 +58,52 @@ const LessonForm = () => {
     }
   }, [error, success]);
 
+  // var currTopic = "Alphabet";
+  // console.log(currTopic);
+  // var moduleTitles = [];
+
+  // useEffect(() => {
+  //   currTopic = formData.lessonFormTopicName;
+  //   console.log(currTopic);
+
+  //   //Find related modules
+  //   const currTopicObject = allTopics.find(
+  //     (item) => item.topicTitle === currTopic
+  //   );
+  //   console.log(currTopicObject);
+
+  //   if (currTopicObject) {
+  //     moduleTitles = currTopicObject.modules.map((item) => item.moduleTitle);
+  //     console.log(moduleTitles);
+  //   } else {
+  //     console.log("Topic not found");
+  //   }
+
+  // }, [formData.lessonFormTopicName]);
+
+  //All Topics from local storage
+  const allTopics = getAllTopics();
+  const topicTitles = allTopics.map((item) => item.topicTitle);
+  
+  const allModules = getAllModules();
+  const moduleTitles = allModules.map((item) => item.moduleTitle);
+
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onChange={getValues}>
         <Dropdown
           id={"select-topic-for-lesson"}
           label={"Select Topic"}
-          values={["Alphabets"]}
-          onValueChange={(value) =>
-            handleInputChange("lessonFormTopicName", value)
-          }
+          defaultValue={topicTitles[0]}
+          values={topicTitles}
+          onValueChange={(value) => {
+            handleInputChange("lessonFormTopicName", value);
+          }}
         />
         <Dropdown
           id={"select-module-for-lesson"}
           label={"Select Module"}
-          values={["Module One: A, B & C"]}
+          values={moduleTitles}
           onValueChange={(value) =>
             handleInputChange("lessonFormModuleName", value)
           }
