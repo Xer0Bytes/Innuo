@@ -17,13 +17,7 @@ const LessonForm = () => {
     lessonFormLessonImage: null,
   });
 
-  // const handleInputChange = (field, value) => {
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     [field]: value,
-  //   }));
-  //   console.log(formData.lessonFormTopicName);
-  // };
+  
 
   const handleInputChange = (field, value) => {
     let fieldValue = value;
