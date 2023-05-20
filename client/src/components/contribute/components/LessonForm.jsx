@@ -58,8 +58,7 @@ const LessonForm = () => {
     try {
       console.log(formData.lessonFormLessonImage);
 
-      //const url = await upload(formData.lessonFormLessonImage);
-      const url = "waiting for cloudinary configuration...";
+      const url = await upload(formData.lessonFormLessonImage);
       console.log(url);
 
       //handle and convert it into base 64
@@ -83,7 +82,6 @@ const LessonForm = () => {
         setError(err.response.data.message);
       } else {
         setError("An error occurred");
-        console.log(err);
       }
     }
     console.log(formData);

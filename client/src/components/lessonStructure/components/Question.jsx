@@ -8,6 +8,8 @@ function Question({
   totalQuestions,
   currentProgress,
   setAnswer,
+  userExp,
+  setUserExp
 }) {
   const timer = useRef(null);
   const [selectedOption, setSelectedOption] = useState(null); //select an option
