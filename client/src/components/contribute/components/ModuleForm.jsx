@@ -8,7 +8,7 @@ import getAllTopics from "../../../utils/getAllTopics";
 const ModuleForm = () => {
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
-    moduleFormTopicName: "",
+    moduleFormTopicName: "Alphabets",
     moduleFormModuleID: "",
     moduleFormModuleName: "",
   });
@@ -28,6 +28,7 @@ const ModuleForm = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log("module submit hoise");
     e.preventDefault();
     try {
       const res = await newRequest.post(
@@ -73,7 +74,7 @@ const ModuleForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id="module-form">
         <Dropdown
           id={"select-topic-for-module"}
           label={"Select Topic"}
