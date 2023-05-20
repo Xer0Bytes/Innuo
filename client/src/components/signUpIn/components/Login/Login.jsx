@@ -33,6 +33,14 @@ const Login = () => {
         config_header
       );
       localStorage.setItem("allTopics", JSON.stringify(resTopic.data));
+
+      const resModule = await newRequest.post(
+        "/module/getModules",
+        {},
+        config_header
+      );
+      localStorage.setItem("allModules", JSON.stringify(resModule.data));
+
       navigate("/userDashboard");
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
