@@ -4,7 +4,7 @@ import SubCard from "./SubCard";
 
 export const Card = ({ topic_name, modules }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  console.log(modules);
   return (
     <motion.div
       className=" pt-4 pb-1 ml-[16em] lg:ml-0"
@@ -14,7 +14,7 @@ export const Card = ({ topic_name, modules }) => {
         <h5 className="mb-1 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
           {topic_name}
         </h5>
-        {isOpen && (
+        {isOpen && modules && (
           <span>
             {modules.map((module) => (
               <SubCard key={module.moduleID} module_name={module.moduleTitle} />
