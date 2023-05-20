@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
+import Lesson from './lesson.model.js';
 
 const moduleSchema = new Schema({
   moduleID: {
@@ -10,6 +11,10 @@ const moduleSchema = new Schema({
     type: String,
     required: true,
   },
+  lessons: {
+    type: [Lesson.schema],
+    default: undefined,
+  }
 }, {
     timestamps: true
 });

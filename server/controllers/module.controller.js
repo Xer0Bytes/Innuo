@@ -1,5 +1,6 @@
 import Topic from "../models/topic.model.js";
 import Module from "../models/module.model.js";
+import createError from '../utils/createError.js'
 
 export const addModule = async (req, res, next) => {
   try {
@@ -39,6 +40,37 @@ export const getAllModules = async (req, res, next) => {
     const modules = await Module.find({});
 
     res.status(200).send(modules);
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+};
+
+export const addLesson = async (req, res, next) => {
+  try {
+
+    const topic = await Topic.findOne({topicTitle: req.body.topicTitle,
+      "modules.moduleTitle": req.body.moduleTitle});
+
+    if(!topic) {
+      return next(createError(420, "No such modules exist in that topic."));
+    }
+
+    const module = await Module.findOneAndUpdate(
+      {moduleTitle: req.body.moduleTitle},
+      {
+        $push: {
+          lessons: [
+            { lessonID: req.body.lessonID, lessonText: req.body.lessonText, lessonImageURL: req.body.lessonImageURL },
+          ],
+        },
+      },
+      { new: true }
+    );
+
+    console.log(module);
+
+    res.status(201).send("Successfully added");
   } catch (err) {
     next(err);
     console.log(err);
