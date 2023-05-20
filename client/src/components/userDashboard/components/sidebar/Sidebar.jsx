@@ -4,14 +4,16 @@ import { SidebarData } from "./SidebarData.js";
 import "./Sidebar.css";
 import logo from "../../assets/logo.png";
 import { AiFillFileAdd } from "react-icons/ai";
+import getCurrentUer from '../../../../utils/getCurrentUser.js'
 
-const Sidebar = ({ activePage, isContributer }) => {
+const Sidebar = ({ activePage}) => {
+  const currentUser = getCurrentUer();
   const handleLogout = () => {
     localStorage.removeItem("token");
   };
-
+  console.log(currentUser.isContributer);
   const modifiedSidebarData = [...SidebarData];
-  if (isContributer === "true") {
+  if (currentUser.isContributer === true) {
     const contributeItem = {
       title: "Contribute",
       path: "/contribute",
