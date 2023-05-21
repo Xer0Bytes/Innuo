@@ -2,14 +2,19 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import SubCard from "./SubCard";
 import getAllModules from "../../../utils/getAllModules.js";
+import getCurrentUser from "../../../utils/getCurrentUser";
 
 export const Card = ({ topic_name, modules }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const allModules = getAllModules();
+  const currentUser = getCurrentUser();
   const filteredModules = allModules.filter((module) =>
     modules.find((item) => item.moduleID === module.moduleID)
   );
+const completedModules = currentUser.modulesCompleted ? currentUser.modulesCompleted : ""; //array of module id
+  console.log(completedModules);
+
   return (
     <motion.div
       className=" pt-4 mb-6 pb-1 ml-[16em] lg:ml-0"
@@ -28,8 +33,8 @@ export const Card = ({ topic_name, modules }) => {
                   module_name={module.moduleTitle}
                   module_id={module.moduleID}
                   module_exist={true}
-                  has_questions = {module.questions?.length>0}
-                  bg_color={0 ? "white" : "green-300"}
+                  has_questions={module.questions?.length > 0}
+                  bg_color={completedModules.includes(module.moduleID) ? "green-300" : "white"}
                 />
               ))}
             </span>
