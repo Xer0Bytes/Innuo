@@ -5,7 +5,7 @@ import Lesson from "./Lesson";
 import getCurrentQuizData from "../../../utils/getCurrentQuizData.js";
 //fetch the question and lessons here based on the module name???===================
 
-function QuizScreen({ expSystem, retry, userExp, setUserExp }) {
+function QuizScreen({ expSystem, retry, userExp, setUserExp, previousExp }) {
   const currentQuizData = getCurrentQuizData();
   const LessonList = currentQuizData[0];
   const QuestionList = currentQuizData[1];
@@ -40,7 +40,7 @@ function QuizScreen({ expSystem, retry, userExp, setUserExp }) {
       {isQuestionEnd && isLessonEnd ? (
         <QuizResult
           userExp={userExp}
-          
+          previousExp ={previousExp}
           result={calculatedResult()}
           retry={retry}
         />
