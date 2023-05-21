@@ -2,17 +2,48 @@ import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import createError from "../utils/createError.js";
+import sendEmail from "../utils/sendEmail.js";
 
 export const register = async (req, res, next) => {
   try {
-    const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+    const { name, email, password } = req.body;
+
+    const nameRegex = /^[a-zA-Z\s]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+
+    if (!passwordRegex.test(password)) {
+      // Password format is invalid
+      return res.status(400).send("Invalid password format");
+    }
+
+    if (!nameRegex.test(name)) {
+      // Name format is invalid
+      return res.status(400).send("Invalid name format");
+    }
+
+    if (!emailRegex.test(email)) {
+      // Email format is invalid
+      return res.status(400).send("Invalid email format");
+    }
+    const hashedPassword = bcrypt.hashSync(password, 10);
+
     const newUser = new User({
-      ...req.body,
+      name: name,
+      email: email,
+      isContributer: req.body.isContributer,
       password: hashedPassword,
     });
 
-    await newUser.save();
-    res.status(201).send("User has been created!");
+    const res = await newUser.save();
+
+    const user = await User.findOne({email: email});
+
+    const emailToken = "84cf232a0d16867b4269b3d4c6e79f04";
+    const verifyEmail = `http://localhost:5173/user/${user._id}/verify/${emailToken}`;
+    const resEmail = await sendEmail(user.email, "Verify Email", verifyEmail);
+
+    res.status(201).send(resEmail);
   } catch (err) {
     next(err);
     console.log(err);
