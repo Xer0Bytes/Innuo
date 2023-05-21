@@ -35,41 +35,89 @@ const QuestionForm = () => {
     },
   };
 
+  //measure upload progress of each picture field
+  const [questionImgUploadProgress, setQuestionImgUploadProgress] = useState(0);
+  const [isQuestionImgUploading, setIsQuestionImgUploading] = useState(false);
+  const [choice1ImgUploadProgress, setChoice1ImgUploadProgress] = useState(0);
+  const [isChoice1ImgUploading, setIsChoice1ImgUploading] = useState(false);
+  const [choice2ImgUploadProgress, setChoice2ImgUploadProgress] = useState(0);
+  const [isChoice2ImgUploading, setIsChoice2ImgUploading] = useState(false);
+  const [choice3ImgUploadProgress, setChoice3ImgUploadProgress] = useState(0);
+  const [isChoice3ImgUploading, setIsChoice3ImgUploading] = useState(false);
+  const [choice4ImgUploadProgress, setChoice4ImgUploadProgress] = useState(0);
+  const [isChoice4ImgUploading, setIsChoice4ImgUploading] = useState(false);
   const handleSubmit = async (e) => {
-    
-    console.log("question submit hoise");
     e.preventDefault();
+    const onQuestionProgress = (progressQuestion) => {
+      setQuestionImgUploadProgress(progressQuestion);
+    };
+    const onChoice1Progress = (progressChoice1) => {
+      setChoice1ImgUploadProgress(progressChoice1);
+    };
+    const onChoice2Progress = (progressChoice2) => {
+      setChoice2ImgUploadProgress(progressChoice2);
+    };
+    const onChoice3Progress = (progressChoice3) => {
+      setChoice3ImgUploadProgress(progressChoice3);
+    };
+    const onChoice4Progress = (progressChoice4) => {
+      setChoice4ImgUploadProgress(progressChoice4);
+    };
     try {
-
       let questionFormQuestionImage = null;
       let questionFormChoice1Image = null;
       let questionFormChoice2Image = null;
       let questionFormChoice3Image = null;
       let questionFormChoice4Image = null;
 
-      if(formData.questionFormQuestionImage) questionFormQuestionImage = await upload(formData.questionFormQuestionImage);
-      if(formData.questionFormChoice1Image) questionFormChoice1Image = await upload(formData.questionFormChoice1Image);
-      if(formData.questionFormChoice2Image) questionFormChoice2Image = await upload(formData.questionFormChoice2Image);
-      if(formData.questionFormChoice3Image) questionFormChoice3Image = await upload(formData.questionFormChoice3Image);
-      if(formData.questionFormChoice4Image) questionFormChoice4Image = await upload(formData.questionFormChoice4Image);
-  
+      if (formData.questionFormQuestionImage) {
+        setIsQuestionImgUploading(true);
+        questionFormQuestionImage = await upload(
+          formData.questionFormQuestionImage, onQuestionProgress
+        );
+      }
+      if (formData.questionFormChoice1Image) {
+        setIsChoice1ImgUploading(true);
+        questionFormChoice1Image = await upload(
+          formData.questionFormChoice1Image, onChoice1Progress
+        );
+      }
+      if (formData.questionFormChoice2Image) {
+        setIsChoice2ImgUploading
+        questionFormChoice2Image = await upload(
+          formData.questionFormChoice2Image, onChoice2Progress
+        );
+      }
+      if (formData.questionFormChoice3Image) {
+        setIsChoice3ImgUploading
+        questionFormChoice3Image = await upload(
+          formData.questionFormChoice3Image, onChoice3Progress
+        );
+      }
+      if (formData.questionFormChoice4Image) {
+        setIsChoice4ImgUploading
+        questionFormChoice4Image = await upload(
+          formData.questionFormChoice4Image, onChoice4Progress
+        );
+      }
+
       const res = await newRequest.post(
         "/question/addQuestions",
         {
-          topicTitle : formData.questionFormTopicName,
-          moduleTitle : formData.questionFormModuleName,
-          questionID : formData.questionFormQuestionID,
-          questionText : formData.questionFormQuestionText,
-          choice1Text : formData.questionFormChoice1Text,
-          choice2Text : formData.questionFormChoice2Text,
-          choice3Text : formData.questionFormChoice3Text,
-          choice4Text : formData.questionFormChoice4Text,
-          correctChoice : formData.questionFormCorrectChoice,
-          questionImageURL : questionFormQuestionImage,
-          choice1ImageURL : questionFormChoice1Image,
-          choice2ImageURL : questionFormChoice2Image,
-          choice3ImageURL : questionFormChoice3Image,
-          choice4ImageURL : questionFormChoice4Image
+          topicTitle: formData.questionFormTopicName,
+          moduleTitle: formData.questionFormModuleName,
+          questionID: formData.questionFormQuestionID,
+          questionText: formData.questionFormQuestionText,
+          choice1Text: formData.questionFormChoice1Text,
+          choice2Text: formData.questionFormChoice2Text,
+          choice3Text: formData.questionFormChoice3Text,
+          choice4Text: formData.questionFormChoice4Text,
+          correctChoice: formData.questionFormCorrectChoice,
+          questionImageURL: questionFormQuestionImage,
+          choice1ImageURL: questionFormChoice1Image,
+          choice2ImageURL: questionFormChoice2Image,
+          choice3ImageURL: questionFormChoice3Image,
+          choice4ImageURL: questionFormChoice4Image,
         },
         config_header
       );
@@ -85,7 +133,6 @@ const QuestionForm = () => {
     }
     console.log(formData);
   };
-
 
   const handleInputChange = (field, value) => {
     setFormData((prevFormData) => ({
@@ -109,7 +156,7 @@ const QuestionForm = () => {
   //All Topics from local storage
   const allTopics = getAllTopics();
   const topicTitles = allTopics.map((item) => item.topicTitle);
-  
+
   //All Modules from local storage
   const allModules = getAllModules();
   const moduleTitles = allModules.map((item) => item.moduleTitle);
@@ -156,6 +203,9 @@ const QuestionForm = () => {
             handleInputChange("questionFormQuestionImage", file)
           }
         />
+        {isQuestionImgUploading && (
+          <div className="ml-8 my-2">Upload Progress: {questionImgUploadProgress}%</div>
+        )}
         <InputField
           id={"Choice1-text"}
           label={"Choice 1 Text"}
@@ -170,6 +220,9 @@ const QuestionForm = () => {
             handleInputChange("questionFormChoice1Image", file)
           }
         />
+        {isChoice1ImgUploading && (
+          <div className="ml-8 my-2">Upload Progress: {choice1ImgUploadProgress}%</div>
+        )}
         <InputField
           id={"Choice2-text"}
           label={"Choice 2 Text"}
@@ -184,6 +237,9 @@ const QuestionForm = () => {
             handleInputChange("questionFormChoice2Image", file)
           }
         />
+        {isChoice2ImgUploading && (
+          <div className="ml-8 my-2">Upload Progress: {choice2ImgUploadProgress}%</div>
+        )}
         <InputField
           id={"Choice3-text"}
           label={"Choice 3 Text"}
@@ -198,6 +254,9 @@ const QuestionForm = () => {
             handleInputChange("questionFormChoice3Image", file)
           }
         />
+        {isChoice3ImgUploading && (
+          <div className="ml-8 my-2">Upload Progress: {choice3ImgUploadProgress}%</div>
+        )}
         <InputField
           id={"Choice4-text"}
           label={"Choice 4 Text"}
@@ -212,6 +271,9 @@ const QuestionForm = () => {
             handleInputChange("questionFormChoice4Image", file)
           }
         />
+        {isChoice4ImgUploading && (
+          <div className="ml-8 my-2">Upload Progress: {choice4ImgUploadProgress}%</div>
+        )}
         <Dropdown
           id={"correct-choice"}
           label={"Correct Choice"}

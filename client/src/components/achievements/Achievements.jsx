@@ -41,7 +41,7 @@ const Achievements = () => {
           <AchievementCard
             title={"Started Journey"}
             description={"Complete first lesson successfully!"}
-            image={firstStep}
+            // image={firstStep}
           />
         </div>
       </div>

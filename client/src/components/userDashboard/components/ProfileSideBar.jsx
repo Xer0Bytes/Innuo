@@ -14,7 +14,7 @@ const ProfileSideBar = () => {
         <img
           alt="profile picture"
           src= {currentUser.pfpLink ||avatar}
-          className="shadow-xl mt-6 rounded-full w-[150px] h-[150px] align-middle border-none max-w-[150px]"
+          className="shadow-3xl bg-white mt-6 rounded-full w-[150px] h-[150px] align-middle border-none max-w-[150px]"
         />
       </div>
 
