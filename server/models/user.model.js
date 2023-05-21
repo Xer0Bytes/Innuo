@@ -39,6 +39,10 @@ const userSchema = new Schema({
     type: Boolean,
     default: false
   },
+  difficulty: {
+    type: String,
+    default: "beginner",
+  },
 }, {
     timestamps: true
 });
