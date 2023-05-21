@@ -1,8 +1,8 @@
 import express from "express";
-import { deleteUser } from "../controllers/user.controller.js";
+import { getAllAch } from "../controllers/achievement.controller.js";
 
 const router = express.Router();
 
-router.get("/test", deleteUser)
+router.post("/getAllAch", getAllAch)
 
 export default router;
