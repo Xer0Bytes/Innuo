@@ -10,7 +10,7 @@ export const Card = ({ topic_name, modules }) => {
       onClick={() => setIsOpen(!isOpen)}
     >
       <div className="bg-[#B7EDDF] min-w-[50em] cursor-default p-3 border border-gray-200 rounded-lg shadow shadow-lg">
-        <h5 className="mb-1 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <h5 className="mb-1 text-xl font-bold tracking-tight text-gray-900 ">
           {topic_name}
         </h5>
         {isOpen &&
