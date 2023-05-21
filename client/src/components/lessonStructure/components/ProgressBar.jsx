@@ -19,7 +19,7 @@ function ProgressBar({ width }) {
           className="w-[2em] text-2xl ml-2"
         /></span>
 
-        <span className="w-[92%] bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 m-auto">
+        <span className="w-[92%] bg-gray-200 rounded-full h-2.5 m-auto">
           <div
             className="bg-[#FED885] h-2.5 rounded-full"
             style={{ width: `${width}%` }}
