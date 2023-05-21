@@ -4,20 +4,20 @@ import ProgressBar from "./ProgressBar";
 import MCQFormat from "./MCQFormat";
 
 function Question({
+  expSystem,
   question,
   totalQuestions,
   currentProgress,
   setAnswer,
   userExp,
-  setUserExp
+  setUserExp,
 }) {
-  console.log(" eita question component e ashche");
-  
   const timer = useRef(null);
   const [selectedOption, setSelectedOption] = useState(null); //select an option
   const [answerCorrect, setAnswerCorrect] = useState(false); //check answer
   const [showCheckedAnswer, setShowCheckedAnswer] = useState(false); //show the checked answer message
   const [allowSelectOption, setAllowSelectOption] = useState(true); //disable/enable option selection
+
 
   useEffect(() => {
     // Reset states when the question prop (parameter passed to this component) changes
@@ -43,9 +43,29 @@ function Question({
     setSelectedOption(null);
   }
 
+  function updateExp() {
+    let updatedExp;
+    if (
+      (selectedOption != question.correctChoice - 1) ||
+      (selectedOption === null)
+    ) {
+      updatedExp = userExp - expSystem.wrongPoints;
+      setUserExp(Number(updatedExp));
+    } else {
+      updatedExp = userExp + expSystem.correctPoints;
+      setUserExp(Number(updatedExp));
+    }
+
+    // console.log("update howar pore: " + updatedExp); //update occuring
+  };
+
+
   //on click of check button
   function checkAnswerButtonClick() {
-    if (selectedOption != (question.correctChoice)-1 | selectedOption === null) {
+    if (
+      (selectedOption != question.correctChoice - 1) |
+      (selectedOption === null)
+    ) {
       setAnswerCorrect(false);
     } else {
       setAnswerCorrect(true);
@@ -63,7 +83,7 @@ function Question({
   return (
     <div className="question">
       <ProgressBar
-        width={((currentProgress) / totalQuestions) * 100}
+        width={(currentProgress / totalQuestions) * 100}
         className="quiz_progress"
       />
       <div className="question_content">
@@ -77,6 +97,7 @@ function Question({
         <div className="control">
           {!showCheckedAnswer && (
             <button
+            type="button"
               className="quiz_next_btn"
               onClick={() => {
                 checkAnswerButtonClick();
@@ -93,8 +114,10 @@ function Question({
               <div className="ml-4">
                 <button
                   className="quiz_next_btn"
+                  type="button"
                   onClick={() => {
                     nextButtonClick();
+                    updateExp();
                   }}
                 >
                   Next
@@ -110,8 +133,10 @@ function Question({
               <div className="ml-4">
                 <button
                   className="quiz_next_btn"
+                  type="button"
                   onClick={() => {
                     nextButtonClick();
+                    updateExp();
                   }}
                 >
                   Next
