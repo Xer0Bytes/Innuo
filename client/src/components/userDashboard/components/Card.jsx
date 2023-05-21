@@ -10,7 +10,7 @@ export const Card = ({ topic_name, modules }) => {
   const allModules = getAllModules();
   const currentUser = getCurrentUser();
   const filteredModules = allModules.filter((module) =>
-    modules.find((item) => item.moduleID === module.moduleID)
+    allModules.find((item) => item.moduleID === module.moduleID)
   );
   const completedModules = currentUser.modulesCompleted
     ? currentUser.modulesCompleted

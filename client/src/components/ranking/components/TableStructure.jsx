@@ -4,7 +4,6 @@ import getCurrentUser from '../../../utils/getCurrentUser'
 const TableData = ({rank, name, xp, id}) => {
   const currentUser = getCurrentUser();
   const isCurrentUser = currentUser._id === id;
-  console.log(isCurrentUser);
   return (
     <tr>
       <th className={`border-t-0 px-6 align-middle ${isCurrentUser ? 'font-bold text-2xl text-[#F5946B] ' : ''} border-l-0 border-r-0 whitespace-nowrap p-4 text-left text-blueGray-700 `}>

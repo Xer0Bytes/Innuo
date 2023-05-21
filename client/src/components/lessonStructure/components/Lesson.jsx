@@ -15,12 +15,12 @@ const Lesson = ({ lesson, currLessonIndex, changeIndex, total }) => {
         <div className="question_content">
           <div className="main">
             <div className="title">
-              <span className="m-4">
+              <span className="m-2">
                 <p className="text-[#333] text-bold text-[1.6em]">
                   {lesson.lessonText}
                 </p>
                 <div className="flex items-center ">
-                  <img src={lesson.lessonImageURL} className="mx-auto min-w-[260px] rounded-lg" />
+                  <img src={lesson.lessonImageURL} className="mx-auto w-[370px] rounded-lg" />
                 </div>
               </span>
             </div>
