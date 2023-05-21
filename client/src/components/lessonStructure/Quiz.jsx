@@ -1,21 +1,40 @@
-import { useState } from 'react'
-import { useParams } from 'react-router-dom'
-import './Quiz.css'
-import QuizScreen from './components/QuizScreen'
-import JoinScreen from './components/JoinScreen'
-
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import "./Quiz.css";
+import QuizScreen from "./components/QuizScreen";
+import JoinScreen from "./components/JoinScreen";
+import getExp from "../../utils/getExp";
+import getCurrentUser from "../../utils/getCurrentUser";
 function Quiz() {
   const { module_name } = useParams();
   const [isQuizStarted, setIsQuizStarted] = useState(false);
-  const[userExp, setUserExp] = useState(0);
+  const currentUser = getCurrentUser();
+  const [userExp, setUserExp] = useState(currentUser.experiencePoints);
+  // setUserExp(([prevExp, isWrong]) => {
+  //   const updatedExp = isWrong
+  //     ? prevExp - expSystem.wrongPoints
+  //     : prevExp + expSystem.correctPoints;
+  //   console.log("current xp: " + updatedExp);
+  //   return updatedExp;
+  // });
+  // console.log("og exp is " + userExp);
+  const exp = getExp();
   return (
     <>
-      <div className="quiz-container"> 
-      {/* no css for quiz-container  */}
+      <div className="quiz-container">
+        {/* no css for quiz-container  */}
         {isQuizStarted ? (
-          <QuizScreen module_name={module_name} xpPoints= {15} userExp={userExp} setUserExp={setUserExp} retry={() => setIsQuizStarted(false)} />
+          <QuizScreen
+            expSystem={exp}
+            userExp={userExp}
+            setUserExp={setUserExp}
+            retry={() => setIsQuizStarted(false)}
+          />
         ) : (
-          <JoinScreen module_name={module_name} start={() => setIsQuizStarted(true)} />
+          <JoinScreen
+            module_name={module_name}
+            start={() => setIsQuizStarted(true)}
+          />
         )}
       </div>
     </>

@@ -1,7 +1,12 @@
 import LottiePlayer from "react-lottie-player";
 import endQuizAnimation from "../assets/astronautResultScreen.json";
 
-function QuizResult({ result, xpPoints, retry }) {
+function QuizResult({
+  userExp,
+  retry,
+}) {
+
+  //WRITE THE FUNCTION
   return (
     <div className="result-screen overflow-y-hidden	">
       <LottiePlayer
@@ -11,7 +16,7 @@ function QuizResult({ result, xpPoints, retry }) {
         className="w-[30em]"
       />
       <span className="-mt-[8em]">
-        <h2 className="text-2xl">You earned +{xpPoints} XP!</h2>
+        <h2 className="text-2xl">You earned +{userExp} XP!</h2>
         <button onClick={retry} className="quiz_retry_btn mt-12">
           Next
         </button>
