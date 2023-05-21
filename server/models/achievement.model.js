@@ -1,42 +1,30 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
-  name: {
-    type: String,
-    required: true
+const achievementSchema = new Schema({
+  achieveID: {
+    type: Number,
+    required: true,
+    unique: true,
   },
-  email: {
+  achieveTitle: {
     type: String,
     required: true,
-    unique: true
   },
-  password: {
+  achieveDesc: {
     type: String,
-    required: true
+    required: false,
   },
-  verifiedEmail: {
-    type: Boolean,
-    default: false
+  achieveImageURL: {
+    type: String,
+    default: false,
   },
-  experiencePoints: {
+  achieveCondition: {
     type: Number,
-    default: 0
-  },
-  pfpLink: {
-    type: String,
-    required: false
-  },
-  achieved: {
-    type: [Number],
-    default: undefined
-  },
-  modulesCompleted: {
-    type: [Number],
-    default: undefined
+    default: 0,
   },
 }, {
     timestamps: true
 });
 
-export default mongoose.model("User", userSchema)
+export default mongoose.model("Achievement", achievementSchema)
