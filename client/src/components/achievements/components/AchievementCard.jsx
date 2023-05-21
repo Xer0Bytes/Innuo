@@ -9,12 +9,13 @@ const AchievementCard = ({
   border_color,
   title_color,
   description_color,
+  isCompleted
 }) => {
   return (
     <div
       className={`flex flex-col items-center bg-white border border-${border_color} rounded-lg shadow md:flex-row md:max-w-md hover:bg-gray-100`}
     >
-      {image ? (
+      {isCompleted ? (
         <img
           className="w-[180px] p-1 rounded-t-lg  md:rounded-lg md:rounded-l-lg"
           src={image}
@@ -26,7 +27,7 @@ const AchievementCard = ({
           animationData={lockedAchievementAnimation}
           play
           speed={0.8}
-          className="w-[180px]"
+          className="w-[220px]"
         />
       )}
       <div className="ml-2 flex flex-col justify-between p-4 leading-normal">

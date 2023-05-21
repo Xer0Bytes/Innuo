@@ -48,6 +48,9 @@ const Login = () => {
       );
       localStorage.setItem("allAch", JSON.stringify(resAch.data));
 
+      const resRanking = await newRequest.post("/user/ranking", {}, config_header);
+      localStorage.setItem("ranking", JSON.stringify(resRanking.data));
+
 
       navigate("/userDashboard");
     } catch (err) {

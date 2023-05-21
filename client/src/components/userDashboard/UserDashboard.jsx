@@ -18,7 +18,6 @@ export const UserDashboard = () => {
     },
   };
 
-
   useEffect(() => {
     setLocalStorage(currentUser._id);
     const setUserExp = async () => {
@@ -29,13 +28,20 @@ export const UserDashboard = () => {
           { difficulty: currentUser.difficulty },
           config_header
         );
-        
+
         localStorage.setItem("exp", JSON.stringify(resExp.data));
+
+
+        
+
+        // const res = await newRequest.post("/user/ranking", {}, config_header);
+
+        // localStorage.setItem("ranking", JSON.stringify(res.data));
       } catch (err) {
         if (err.response && err.response.data && err.response.data.message) {
           setError(err.response.data.message);
         } else {
-          setError("An error occurred during login.");
+          setError("An error occurred during setting exp.");
           console.log(err);
         }
       }

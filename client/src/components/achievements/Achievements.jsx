@@ -3,10 +3,13 @@ import AchievementCard from "./components/AchievementCard";
 import Sidebar from "../userDashboard/components/sidebar/Sidebar";
 import PageHeader from "./components/PageHeader";
 import AnimatedAchievement from "./assets/animatedAchievement.json";
-import getAllAch from '../../utils/getAllAch.js';
+import getAllAch from "../../utils/getAllAch.js";
+import getCurrentUser from "../../utils/getCurrentUser";
 
 const Achievements = () => {
   const allAchievements = getAllAch();
+  const currentUser = getCurrentUser();
+  const userAchievements = currentUser.achieved;
   return (
     <>
       <Sidebar activePage={"Achievements"} />
@@ -19,24 +22,32 @@ const Achievements = () => {
         />
 
         <div className="flex flex-wrap gap-4 justify-center pt-4"></div>
-        {/* ) : (
-        <>
-          <AchievementCard
-            module_name={"Modules under this topic is not available yet"}
-            module_exist={false}
-          />
-        </>
-        )) */}
         <div className="flex flex-wrap gap-4 justify-center pt-4">
           {allAchievements.map((achievement) => (
             <AchievementCard
               key={achievement.achieveID}
               title={achievement.achieveTitle}
               description={achievement.achieveDesc}
+              isCompleted = {userAchievements.includes(achievement.achieveID)}
               image={achievement.achieveimageURL}
-              border_color={"grey-200"}
-              title_color={"grey-700"}
-              description_color={"grey-500"}
+              border_color={
+                userAchievements.includes(achievement.achieveID)
+                  ? "gray-500"
+                  : "gray-200"
+              }
+              title_color={
+                userAchievements.includes(achievement.achieveID)
+                  ? "gray-700"
+                  : "gray-300"
+              }
+              description_color={
+                userAchievements.includes(achievement.achieveID)
+                  ? "gray-500"
+                  : "gray-200"
+              } 
+              // border_color={"grey-200"}
+              // title_color={"grey-700"}
+              // description_color={"grey-500"}
             />
           ))}
         </div>
