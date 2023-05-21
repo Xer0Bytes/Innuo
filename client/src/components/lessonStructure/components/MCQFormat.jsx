@@ -9,7 +9,6 @@ function MCQFormat({
   function selectTheOption(index) {
     if (allowSelectOption == true) setOptionSelected(index);
   }
-  console.log(currQuestion + " eita mcq component e ashche");
   return (
     <form className="main">
       <div className="title">

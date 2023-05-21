@@ -1,21 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import QuizResult from "./QuizResult";
 import Question from "./Question";
 import Lesson from "./Lesson";
-import getCurrentQuizData from '../../../utils/getCurrentQuizData.js';
+import getCurrentQuizData from "../../../utils/getCurrentQuizData.js";
 //fetch the question and lessons here based on the module name???===================
 
-function QuizScreen({ module_name, xpPoints, retry, userExp, setUserExp }) {
+function QuizScreen({ expSystem, retry, userExp, setUserExp }) {
   const currentQuizData = getCurrentQuizData();
   const LessonList = currentQuizData[0];
   const QuestionList = currentQuizData[1];
-  // console.log(currentQuizData[0]);
-
 
   // import question array, lesson
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const isLessonEnd = currentLessonIndex === LessonList.length;
-  console.log("lesson length: " + LessonList.length);
+  // console.log("lesson length: " + LessonList.length);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [markedAnswers, setMarkedAnswers] = useState(
     new Array(QuestionList.length)
@@ -41,8 +39,8 @@ function QuizScreen({ module_name, xpPoints, retry, userExp, setUserExp }) {
     <div className="quiz-screen">
       {isQuestionEnd && isLessonEnd ? (
         <QuizResult
-          xpPoints={xpPoints}
           userExp={userExp}
+          
           result={calculatedResult()}
           retry={retry}
         />
@@ -63,6 +61,7 @@ function QuizScreen({ module_name, xpPoints, retry, userExp, setUserExp }) {
                 });
                 setCurrentQuestionIndex(currentQuestionIndex + 1);
               }}
+              expSystem={expSystem}
               userExp={userExp}
               setUserExp={setUserExp}
             />
