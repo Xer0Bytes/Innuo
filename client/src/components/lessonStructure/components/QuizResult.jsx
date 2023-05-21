@@ -31,8 +31,11 @@ function QuizResult({
           { updateExp: userExp-5, moduleID: module_id },
           config_header
         );
+
+        
     
         localStorage.setItem("currentUser", JSON.stringify(res.data));
+        localStorage.removeItem("currentQuizData");
 
       } catch (err) {
         if (err.response && err.response.data && err.response.data.message) {
