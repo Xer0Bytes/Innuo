@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import "./signup.css";
 import register from "../../assets/register.svg";
 import { motion } from "framer-motion";
+import newRequest from "../../../../utils/newRequest.js";
 
 const Signup = () => {
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
+    confirmPassword:"",
+    isContributor: false,
   });
   const [error, setError] = useState("");
   const [msg, setMsg] = useState("");
@@ -18,19 +21,35 @@ const Signup = () => {
     setData({ ...data, [input.name]: input.value });
   };
 
+  const config_header = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:7000/api/users";
-      const { data: res } = await axios.post(url, data);
-      setMsg(res.message);
+      const res = await newRequest.post(
+        "auth/register",
+        {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          isContributor: data.isContributor
+        },
+        config_header
+      );
+        console.log(res);
+      setMsg("Successful");
+
     } catch (error) {
       if (
         error.response &&
         error.response.status >= 400 &&
         error.response.status <= 500
       ) {
-        setError(error.response.data.message);
+        setError("An error has occurred.");
       }
     }
   };
@@ -101,9 +120,9 @@ const Signup = () => {
               <input
                 type="password"
                 placeholder="Confirm Password"
-                name="password"
-                // onChange={handleChange}
-                // value={data.password}
+                name="confirmPassword"
+                onChange={handleChange}
+                value={data.confirmPassword}
                 required
                 className={"signup_input"}
               />
@@ -115,9 +134,11 @@ const Signup = () => {
                   <input
                     id="horizontal-list-radio-license"
                     type="radio"
-                    value="Learner"
-                    name="list-radio"
+                    value={data.isContributor}
+                    onChange={handleChange}
+                    name="isContributor"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
+                    checked
                   />
                   <label
                     for="horizontal-list-radio-license"
@@ -132,8 +153,9 @@ const Signup = () => {
                   <input
                     id="horizontal-list-radio-id"
                     type="radio"
-                    value="Contributor"
-                    name="list-radio"
+                    value={data.isContributor}
+                    onChange={handleChange}
+                    name="isContributor"
                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 "
                   />
                   <label
