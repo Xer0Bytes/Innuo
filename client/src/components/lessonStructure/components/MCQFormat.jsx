@@ -1,5 +1,4 @@
 import React from "react";
-import TestImg from "../assets/test.gif";
 
 function MCQFormat({
   currQuestion,
@@ -11,15 +10,16 @@ function MCQFormat({
     if (allowSelectOption == true)
       setOptionSelected(index);
   }
+  console.log(currQuestion + " eita mcq component e ashche");
   return (
     <form className="main">
       <div className="title">
         {/* insert condition here instead of 1 ================================ */}
         {1 ? (
           <span>
-            <p>{currQuestion.title}</p>
+            <p>{currQuestion.questionText}</p>
             <span className="question-img">
-              <img src={TestImg} className="w-[200px] rounded-lg"/>
+              <img src={currQuestion.questionImageURL} className="w-[200px] rounded-lg"/>
             </span>
           </span>
         ) : (
@@ -27,7 +27,7 @@ function MCQFormat({
         )}
       </div>
       <div className="options">
-        {currQuestion.options.map((option, index) => {
+        {currQuestion.choices.map((choice, index) => {
           return (
             <div
               className={index == selectedOption ? "option active" : "option"}
@@ -37,9 +37,9 @@ function MCQFormat({
               {/* insert condition here instead of 1 ================================ */}
               {1 ? (
                 <span>
-                  {option}
+                  {choice.choiceText}
                   <div className="option-img">
-                    <img src={TestImg} className="w-[200px] rounded-lg"/>
+                    <img src={choice.choiceImageURL} className="w-[200px] rounded-lg"/>
                   </div>
                 </span>
               ) : (

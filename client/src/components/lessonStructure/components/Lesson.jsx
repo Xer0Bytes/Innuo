@@ -1,5 +1,4 @@
 import React from "react";
-import A from "../assets/A.jpg";
 import ProgressBar from "./ProgressBar";
 
 const Lesson = ({ lesson, currLessonIndex, changeIndex, total }) => {
