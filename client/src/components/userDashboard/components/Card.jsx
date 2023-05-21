@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import SubCard from "./SubCard";
+import getAllModules from "../../../utils/getAllModules.js";
 
 export const Card = ({ topic_name, modules }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const allModules = getAllModules();
+  const filteredModules = allModules.filter((module) =>
+    modules.find((item) => item.moduleID === module.moduleID)
+  );
   return (
     <motion.div
       className=" pt-4 mb-6 pb-1 ml-[16em] lg:ml-0"
@@ -14,23 +20,25 @@ export const Card = ({ topic_name, modules }) => {
           {topic_name}
         </h5>
         {isOpen &&
-          (modules ? (
+          (filteredModules ? (
             <span>
-              {modules.map((module) => (
+              {filteredModules.map((module) => (
                 <SubCard
                   key={module.moduleID}
                   module_name={module.moduleTitle}
-                  module_id ={module.moduleID}
+                  module_id={module.moduleID}
                   module_exist={true}
-                  // has_questions = {module.questions?.length>0}
-                  has_questions = {true}
-                  bg_color={0 ? 'white' : 'green-300'}
+                  has_questions = {module.questions?.length>0}
+                  bg_color={0 ? "white" : "green-300"}
                 />
               ))}
             </span>
           ) : (
             <>
-              <SubCard module_name={"Modules under this topic is not available yet"} module_exist={false}/>
+              <SubCard
+                module_name={"Modules under this topic is not available yet"}
+                module_exist={false}
+              />
             </>
           ))}
       </div>
