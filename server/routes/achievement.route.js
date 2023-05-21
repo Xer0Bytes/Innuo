@@ -1,8 +1,9 @@
 import express from "express";
-import { getAllAch } from "../controllers/achievement.controller.js";
+import { getAllAch, areYaWinningSon } from "../controllers/achievement.controller.js";
 
 const router = express.Router();
 
-router.post("/getAllAch", getAllAch)
+router.post("/getAllAch", getAllAch);
+router.post("/userAchievement/:id", areYaWinningSon);
 
 export default router;
