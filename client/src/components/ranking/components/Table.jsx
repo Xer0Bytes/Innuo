@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import TableStructure from "./TableStructure";
 import Search from "./Search";
-import TableData from "./TableData.json";
+import BeginnerTableData from './BeginnerTableData.json'
 
 const Table = () => {
-  const [filteredData, setFilteredData] = useState(TableData);
+  const [filteredData, setFilteredData] = useState(BeginnerTableData);
   const handleSearch = (filteredData) => {
     setFilteredData(filteredData);
   };
@@ -20,7 +20,7 @@ const Table = () => {
               >
                 Ranking
               </h1> */}
-              <Search data={TableData} setData={handleSearch}/>
+              <Search data={BeginnerTableData} setData={handleSearch}/>
             </div>
           </div>
         </div>
@@ -47,7 +47,7 @@ const Table = () => {
                   <TableStructure rank={index + 1} user={entry.user} xp={entry.exp} />
                   <tr>
                     <td colSpan="3">
-                    {index !== TableData.length - 1 && ( <hr className="border-t border-gray-300" />)}
+                    {index !== BeginnerTableData.length - 1 && ( <hr className="border-t border-gray-300" />)}
                       
                     </td>
                   </tr>

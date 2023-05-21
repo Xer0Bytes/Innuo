@@ -3,10 +3,10 @@ import AchievementCard from "./components/AchievementCard";
 import Sidebar from "../userDashboard/components/sidebar/Sidebar";
 import PageHeader from "./components/PageHeader";
 import AnimatedAchievement from "./assets/animatedAchievement.json";
-import firstStep from "./assets/firstStep.png";
-import achievements from "../../../../server/utils/achievement.json";
+import getAllAch from '../../utils/getAllAch.js';
 
 const Achievements = () => {
+  const allAchievements = getAllAch();
   return (
     <>
       <Sidebar activePage={"Achievements"} />
@@ -28,7 +28,7 @@ const Achievements = () => {
         </>
         )) */}
         <div className="flex flex-wrap gap-4 justify-center pt-4">
-          {achievements.map((achievement) => (
+          {allAchievements.map((achievement) => (
             <AchievementCard
               key={achievement.achieveID}
               title={achievement.achieveTitle}
