@@ -30,3 +30,15 @@ export const updateUser = async (req, res, next) => {
     console.log(err);
   }
 };
+
+export const getAllUsers = async (req, res, next) => {
+  try {
+    //all users
+    const users = await User.find({}, { name: 1, experiencePoints: 1, difficulty: 1 });
+
+    res.status(200).send(users);
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+};
