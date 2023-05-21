@@ -41,6 +41,14 @@ const Login = () => {
       );
       localStorage.setItem("allModules", JSON.stringify(resModule.data));
 
+      const resAch = await newRequest.post(
+        "/achievement/getAllAch",
+        {},
+        config_header
+      );
+      localStorage.setItem("allAch", JSON.stringify(resAch.data));
+
+
       navigate("/userDashboard");
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
