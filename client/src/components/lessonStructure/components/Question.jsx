@@ -11,6 +11,8 @@ function Question({
   userExp,
   setUserExp
 }) {
+  console.log(" eita question component e ashche");
+  
   const timer = useRef(null);
   const [selectedOption, setSelectedOption] = useState(null); //select an option
   const [answerCorrect, setAnswerCorrect] = useState(false); //check answer
@@ -43,7 +45,7 @@ function Question({
 
   //on click of check button
   function checkAnswerButtonClick() {
-    if (selectedOption != question.correctOptionIndex | selectedOption === null) {
+    if (selectedOption != (question.correctChoice)-1 | selectedOption === null) {
       setAnswerCorrect(false);
     } else {
       setAnswerCorrect(true);
@@ -103,7 +105,7 @@ function Question({
           {!answerCorrect && showCheckedAnswer && (
             <div className="flex items-center bg-red-300 p-4 rounded w-full">
               <div className="flex-grow text-left  pl-5 text-[#333] text-bold rounded-[7px]  text-[1.6em]">
-                {/* Correct answer is {Number(question.correctOptionIndex)+1} */}
+                Correct answer is {Number(question.correctChoice)}
               </div>
               <div className="ml-4">
                 <button
