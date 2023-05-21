@@ -8,7 +8,8 @@ import getCurrentUser from "../../../utils/getCurrentUser";
 function QuizResult({
   userExp,
   retry,
-  previousExp
+  previousExp,
+  module_id
 }) {
   //console.log(userExp);
 
@@ -27,7 +28,7 @@ function QuizResult({
       
         const res = await newRequest.post(
           `/quiz/updateExp/${currentUser._id}`,
-          { updateExp: userExp-5 },
+          { updateExp: userExp-5, moduleID: module_id },
           config_header
         );
     

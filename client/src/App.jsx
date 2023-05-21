@@ -24,7 +24,7 @@ function App() {
         <Route path="/register" element={<Signup />}></Route>
 
         {user && <Route path="/userDashboard" exact element={<Dashboard />} />}
-        {user && <Route path="/quiz/:module_name" exact element={<Quiz />} />}
+        {user && <Route path="/quiz/:module_name/:module_id" exact element={<Quiz />} />}
         {user && <Route path="/ranking" exact element={<Ranking />} />}
         {user && (
           <Route path="/achievements" exact element={<Achievements />} />
