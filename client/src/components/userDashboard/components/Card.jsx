@@ -20,6 +20,7 @@ export const Card = ({ topic_name, modules }) => {
                 <SubCard
                   key={module.moduleID}
                   module_name={module.moduleTitle}
+                  module_id ={module.moduleID}
                   module_exist={true}
                   // has_questions = {module.questions?.length>0}
                   has_questions = {true}

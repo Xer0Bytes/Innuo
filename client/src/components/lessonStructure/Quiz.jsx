@@ -7,6 +7,7 @@ import getExp from "../../utils/getExp";
 import getCurrentUser from "../../utils/getCurrentUser";
 function Quiz() {
   const { module_name } = useParams();
+  const {module_id} =useParams();
   const [isQuizStarted, setIsQuizStarted] = useState(false);
   const currentUser = getCurrentUser();
   const [userExp, setUserExp] = useState(currentUser.experiencePoints);
@@ -24,6 +25,7 @@ function Quiz() {
             setUserExp={setUserExp}
             retry={() => setIsQuizStarted(false)}
             previousExp={previousExp}
+            module_id={module_id}
           />
         ) : (
           <JoinScreen
