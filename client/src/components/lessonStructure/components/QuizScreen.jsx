@@ -1,15 +1,21 @@
-import { useState } from "react";
-import QuestionList from "../data/questions.json";
-import LessonList from "../data/lesson.json";
+import { useState, useEffect } from "react";
 import QuizResult from "./QuizResult";
 import Question from "./Question";
 import Lesson from "./Lesson";
+import getCurrentQuizData from '../../../utils/getCurrentQuizData.js';
 //fetch the question and lessons here based on the module name???===================
 
 function QuizScreen({ module_name, xpPoints, retry, userExp, setUserExp }) {
+  const currentQuizData = getCurrentQuizData();
+  const LessonList = currentQuizData[0];
+  const QuestionList = currentQuizData[1];
+  // console.log(currentQuizData[0]);
+
+
   // import question array, lesson
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const isLessonEnd = currentLessonIndex === LessonList.length;
+  console.log("lesson length: " + LessonList.length);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [markedAnswers, setMarkedAnswers] = useState(
     new Array(QuestionList.length)
