@@ -1,0 +1,17 @@
+[
+    {
+        "difficulty" : "beginner",
+        "correctPoints" : 50,
+        "wrongPoints" : 5
+    },
+    {
+        "difficulty" : "intermediate",
+        "correctPoints" : 100,
+        "wrongPoints" : 20
+    },
+    {
+        "difficulty" : "advanced",
+        "correctPoints" : 200,
+        "wrongPoints" : 50
+    }
+]
