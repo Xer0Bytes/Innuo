@@ -15,7 +15,7 @@ const achievementSchema = new Schema({
     type: String,
     required: false,
   },
-  achieveImageURL: {
+  achieveimageURL: {
     type: String,
     default: false,
   },
