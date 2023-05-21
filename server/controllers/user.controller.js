@@ -42,3 +42,15 @@ export const getAllUsers = async (req, res, next) => {
     console.log(err);
   }
 };
+
+export const getCurrentUser = async(req, res, next) => {
+  try {
+    //all users
+    const user = await User.findById(req.body.id);
+
+    res.status(200).send(user);
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+};

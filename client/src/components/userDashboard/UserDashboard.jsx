@@ -6,6 +6,7 @@ import PageHeader from "../achievements/components/PageHeader";
 import AnimatedAstronautDashboard from "./assets/astronautDashboard.json";
 import getCurrentUser from "../../utils/getCurrentUser";
 import newRequest from "../../utils/newRequest";
+import setLocalStorage from "../../utils/setLocalStorage";
 
 export const UserDashboard = () => {
   const currentUser = getCurrentUser();
@@ -17,8 +18,9 @@ export const UserDashboard = () => {
     },
   };
 
-  useEffect(() => {
 
+  useEffect(() => {
+    setLocalStorage(currentUser._id);
     const setUserExp = async () => {
       try {
         // console.log(currentUser.difficulty);
@@ -27,7 +29,7 @@ export const UserDashboard = () => {
           { difficulty: currentUser.difficulty },
           config_header
         );
-        // console.log("User experience set: " + resExp.data.correctPoints);
+        
         localStorage.setItem("exp", JSON.stringify(resExp.data));
       } catch (err) {
         if (err.response && err.response.data && err.response.data.message) {
