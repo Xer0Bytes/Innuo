@@ -1,11 +1,11 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-const SubCard = ({module_name, module_exist, has_questions, bg_color}) => {
+const SubCard = ({module_name, module_id, module_exist, has_questions, bg_color}) => {
   let link;
 
   if (module_exist) {
-    link = has_questions? `/quiz/${module_name}`: `/userDashboard`;
+    link = has_questions? `/quiz/${module_name}/${module_id}`: `/userDashboard`;
   } else {
     link = '/userDashboard';
   }
