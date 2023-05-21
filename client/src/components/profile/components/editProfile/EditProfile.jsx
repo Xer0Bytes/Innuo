@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import getCurrentUser from "../../../../utils/getCurrentUser";
 import "./editProfile.css";
 
 const EditProfile = () => {
+  const currentUser = getCurrentUser();
   const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [showForm, setShowForm] = useState(false);
@@ -41,7 +42,9 @@ const EditProfile = () => {
       <div className="w-[80%] mr-auto ml-auto block rounded-[10px] bg-white p-8 pt-4 pb-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.2),0_10px_20px_-2px_rgba(0,0,0,0.04)] ">
         <span className="text-bold grid grid-cols-3 mb-2">
           <div className="col-span-2 my-auto">
-            <span className="text-2xl font-bold ">Edit Your Profile Details</span>
+            <span className="text-2xl font-bold ">
+              Edit Your Profile Details
+            </span>
           </div>
           {showEditProfileButton && (
             <button
@@ -83,9 +86,7 @@ const EditProfile = () => {
                       <span className="font-semibold">Click to upload</span> or
                       drag and drop
                     </p>
-                    <p className="text-xs text-gray-500">
-                      PNG/JPG
-                    </p>
+                    <p className="text-xs text-gray-500">PNG/JPG</p>
                   </div>
 
                   <input
@@ -121,7 +122,7 @@ const EditProfile = () => {
                   <input
                     type="text"
                     onChange={handleChange}
-                    defaultValue="Nafisa"
+                    defaultValue={currentUser.name}
                     //=================GIVE THE USERNAME IN THE DEFFAULT VALUE FIELD!!!!!!!!===========
                     className=" text-md editprofile_input text-[#333] peer block w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none"
                   />
@@ -130,7 +131,9 @@ const EditProfile = () => {
 
               {/* <!--Email input--> */}
               <div className="grid grid-cols-3 gap-1 ">
-                <div className="mt-auto mb-auto col-span-1 text-xl">Email Address</div>
+                <div className="mt-auto mb-auto col-span-1 text-xl">
+                  Email Address
+                </div>
                 <div
                   className="relative mb-6 input-field col-span-2"
                   data-te-input-wrapper-init
@@ -138,10 +141,27 @@ const EditProfile = () => {
                   <input
                     type="text"
                     className="text-md cursor-not-allowed editprofile_input text-[grey] peer block w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none"
-                    defaultValue="nafisamaliyat@iut-dhaka.edu"
+                    defaultValue={currentUser.email}
                     onChange={handleChange}
                   />
                 </div>
+              </div>
+
+              {/* difficulty selection  */}
+              <div className="grid grid-cols-3 gap-1 mb-4 mt-3">
+                <div className="mt-auto mb-auto col-span-1 text-xl">
+                  Difficulty
+                </div>
+                <select
+                  id="countries"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                >
+                  <option value="beginner" selected>
+                    Beginner
+                  </option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
               </div>
 
               {/* <!--Submit button--> */}
