@@ -21,7 +21,8 @@ export const Card = ({ topic_name, modules }) => {
                   key={module.moduleID}
                   module_name={module.moduleTitle}
                   module_exist={true}
-                  has_questions = {module.questions?.length>0}
+                  // has_questions = {module.questions?.length>0}
+                  has_questions = {true}
                   bg_color={0 ? 'white' : 'green-300'}
                 />
               ))}

@@ -10,14 +10,8 @@ function Quiz() {
   const [isQuizStarted, setIsQuizStarted] = useState(false);
   const currentUser = getCurrentUser();
   const [userExp, setUserExp] = useState(currentUser.experiencePoints);
-  // setUserExp(([prevExp, isWrong]) => {
-  //   const updatedExp = isWrong
-  //     ? prevExp - expSystem.wrongPoints
-  //     : prevExp + expSystem.correctPoints;
-  //   console.log("current xp: " + updatedExp);
-  //   return updatedExp;
-  // });
-  // console.log("og exp is " + userExp);
+  const previousExp = currentUser.experiencePoints;
+  
   const exp = getExp();
   return (
     <>
@@ -29,6 +23,7 @@ function Quiz() {
             userExp={userExp}
             setUserExp={setUserExp}
             retry={() => setIsQuizStarted(false)}
+            previousExp={previousExp}
           />
         ) : (
           <JoinScreen
