@@ -12,10 +12,10 @@ const PopUp = ({message, button1Text, button2Text, setModalVisibility }) => {
       >
         <div className="fixed inset-0 bg-[#9DC3C2] opacity-50 backdrop-blur-sm"></div>
         <div className="relative w-full max-w-md max-h-full">
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <div className="relative bg-white rounded-lg shadow">
             <button
               type="button"
-              className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-[#77A6B6] hover:text-gray-900 rounded-lg text-lg p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+              className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-[#77A6B6] hover:text-gray-900 rounded-lg text-lg p-1.5 ml-auto inline-flex items-center "
               data-modal-hide="popup-modal"
               onClick={() => {
                 setModalVisibility(false);
@@ -37,7 +37,7 @@ const PopUp = ({message, button1Text, button2Text, setModalVisibility }) => {
             </button>
             <div className="p-6 text-center">
               <svg
-                className="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200"
+                className="mx-auto mb-4 text-gray-400 w-14 h-14"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -50,14 +50,14 @@ const PopUp = ({message, button1Text, button2Text, setModalVisibility }) => {
                   d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 ></path>
               </svg>
-              <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+              <h3 className="mb-5 text-lg font-normal text-gray-500 ">
                {message}
               </h3>
               <Link to="/userDashboard">
                 <button
                   data-modal-hide="popup-modal"
                   type="button"
-                  className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-lg inline-flex items-center px-5 py-2.5 text-center mr-2"
+                  className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-lg inline-flex items-center px-5 py-2.5 text-center mr-2"
                 >
                  {button1Text}
                 </button>
@@ -65,7 +65,7 @@ const PopUp = ({message, button1Text, button2Text, setModalVisibility }) => {
               <button
                 data-modal-hide="popup-modal"
                 type="button"
-                className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-lg font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-lg font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 "
                 onClick={() => {
                   setModalVisibility(false);
                 }}
