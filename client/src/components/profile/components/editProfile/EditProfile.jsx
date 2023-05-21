@@ -1,23 +1,22 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import getCurrentUser from "../../../../utils/getCurrentUser";
 import "./editProfile.css";
 import upload from "../../../../utils/upload";
 import newRequest from "../../../../utils/newRequest";
 import FileUpload from "../../../contribute/components/FileUpload";
-import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
   const currentUser = getCurrentUser();
-  const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [showEditProfileButton, setshowEditProfileButton] = useState(true);
-  const [image, setImage] = useState(null);
 
-  // const handleChange = ({ currentTarget: input }) => {
-  //   setData({ ...data, [input.name]: input.value });
-  // };
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
+
+ 
 
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
@@ -46,16 +45,6 @@ const EditProfile = () => {
     setShowForm(true); // set visibility of form to true
     setshowEditProfileButton(false);
   };
-
-  // const handleFileInputChange = (event) => {
-  //   const file = event.target.files[0];
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onloadend = () => {
-  //     setImage(reader.result);
-  //   };
-  // };
-
   function handleClearForm() {
     document.querySelector(".editprofile_form").reset();
     setShowForm(false);
@@ -68,16 +57,30 @@ const EditProfile = () => {
     },
   };
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const clearMessages = () => {
+      setError(null);
+      setSuccess(false);
+    };
+    if(success) 
+      window.location.reload();
+    if (error || success) {
+      const timer = setTimeout(clearMessages, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error, success]);
   // handleSubmit function define for the form
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    // console.log("formData is");
-    // console.log(formData);
+    const onProgress = (progress) => {
+      setUploadProgress(progress);
+    };
     let url = null;
 
-    if (formData.editProfileImage)
-      url = await upload(formData.editProfileImage);
+    if (formData.editProfileImage) {
+      setIsUploading(true);
+      url = await upload(formData.editProfileImage, onProgress);
+    }
     console.log("url korte parse: " + url);
 
     try {
@@ -94,9 +97,11 @@ const EditProfile = () => {
 
       localStorage.setItem("currentUser", JSON.stringify(res.data));
       console.log(res);
-      handleClearForm();
-      window.location.reload();
-      // navigate("/profile");
+      setSuccess(true);
+      console.log(success);
+
+      document.querySelector(".editprofile_form").reset();
+      setIsUploading(false);
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
@@ -135,68 +140,6 @@ const EditProfile = () => {
               onSubmit={handleOnSubmit}
               id="edit-profile"
             >
-              {/* upload photo  */}
-              {/* <div className="flex items-center justify-center w-full"> */}
-              {/* <label
-                  htmlFor="dropzone-file"
-                  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
-                > */}
-              {/* <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg
-                      aria-hidden="true"
-                      className="w-10 h-10 mb-3 text-gray-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                      ></path>
-                    </svg>
-                    <p className="mb-2 text-sm text-gray-500 ">
-                      <span className="font-semibold">Click to upload</span> or
-                      drag and drop
-                    </p>
-                    <p className="text-xs text-gray-500">PNG/JPG</p>
-                  </div> */}
-
-              {/* <input
-                    id="dropzone-file"
-                    type="file"
-                    accept="image/*"
-                    name="editProfileImages"
-                    onChange={handleChange}
-                    // className="hidden"
-                  /> */}
-              {/* </label> */}
-              {/* </div> */}
-
-              <FileUpload
-                id={"user-image"}
-                label={"User Image"}
-                onFileChange={(file) =>
-                  handleInputChange("editProfileImage", file)
-                }
-              />
-
-              {image && (
-                <span className="mb-2">
-                  <div className=" px-4 lg:order-2 flex justify-center">
-                    <div className="relative">
-                      <img
-                        alt="..."
-                        src={image}
-                        className="shadow-xl rounded-full h-[150px] w-[150px] align-middle border-none mt-2 mb-2 max-w-[150px]"
-                      />
-                    </div>
-                  </div>
-                </span>
-              )}
-
               <div className="grid grid-cols-3 gap-1">
                 <div className=" mt-auto mb-auto col-span-1  text-xl">Name</div>
                 <div
@@ -238,22 +181,54 @@ const EditProfile = () => {
                 </div>
                 <select
                   id="difficulty"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   defaultValue={currentUser.difficulty}
                   onChange={(event) =>
                     handleChange(event.target.value, "editProfileDifficulty")
                   }
                 >
-                  <option value="beginner" selected>
-                    Beginner
-                  </option>
+                  <option value="beginner">Beginner</option>
                   <option value="intermediate">Intermediate</option>
                   <option value="advanced">Advanced</option>
                 </select>
               </div>
 
+              <div className="grid grid-cols-3 gap-1 mt-2">
+                <div className="my-auto col-span-1  text-xl">Upload photo</div>
+                <div className="relative col-span-2" data-te-input-wrapper-init>
+                  <FileUpload
+                    id={"user-image"}
+                    onFileChange={(file) =>
+                      handleInputChange("editProfileImage", file)
+                    }
+                    width="[3/4]"
+                    marginLeft="0"
+                  />
+                </div>
+              </div>
+              {isUploading && (
+                <div className="text-center">
+                  Upload Progress: {uploadProgress}%
+                </div>
+              )}
+
               {/* <!--Submit button--> */}
               <div className="w-full mr-auto ml-auto text-md text-center mt-2">
+                {error && (
+                  <div className="flex items-center bg-red-300 p-4 mb-3 rounded w-full">
+                    <div className="flex-grow text-left  pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
+                      {error}
+                    </div>
+                  </div>
+                )}
+
+                {success && !error && (
+                  <div className="flex items-center bg-green-300 p-4 mb-3 rounded w-full">
+                    <div className="flex-grow text-left  text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
+                      Profile Updated Successfully!
+                    </div>
+                  </div>
+                )}
                 <button
                   type="submit"
                   className="savechanges_btn"
@@ -266,7 +241,7 @@ const EditProfile = () => {
                   className="ml-6 text-md underline cursor-pointer"
                   onClick={handleClearForm}
                 >
-                  Cancel
+                  Close
                 </span>
               </div>
             </form>

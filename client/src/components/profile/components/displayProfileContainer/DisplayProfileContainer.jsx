@@ -15,7 +15,7 @@ const Container = () => {
                   <div className="relative">
                     <img
                       alt="..."
-                      src= {currentUser.pfpLink ||avatar}
+                      src= {currentUser.pfpLink || avatar}
                       className="shadow-xl rounded-full w-[150px] h-[150px] align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
                     />
                   </div>

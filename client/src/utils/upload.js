@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const upload = async (file) => {
+const upload = async (file, onProgress) => {
   const data = new FormData();
   data.append("file", file);
   data.append("upload_preset", "innuo_336572");
@@ -11,6 +11,10 @@ const upload = async (file) => {
       data,
       {
         onUploadProgress: (ProgressEvent) => {
+          const progress = Math.round(
+            (ProgressEvent.loaded / ProgressEvent.total) * 100
+          );
+          onProgress(progress);
           //track your progress here
           console.log((ProgressEvent.loaded / ProgressEvent.total) * 100);
         },
