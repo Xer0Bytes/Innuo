@@ -2,6 +2,10 @@ import React from "react";
 import { useState } from "react";
 import getCurrentUser from "../../../../utils/getCurrentUser";
 import "./editProfile.css";
+import upload from "../../../../utils/upload";
+import newRequest from "../../../../utils/newRequest";
+import FileUpload from "../../../contribute/components/FileUpload";
+import { useNavigate } from "react-router-dom";
 
 const EditProfile = () => {
   const currentUser = getCurrentUser();
@@ -11,8 +15,31 @@ const EditProfile = () => {
   const [showEditProfileButton, setshowEditProfileButton] = useState(true);
   const [image, setImage] = useState(null);
 
-  const handleChange = ({ currentTarget: input }) => {
-    setData({ ...data, [input.name]: input.value });
+  // const handleChange = ({ currentTarget: input }) => {
+  //   setData({ ...data, [input.name]: input.value });
+  // };
+
+  const [formData, setFormData] = useState({
+    //dont worry this is just all the form value ;)
+    editProfileName: currentUser.name,
+    editProfileDifficulty: currentUser.difficulty,
+    editProfileImage: null,
+  });
+
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const handleInputChange = (field, value) => {
+    let fieldValue = value;
+    if (value && value.target) {
+      fieldValue = value.target.value; // Extract value from event object
+    }
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [field]: fieldValue,
+    }));
   };
 
   const revealForm = () => {
@@ -20,14 +47,14 @@ const EditProfile = () => {
     setshowEditProfileButton(false);
   };
 
-  const handleFileInputChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setImage(reader.result);
-    };
-  };
+  // const handleFileInputChange = (event) => {
+  //   const file = event.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     setImage(reader.result);
+  //   };
+  // };
 
   function handleClearForm() {
     document.querySelector(".editprofile_form").reset();
@@ -35,7 +62,51 @@ const EditProfile = () => {
     setshowEditProfileButton(true);
   }
 
+  const config_header = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const navigate = useNavigate();
   // handleSubmit function define for the form
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    // console.log("formData is");
+    // console.log(formData);
+    let url = null;
+
+    if (formData.editProfileImage)
+      url = await upload(formData.editProfileImage);
+    console.log("url korte parse: " + url);
+
+    try {
+      const res = await newRequest.post(
+        `/user/update/${currentUser._id}`,
+        {
+          name: formData.editProfileName,
+          difficulty: formData.editProfileDifficulty,
+          pfpLink: url,
+        },
+
+        config_header
+      );
+
+      localStorage.setItem("currentUser", JSON.stringify(res.data));
+      console.log(res);
+      handleClearForm();
+      window.location.reload();
+      // navigate("/profile");
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        console.log(err);
+        setError("An error occurred!");
+      }
+    }
+    console.log(formData);
+  };
 
   return (
     <div className="w-full mb-8">
@@ -59,14 +130,18 @@ const EditProfile = () => {
         {showForm && (
           <span className="pt-10">
             <hr className="border-t-1 border-[#cecece] mb-1" />
-            <form className="editprofile_form">
+            <form
+              className="editprofile_form"
+              onSubmit={handleOnSubmit}
+              id="edit-profile"
+            >
               {/* upload photo  */}
-              <div className="flex items-center justify-center w-full">
-                <label
+              {/* <div className="flex items-center justify-center w-full"> */}
+              {/* <label
                   htmlFor="dropzone-file"
                   className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
-                >
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                > */}
+              {/* <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     <svg
                       aria-hidden="true"
                       className="w-10 h-10 mb-3 text-gray-400"
@@ -87,17 +162,26 @@ const EditProfile = () => {
                       drag and drop
                     </p>
                     <p className="text-xs text-gray-500">PNG/JPG</p>
-                  </div>
+                  </div> */}
 
-                  <input
+              {/* <input
                     id="dropzone-file"
                     type="file"
                     accept="image/*"
-                    onChange={handleFileInputChange}
-                    className="hidden"
-                  />
-                </label>
-              </div>
+                    name="editProfileImages"
+                    onChange={handleChange}
+                    // className="hidden"
+                  /> */}
+              {/* </label> */}
+              {/* </div> */}
+
+              <FileUpload
+                id={"user-image"}
+                label={"User Image"}
+                onFileChange={(file) =>
+                  handleInputChange("editProfileImage", file)
+                }
+              />
 
               {image && (
                 <span className="mb-2">
@@ -121,6 +205,7 @@ const EditProfile = () => {
                 >
                   <input
                     type="text"
+                    name="editProfileName"
                     onChange={handleChange}
                     defaultValue={currentUser.name}
                     //=================GIVE THE USERNAME IN THE DEFFAULT VALUE FIELD!!!!!!!!===========
@@ -142,7 +227,6 @@ const EditProfile = () => {
                     type="text"
                     className="text-md cursor-not-allowed editprofile_input text-[grey] peer block w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none"
                     defaultValue={currentUser.email}
-                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -153,8 +237,12 @@ const EditProfile = () => {
                   Difficulty
                 </div>
                 <select
-                  id="countries"
+                  id="difficulty"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  defaultValue={currentUser.difficulty}
+                  onChange={(event) =>
+                    handleChange(event.target.value, "editProfileDifficulty")
+                  }
                 >
                   <option value="beginner" selected>
                     Beginner
