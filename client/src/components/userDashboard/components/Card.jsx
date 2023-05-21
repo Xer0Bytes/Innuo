@@ -12,8 +12,9 @@ export const Card = ({ topic_name, modules }) => {
   const filteredModules = allModules.filter((module) =>
     modules.find((item) => item.moduleID === module.moduleID)
   );
-const completedModules = currentUser.modulesCompleted ? currentUser.modulesCompleted : ""; //array of module id
-  console.log(completedModules);
+  const completedModules = currentUser.modulesCompleted
+    ? currentUser.modulesCompleted
+    : ""; //array of module id
 
   return (
     <motion.div
@@ -34,7 +35,11 @@ const completedModules = currentUser.modulesCompleted ? currentUser.modulesCompl
                   module_id={module.moduleID}
                   module_exist={true}
                   has_questions={module.questions?.length > 0}
-                  bg_color={completedModules.includes(module.moduleID) ? "green-300" : "white"}
+                  bg_color={
+                    completedModules.includes(module.moduleID)
+                      ? "green-300"
+                      : "white"
+                  }
                 />
               ))}
             </span>
