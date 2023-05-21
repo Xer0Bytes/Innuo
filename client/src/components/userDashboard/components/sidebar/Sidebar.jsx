@@ -9,7 +9,7 @@ import getCurrentUer from '../../../../utils/getCurrentUser.js'
 const Sidebar = ({ activePage}) => {
   const currentUser = getCurrentUer();
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.clear();
   };
   const modifiedSidebarData = [...SidebarData];
   if (currentUser.isContributer === true) {
