@@ -7,8 +7,7 @@ function MCQFormat({
   allowSelectOption,
 }) {
   function selectTheOption(index) {
-    if (allowSelectOption == true)
-      setOptionSelected(index);
+    if (allowSelectOption == true) setOptionSelected(index);
   }
   console.log(currQuestion + " eita mcq component e ashche");
   return (
@@ -19,7 +18,10 @@ function MCQFormat({
           <span>
             <p>{currQuestion.questionText}</p>
             <span className="question-img">
-              <img src={currQuestion.questionImageURL} className="w-[200px] rounded-lg"/>
+              <img
+                src={currQuestion.questionImageURL}
+                className="w-[200px] rounded-lg"
+              />
             </span>
           </span>
         ) : (
@@ -33,13 +35,25 @@ function MCQFormat({
               className={index == selectedOption ? "option active" : "option"}
               key={index}
               onClick={() => selectTheOption(index)}
-              >
+            >
               {/* insert condition here instead of 1 ================================ */}
               {1 ? (
                 <span>
-                  {choice.choiceText}
-                  <div className="option-img">
-                    <img src={choice.choiceImageURL} className="w-[200px] rounded-lg"/>
+                  <div className="flex items-center gap-4">
+                    <span className="text-3xl mx-auto">
+                      <span className="font-bold">
+                        {Number(index) + 1}. &nbsp;
+                      </span>
+                      {choice.choiceText}
+                    </span>
+                    {choice.choiceImageURL && (
+                      <div className="option-img">
+                        <img
+                          src={choice.choiceImageURL}
+                          className="w-[200px] rounded-lg"
+                        />
+                      </div>
+                    )}
                   </div>
                 </span>
               ) : (
