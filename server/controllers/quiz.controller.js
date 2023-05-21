@@ -34,17 +34,27 @@ export const getExp = async (req, res, next) => {
   }
 };
 
-export const updateExp = async (req, res, next) => {
+export const updateExpAndCompModules = async (req, res, next) => {
   try {
-    
+    const userId = req.params.id;
+    const updateExp = req.body.updateExp;
+    const moduleID = req.body.moduleID;
+
     const user = await User.findByIdAndUpdate(
-      req.params.id,
+      userId,
       {
-        experiencePoints: req.body.updateExp,
+        $set: { experiencePoints: updateExp },
+        $push: { modulesCompleted: moduleID },
       },
       { new: true }
     );
 
+    // if (user) {
+    //   console.log("User updated successfully:", user);
+    // } else {
+    //   console.log("User not found");
+    // }
+    
     res.status(201).send(user);
   } catch (err) {
     next(err);
