@@ -22,7 +22,7 @@ const Ranking = () => {
         if (err.response && err.response.data && err.response.data.message) {
           setError(err.response.data.message);
         } else {
-          setError("An error occurred during login.");
+          setError("An error occurred during ranking fetching.");
           console.log(err);
         }
       }
@@ -31,6 +31,7 @@ const Ranking = () => {
     getRankingData();
   }, []);
 
+  
   const rankingData = getRanking();
   const beginnerData = rankingData
     .filter((data) => data.difficulty === "beginner")
