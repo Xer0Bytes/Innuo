@@ -30,7 +30,7 @@ const ProfileSideBar = () => {
           </div>
           <div className="text-blueGray-600 mt-4 text-xl">
             <i className="fas fa-language mr-2 text-lg text-blueGray-400"></i>
-            Languages Learned: 0
+            Difficulty: {currentUser.difficulty}
           </div>
           <div className="text-blueGray-600 mt-4 text-xl">
             <i className="fas fa-trophy mr-2 text-lg text-blueGray-400"></i>
