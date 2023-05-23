@@ -28,20 +28,20 @@ const Achievements = () => {
               key={achievement.achieveID}
               title={achievement.achieveTitle}
               description={achievement.achieveDesc}
-              isCompleted = {userAchievements.includes(achievement.achieveID)}
+              isCompleted = {userAchievements? userAchievements.includes(achievement.achieveID): false}
               image={achievement.achieveimageURL}
               border_color={
-                userAchievements.includes(achievement.achieveID)
+                userAchievements && userAchievements.includes(achievement.achieveID)
                   ? "gray-500"
                   : "gray-200"
               }
               title_color={
-                userAchievements.includes(achievement.achieveID)
+                userAchievements && userAchievements.includes(achievement.achieveID)
                   ? "gray-700"
                   : "gray-300"
               }
               description_color={
-                userAchievements.includes(achievement.achieveID)
+                userAchievements && userAchievements.includes(achievement.achieveID)
                   ? "gray-500"
                   : "gray-200"
               } 
