@@ -16,7 +16,6 @@ export const getAllAch = async (req, res, next) => {
 
 export const areYaWinningSon = async (req, res, next) => {
   try {
-    
     //getting all ach
     const ach = await Achievement.find(
       {},
@@ -27,17 +26,26 @@ export const areYaWinningSon = async (req, res, next) => {
     const user = await User.findById(req.params.id);
     const exp = await Exp.findOne({ difficulty: user.difficulty });
     const points = exp.correctPoints;
-    const userAchieved = user.achieved ? user.achieved : [1, 2, 3];
+    const userAchieved = user.achieved ? user.achieved : [];
 
     //checking
     const achieveIDArray = [];
     ach.forEach((achievement) => {
-      if (achievement.achieveCondition*points <= req.body.userExp) {
+      if (achievement.achieveCondition * points <= req.body.userExp) {
         achieveIDArray.push(achievement.achieveID);
       }
     });
 
-    const didSonLose = achieveIDArray.every((value) => userAchieved.includes(value));
+    const didSonLose = achieveIDArray.every((value) =>
+      userAchieved.includes(value)
+    );
+    if (!didSonLose) {
+      await User.updateOne(
+        { _id: req.params.id },
+        { $set: { achieved: achieveIDArray } }
+      );
+    }
+
     //false = new achievement
     //true = no new achievement
 

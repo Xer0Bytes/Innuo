@@ -37,13 +37,13 @@ export const register = async (req, res, next) => {
 
     const res = await newUser.save();
 
-    const user = await User.findOne({email: email});
+    //const user = await User.findOne({email: email});
 
-    const emailToken = "84cf232a0d16867b4269b3d4c6e79f04";
-    const verifyEmail = `http://localhost:5173/user/${user._id}/verify/${emailToken}`;
-    const resEmail = await sendEmail(user.email, "Verify Email", verifyEmail);
+    // const emailToken = "84cf232a0d16867b4269b3d4c6e79f04";
+    // const verifyEmail = `http://localhost:5173/user/${user._id}/verify/${emailToken}`;
+    // const resEmail = await sendEmail(user.email, "Verify Email", verifyEmail);
 
-    res.status(201).send(resEmail);
+    //res.status(201).send(resEmail);
   } catch (err) {
     next(err);
     console.log(err);
