@@ -34,7 +34,7 @@ const ProfileSideBar = () => {
           </div>
           <div className="text-blueGray-600 mt-4 text-xl">
             <i className="fas fa-trophy mr-2 text-lg text-blueGray-400"></i>
-            Achievement Unlocked: 0
+            Achievement Unlocked: {currentUser.achieved?currentUser.achieved.length: 0}
           </div>
         </div>
       </div>

@@ -39,41 +39,19 @@ export const updateExpAndCompModules = async (req, res, next) => {
     const userId = req.params.id;
     const updateExp = req.body.updateExp;
     const moduleID = req.body.moduleID;
-    let user = "";
-
-    const isPresent = User.findOne(
-      { _id: userId, modulesCompleted: { $in: [moduleID] } }
-    )
-
-    if(isPresent)
-    {
-      user = await User.findByIdAndUpdate(
-        userId,
-        {
-          $push: { modulesCompleted: moduleID },
-        },
-        { new: true }
-      );
-    }
-    else {
-      user = await User.findByIdAndUpdate(
-        userId,
-        {
-          $set: { experiencePoints: updateExp },
-          $push: { modulesCompleted: moduleID },
-        },
-        { new: true }
-      );
-    }
-
     
+    const user = await User.findOneAndUpdate(
+      {
+        _id: userId,
+        modulesCompleted: { $ne: moduleID },
+      },
+      {
+        $set: { experiencePoints: updateExp },
+        $push: { modulesCompleted: moduleID },
+      },
+      { new: true }
+    );
 
-    // if (user) {
-    //   console.log("User updated successfully:", user);
-    // } else {
-    //   console.log("User not found");
-    // }
-    
     res.status(201).send(user);
   } catch (err) {
     next(err);
