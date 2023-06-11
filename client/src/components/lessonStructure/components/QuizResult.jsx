@@ -1,6 +1,6 @@
 import LottiePlayer from "react-lottie-player";
 import endQuizAnimation from "../assets/astronautResultScreen.json";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import newRequest from "../../../utils/newRequest";
 import getCurrentUser from "../../../utils/getCurrentUser";
@@ -11,8 +11,7 @@ function QuizResult({
   previousExp,
   module_id
 }) {
-  //console.log(userExp);
-
+  const [err, setError] = useState("");
   const config_header = {
     header: {
       "Content-Type": "application/json",
@@ -20,18 +19,15 @@ function QuizResult({
   };
 
   useEffect(() => {
-
-    const currentUser = getCurrentUser();
-
-    const setUserExp = async () => {
+    const setUserExp = async (currentUser) => {
+      console.log(userExp);
       try {
-      
         const res = await newRequest.post(
           `/quiz/updateExp/${currentUser._id}`,
-          { updateExp: userExp-5, moduleID: module_id },
+          { updateExp: userExp, moduleID: module_id },
           config_header
         );
-    
+     
         localStorage.setItem("currentUser", JSON.stringify(res.data));
         localStorage.removeItem("currentQuizData");
 
@@ -46,7 +42,7 @@ function QuizResult({
     };
 
 
-    const checkAchievement = async () => {
+    const checkAchievement = async (currentUser) => {
       try {
         const res = await newRequest.post(
           `/achievement/userAchievement/${currentUser._id}`,
@@ -75,22 +71,28 @@ function QuizResult({
       }
     };
 
-    
-    checkAchievement();
-    setUserExp();
-  }, []);
+    const waitTime = () => {
+      const currentUser = getCurrentUser();
+      setUserExp(currentUser);
+      checkAchievement(currentUser);
+    };
+  
+    waitTime();
+  }, [userExp]);
 
   const navigate = useNavigate();
   const navigateToDashboard = () => {
     const buttonOnClick = () => {
-      navigate("/userDashboard");
       localStorage.removeItem("CurrentQuizData");
+      navigate("/userDashboard");
     };
   
-    const timer = setTimeout(buttonOnClick, 5000);
+    const timer = setTimeout(buttonOnClick, 2000);
     return () => clearTimeout(timer);
   };
   const expEarned = Number(userExp-previousExp);
+  // console.log("exp earned in result page: " + expEarned); //working
+
 
   return (
     <div className="result-screen overflow-y-hidden	">
@@ -102,7 +104,7 @@ function QuizResult({
       />
       <span className="-mt-[8em]">
         <h2 className="text-2xl">You earned {expEarned <0 ? "" : "+"} {expEarned} XP!</h2>
-        <button onClick={navigateToDashboard()} className="quiz_retry_btn mt-12">
+        <button onClick={navigateToDashboard} className="quiz_retry_btn mt-12">
           Next
         </button>
       </span>
