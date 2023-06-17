@@ -1,6 +1,4 @@
-import Question from "../models/question.model.js";
 import Topic from "../models/topic.model.js";
-import Module from "../models/module.model.js";
 import createError from "../utils/createError.js";
 
 export const addQuestions = async (req, res, next) => {
@@ -15,13 +13,7 @@ export const addQuestions = async (req, res, next) => {
       return next(createError(420, "No such modules exist in that topic."));
     }
 
-    const module = await Module.findOne({
-        moduleTitle: req.body.moduleTitle
-      });
-
-    const newQuestion = new Question({
-        moduleID: module.moduleID,
-        questionID: req.body.questionID, 
+    const newQuestion = {
         questionText: req.body.questionText,     
         questionImageURL: req.body.questionImageURL,
         correctChoice: req.body.correctChoice,
@@ -43,21 +35,12 @@ export const addQuestions = async (req, res, next) => {
                 choiceImageURL: req.body.choice4ImageURL 
             },
         ]
-    });
+    };
   
-    await newQuestion.save();
-
-    const moduleUpdate = await Module.findOneAndUpdate(
-        {moduleTitle: req.body.moduleTitle},
-        {
-          $push: {
-            questions: req.body.questionID,
-          },
-        },
-        { new: true }
-      );
-
-    //console.log(moduleUpdate);
+    const result = await Topic.updateOne(
+      { "modules.moduleTitle": req.body.moduleTitle },
+      { $push: { "modules.$.questions": newQuestion } },
+    );
 
     res.status(201).send("Successfully added");
   } catch (err) {
