@@ -7,11 +7,11 @@ const config_header = {
   },
 };
 
-const setLocalStorage = async (currentUserId) => {
+const setLocalStorage = async (currUser) => {
   try {
     const res = await newRequest.post(
       "/user/getCurrentUser",
-      { id: currentUserId },
+      { id: currUser._id },
       config_header
     );
     localStorage.setItem("currentUser", JSON.stringify(res.data));
@@ -40,7 +40,7 @@ const setLocalStorage = async (currentUserId) => {
       config_header
     );
     localStorage.setItem("allAch", JSON.stringify(resAch.data));
-    
+
     // console.log("achievement set");
 
     const resRanking = await newRequest.post(
@@ -49,20 +49,18 @@ const setLocalStorage = async (currentUserId) => {
       config_header
     );
     localStorage.setItem("ranking", JSON.stringify(resRanking.data));
-    
+
     // console.log("ranking set");
 
-    const currentUser = getCurrentUser();
     const resExp = await newRequest.post(
       "/quiz/exp",
-      { difficulty: currentUser.difficulty },
+      { difficulty: currUser.difficulty },
       config_header
     );
 
     localStorage.setItem("exp", JSON.stringify(resExp.data));
 
     // console.log(currentUser);
-
   } catch (err) {
     if (err.response && err.response.data && err.response.data.message) {
       setError(err.response.data.message);
