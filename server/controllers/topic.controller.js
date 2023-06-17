@@ -1,15 +1,27 @@
 import Topic from "../models/topic.model.js";
+import Counter from "../models/counter.model.js";
 
 export const addTopic = async (req, res, next) => {
   try {
-    //add new topic
-    const newTopic = new Topic({
-        ...req.body,
-    })
-    await newTopic.save();
+    const sequence = await Counter.findOneAndUpdate(
+      { _id: "topicID" },
+      { $inc: { seq: 1 } },
+      { new: true }
+    );
 
-    //all topics
-    const topics = await Topic.find({});
+    const nextTopicID = sequence.seq;
+
+    // Add new topic with topicID
+    const newTopic = new Topic({
+      topicID: nextTopicID,
+      topicTitle: req.body.topicTitle,
+    });
+
+    // Validate and save the new topic
+    const savedTopic = await newTopic.save();
+
+    // Get all topics with topicID and topicTitle fields only
+    const topics = await Topic.find({}, "topicID topicTitle");
 
     res.status(201).send(topics);
   } catch (err) {
