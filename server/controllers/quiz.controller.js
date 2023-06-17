@@ -1,20 +1,21 @@
-import Module from "../models/module.model.js";
-import Question from "../models/question.model.js";
+import Topic from "../models/topic.model.js";
 import Exp from "../models/exp.model.js";
 import User from "../models/user.model.js";
 
 export const fetchModule = async (req, res, next) => {
   try {
-    const module = await Module.findOne({
-      moduleTitle: req.params.module_name,
-    });
-    const { lessons, questions, ...rest } = module;
+    const module = await Topic.findOne(
+      {
+        "modules.moduleTitle": req.params.module_name
+      },
+      {
+        "modules.$": 1
+      }
+    );    
 
-    const allQuestions = await Question.find({
-      questionID: { $in: questions },
-    });
+    const { lessons, questions } = module.modules[0];
 
-    const response = [lessons, allQuestions];
+    const response = [lessons, questions];
 
     res.status(201).send(response);
   } catch (err) {
