@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import Module from './module.model.js';
 const { Schema } = mongoose;
 
 const topicSchema = new Schema({
@@ -11,11 +10,7 @@ const topicSchema = new Schema({
   topicTitle: {
     type: String,
     required: true,
-  },
-  modules: {
-    type: [Module.schema],
-    default: undefined,
-  },
+  }
 }, {
     timestamps: true
 });
