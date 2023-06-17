@@ -26,6 +26,7 @@ function Question({
     setAnswerCorrect(false);
     setShowCheckedAnswer(false);
     setAllowSelectOption(true);
+    console.log("user exp in question.jsx: " + userExp);
   }, [question]);
 
   //select option selection
@@ -51,22 +52,10 @@ function Question({
       (selectedOption === null)
     ) {
       updatedExp = userExp - expSystem.wrongPoints;
-      // console.log("updated exp: ");
-      // console.log((updatedExp));
-      // console.log(typeof(updatedExp));
       setUserExp((updatedExp));
-      // console.log("now user exp: ");
-      // console.log((userExp));
-      // console.log(typeof(userExp));
     } else {
       updatedExp = userExp + expSystem.correctPoints;
-      // console.log("updated exp: ");
-      // console.log((updatedExp));
-      // console.log(typeof(updatedExp));
       setUserExp((updatedExp));
-      // console.log("now user exp: ");
-      // console.log((userExp));
-      // console.log(typeof(userExp));
     }
 
     // console.log("update howar pore: " + updatedExp); //update occuring
