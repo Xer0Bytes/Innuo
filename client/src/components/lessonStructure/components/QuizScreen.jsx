@@ -3,7 +3,6 @@ import QuizResult from "./QuizResult";
 import Question from "./Question";
 import Lesson from "./Lesson";
 import getCurrentQuizData from "../../../utils/getCurrentQuizData.js";
-//fetch the question and lessons here based on the module name???===================
 
 function QuizScreen({ expSystem, retry, userExp, setUserExp, previousExp, module_id }) {
   const currentQuizData = getCurrentQuizData();
