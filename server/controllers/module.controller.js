@@ -35,21 +35,6 @@ export const addModule = async (req, res, next) => {
   }
 };
 
-export const getAllModules = async (req, res, next) => {
-  try {
-    //all topics
-    const modules = await Topic.find(
-      {},
-      { _id: 0, "modules.moduleID": 1, "modules.moduleTitle": 1 }
-    );
-
-    res.status(200).send(modules);
-  } catch (err) {
-    next(err);
-    console.log(err);
-  }
-};
-
 export const addLesson = async (req, res, next) => {
   try {
     //checking if module exists for this topic
@@ -62,25 +47,32 @@ export const addLesson = async (req, res, next) => {
       return next(createError(420, "No such modules exist in that topic."));
     }
 
-    const module = await Module.findOneAndUpdate(
-      { moduleTitle: req.body.moduleTitle },
-      {
-        $push: {
-          lessons: [
-            {
-              lessonID: req.body.lessonID,
-              lessonText: req.body.lessonText,
-              lessonImageURL: req.body.lessonImageURL,
-            },
-          ],
-        },
-      },
-      { new: true }
+    const newLesson = {
+      lessonText: req.body.lessonText,
+      lessonImageURL: req.body.lessonImageURL,
+    };
+
+    const result = await Topic.updateOne(
+      { "modules.moduleTitle": req.body.moduleTitle },
+      { $push: { "modules.$.lessons": newLesson } },
     );
 
-    console.log(module);
-
     res.status(201).send("Successfully added");
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+};
+
+export const getAllModules = async (req, res, next) => {
+  try {
+    //all topics
+    const modules = await Topic.find(
+      {},
+      { _id: 0, "modules.moduleID": 1, "modules.moduleTitle": 1 }
+    );
+
+    res.status(200).send(modules);
   } catch (err) {
     next(err);
     console.log(err);
