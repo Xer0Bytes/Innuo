@@ -5,56 +5,46 @@ import ProfileSideBar from "./components/ProfileSideBar.jsx";
 import PageHeader from "../achievements/components/PageHeader";
 import AnimatedAstronautDashboard from "./assets/astronautDashboard.json";
 import getCurrentUser from "../../utils/getCurrentUser";
-import newRequest from "../../utils/newRequest";
+import getGotAchievementBruh from "../../utils/getDidGetAchievement";
 import setLocalStorage from "../../utils/setLocalStorage";
+import Notification from "./components/Notification";
 
 export const UserDashboard = () => {
   const currentUser = getCurrentUser();
-  const [error, setError] = useState(null);
-
-  const config_header = {
-    header: {
-      "Content-Type": "application/json",
-    },
-  };
+  const [notification, setNotification] = useState(false);
 
   useEffect(() => {
-    setLocalStorage(currentUser._id);
-    const setUserExp = async () => {
-      try {
-        // console.log(currentUser.difficulty);
-        const resExp = await newRequest.post(
-          "/quiz/exp",
-          { difficulty: currentUser.difficulty },
-          config_header
-        );
+    setLocalStorage(currentUser);
+    const gotAchievement = getGotAchievementBruh();
+    console.log(gotAchievement);
 
-        localStorage.setItem("exp", JSON.stringify(resExp.data));
-
-
-        
-
-        // const res = await newRequest.post("/user/ranking", {}, config_header);
-
-        // localStorage.setItem("ranking", JSON.stringify(res.data));
-      } catch (err) {
-        if (err.response && err.response.data && err.response.data.message) {
-          setError(err.response.data.message);
-        } else {
-          setError("An error occurred during setting exp.");
-          console.log(err);
-        }
-      }
+    const handleNotificationDelete = () => {
+      setNotification(false);
+      localStorage.removeItem("gotAchievementBruh");
+      //set gotAchievement!
     };
 
-    setUserExp();
-  }, []);
+    if (gotAchievement == false) {
+      console.log("notun achievement!");
+      setNotification(true);
+      console.log("notification is set: ");
+      console.log(notification);
+      const timer = setTimeout(handleNotificationDelete, 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [localStorage]);
 
   return (
     <div>
       <Sidebar activePage={"Home"} />
       <div>
-        <div className=" h-full grid place-items-center left-[270px] right-[280px]">
+        <div className=" h-full grid place-items-center left-[270px] right-[280px] md:left-[500px]">
+          {notification && (
+            <Notification
+              text={"You have unlocked a new planet!"}
+              setNotification={setNotification}
+            />
+          )}
           <PageHeader
             title={"Lessons"}
             lottieAnimationData={AnimatedAstronautDashboard}
