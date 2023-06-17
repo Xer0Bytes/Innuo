@@ -1,5 +1,4 @@
 import Topic from "../models/topic.model.js";
-import Module from "../models/module.model.js";
 import createError from "../utils/createError.js";
 import Counter from "../models/counter.model.js";
 
