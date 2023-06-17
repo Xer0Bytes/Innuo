@@ -1,31 +1,32 @@
 import Topic from "../models/topic.model.js";
 import Module from "../models/module.model.js";
-import createError from '../utils/createError.js'
+import createError from "../utils/createError.js";
+import Counter from "../models/counter.model.js";
 
 export const addModule = async (req, res, next) => {
   try {
-    //add new module
-    const newModule = new Module({
-      ...req.body,
-    });
-
-    await newModule.save();
-    
-    const topic = await Topic.findOneAndUpdate(
-      {topicTitle: req.body.topicTitle},
-      {
-        $push: {
-          modules: [
-            { moduleID: req.body.moduleID, moduleTitle: req.body.moduleTitle },
-          ],
-        },
-      },
+    const sequence = await Counter.findOneAndUpdate(
+      { _id: "moduleID" },
+      { $inc: { seq: 1 } },
       { new: true }
     );
 
-    console.log(topic);
+    const nextModuleID = sequence.seq;
 
-    const modules = await Module.find({});
+    const newModule = {
+      moduleID: nextModuleID,
+      moduleTitle: req.body.moduleTitle,
+    };
+
+    const result = await Topic.updateOne(
+      { topicTitle: req.body.topicTitle },
+      { $push: { modules: newModule } }
+    );
+
+    const modules = await Topic.find(
+      {},
+      { _id: 0, "modules.moduleID": 1, "modules.moduleTitle": 1 }
+    );
 
     res.status(201).send(modules);
   } catch (err) {
@@ -37,7 +38,10 @@ export const addModule = async (req, res, next) => {
 export const getAllModules = async (req, res, next) => {
   try {
     //all topics
-    const modules = await Module.find({});
+    const modules = await Topic.find(
+      {},
+      { _id: 0, "modules.moduleID": 1, "modules.moduleTitle": 1 }
+    );
 
     res.status(200).send(modules);
   } catch (err) {
@@ -47,22 +51,27 @@ export const getAllModules = async (req, res, next) => {
 };
 
 export const addLesson = async (req, res, next) => {
- 
   try {
     //checking if module exists for this topic
-    const topic = await Topic.findOne({topicTitle: req.body.topicTitle,
-      "modules.moduleTitle": req.body.moduleTitle});
+    const topic = await Topic.findOne({
+      topicTitle: req.body.topicTitle,
+      "modules.moduleTitle": req.body.moduleTitle,
+    });
 
-    if(!topic) {
+    if (!topic) {
       return next(createError(420, "No such modules exist in that topic."));
     }
 
     const module = await Module.findOneAndUpdate(
-      {moduleTitle: req.body.moduleTitle},
+      { moduleTitle: req.body.moduleTitle },
       {
         $push: {
           lessons: [
-            { lessonID: req.body.lessonID, lessonText: req.body.lessonText, lessonImageURL: req.body.lessonImageURL },
+            {
+              lessonID: req.body.lessonID,
+              lessonText: req.body.lessonText,
+              lessonImageURL: req.body.lessonImageURL,
+            },
           ],
         },
       },
