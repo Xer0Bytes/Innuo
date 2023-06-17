@@ -11,8 +11,8 @@ const topicSchema = new Schema({
     type: String,
     required: true,
   }
-}, {
-    timestamps: true
+},{
+  strict : false
 });
 
 export default mongoose.model("Topic", topicSchema)
