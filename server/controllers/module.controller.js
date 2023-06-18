@@ -22,12 +22,10 @@ export const addModule = async (req, res, next) => {
       { $push: { modules: newModule } }
     );
 
-    const modules = await Topic.find(
-      {},
-      { _id: 0, "modules.moduleID": 1, "modules.moduleTitle": 1 }
-    );
+    //all topics
+    const topics = await Topic.find({});
 
-    res.status(201).send(modules);
+    res.status(201).send(topics);
   } catch (err) {
     next(err);
     console.log(err);
@@ -66,12 +64,9 @@ export const addLesson = async (req, res, next) => {
 export const getAllModules = async (req, res, next) => {
   try {
     //all topics
-    const modules = await Topic.find(
-      {},
-      { _id: 0, "modules.moduleID": 1, "modules.moduleTitle": 1 }
-    );
+    const topics = await Topic.find({});
 
-    res.status(200).send(modules);
+    res.status(200).send(topics);
   } catch (err) {
     next(err);
     console.log(err);
