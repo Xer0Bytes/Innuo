@@ -1,24 +1,17 @@
 import React, { useState } from "react";
 import SubCard from "./SubCard";
-import getAllModules from "../../../utils/getAllModules.js";
 import getCurrentUser from "../../../utils/getCurrentUser";
 import Notification2 from "./Notification2";
 
 export const Card = ({ topic_name, modules }) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const allModules = getAllModules();
   const currentUser = getCurrentUser();
-  const filteredModules = allModules.filter((module) =>
-    modules.find((item) => item.moduleID === module.moduleID)
-  );
-  console.log(filteredModules);
   const completedModules = currentUser.modulesCompleted
     ? currentUser.modulesCompleted
     : ""; //array of module id
 
-    const onClickFunction= () =>{
-      if(filteredModules && filteredModules.length > 0){
+    const onClickTopic= () =>{
+      if(modules && modules.length > 0){
         setIsOpen(!isOpen);
       } else{
         setIsOpen(true);
@@ -32,16 +25,16 @@ export const Card = ({ topic_name, modules }) => {
   return (
     <div
       className=" pt-4 mb-6 pb-1 ml-[16em] lg:ml-0"
-      onClick={onClickFunction}
+      onClick={onClickTopic}
     >
       <div className="bg-[#B7EDDF] min-w-[50em] cursor-default p-3 border border-gray-200 rounded-lg shadow shadow-lg">
         <h5 className="mb-1 text-xl font-bold tracking-tight text-gray-900 ">
           {topic_name}
         </h5>
         {isOpen &&
-          (filteredModules && filteredModules.length > 0 ? (
+          (modules && modules.length > 0 ? (
             <span>
-              {filteredModules.map((module) => (
+              {modules.map((module) => (
                 <SubCard
                   key={module.moduleID}
                   module_name={module.moduleTitle}

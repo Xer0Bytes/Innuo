@@ -26,12 +26,12 @@ const setLocalStorage = async (currUser) => {
     localStorage.setItem("allTopics", JSON.stringify(resTopic.data));
     // console.log("all topics set");
 
-    const resModule = await newRequest.post(
-      "/module/getModules",
-      {},
-      config_header
-    );
-    localStorage.setItem("allModules", JSON.stringify(resModule.data));
+    // const resModule = await newRequest.post(
+    //   "/module/getModules",
+    //   {},
+    //   config_header
+    // );
+    // localStorage.setItem("allModules", JSON.stringify(resModule.data));
     // console.log("all modules set");
 
     const resAch = await newRequest.post(
