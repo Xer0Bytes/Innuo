@@ -16,7 +16,7 @@ export const UserDashboard = () => {
   useEffect(() => {
     setLocalStorage(currentUser);
     const gotAchievement = getGotAchievementBruh();
-    console.log(gotAchievement);
+    // console.log(gotAchievement);
 
     const handleNotificationDelete = () => {
       setNotification(false);
