@@ -22,8 +22,9 @@ export const addModule = async (req, res, next) => {
       { $push: { modules: newModule } }
     );
 
-    //all topics
-    const topics = await Topic.find({});
+    
+    // Get all topics with topicID and topicTitle and modules fields only
+    const topics = await Topic.find({}, "topicID topicTitle modules");
 
     res.status(201).send(topics);
   } catch (err) {
@@ -36,8 +37,8 @@ export const addLesson = async (req, res, next) => {
   try {
     //checking if module exists for this topic
     const topic = await Topic.findOne({
-      topicTitle: req.body.topicTitle,
-      "modules.moduleTitle": req.body.moduleTitle,
+      topicID: req.body.topicID,
+      "modules.moduleID": req.body.moduleID,
     });
 
     if (!topic) {
@@ -50,11 +51,13 @@ export const addLesson = async (req, res, next) => {
     };
 
     const result = await Topic.updateOne(
-      { "modules.moduleTitle": req.body.moduleTitle },
+      { "modules.moduleID": req.body.moduleID },
       { $push: { "modules.$.lessons": newLesson } },
     );
+    // Get all topics with topicID and topicTitle and modules fields only
+    const topics = await Topic.find({}, "topicID topicTitle modules");
 
-    res.status(201).send("Successfully added");
+    res.status(201).send(topics);
   } catch (err) {
     next(err);
     console.log(err);
@@ -64,9 +67,12 @@ export const addLesson = async (req, res, next) => {
 export const getAllModules = async (req, res, next) => {
   try {
     //all topics
-    const topics = await Topic.find({});
+    const modules = await Topic.find(
+      {},
+      { _id: 0, "modules.moduleID": 1, "modules.moduleTitle": 1 }
+    );
 
-    res.status(200).send(topics);
+    res.status(200).send(modules);
   } catch (err) {
     next(err);
     console.log(err);
