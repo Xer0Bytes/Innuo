@@ -18,7 +18,7 @@ export const addModule = async (req, res, next) => {
     };
 
     const result = await Topic.updateOne(
-      { topicTitle: req.body.topicTitle },
+      { topicID: req.body.topicID },
       { $push: { modules: newModule } }
     );
 
