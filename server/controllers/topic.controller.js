@@ -20,8 +20,8 @@ export const addTopic = async (req, res, next) => {
     // Validate and save the new topic
     const savedTopic = await newTopic.save();
 
-    //all topics
-    const topics = await Topic.find({});
+    // Get all topics with topicID and topicTitle fields only
+    const topics = await Topic.find({}, "topicID topicTitle modules");
 
     res.status(201).send(topics);
   } catch (err) {

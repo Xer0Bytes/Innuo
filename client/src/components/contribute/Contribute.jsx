@@ -35,9 +35,8 @@ export const Contribute = () => {
             {/* FETCH TOPIC NAMES FROM DB AND PASS IT TO VALUES============== */}
             {formType === "module" && <ModuleForm />}
 
-          {/* add Lesson form  */}
-          {formType === "lesson" && <LessonForm />}
-
+            {/* add Lesson form  */}
+            {formType === "lesson" && <LessonForm />}
 
             {/* add Question form  */}
             {formType === "question" && <QuestionForm />}

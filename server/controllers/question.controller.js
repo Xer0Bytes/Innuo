@@ -5,8 +5,8 @@ export const addQuestions = async (req, res, next) => {
   try {
     //checking if module exists for this topic
     const topic = await Topic.findOne({
-      topicTitle: req.body.topicTitle,
-      "modules.moduleTitle": req.body.moduleTitle,
+      topicID: req.body.topicID,
+      "modules.moduleID": req.body.moduleID,
     });
 
     if (!topic) {
@@ -14,35 +14,38 @@ export const addQuestions = async (req, res, next) => {
     }
 
     const newQuestion = {
-        questionText: req.body.questionText,     
-        questionImageURL: req.body.questionImageURL,
-        correctChoice: req.body.correctChoice,
-        choices: [
-            {
-                choiceText: req.body.choice1Text,
-                choiceImageURL: req.body.choice1ImageURL 
-            },
-            {
-                choiceText: req.body.choice2Text,
-                choiceImageURL: req.body.choice2ImageURL 
-            },
-            {
-                choiceText: req.body.choice3Text,
-                choiceImageURL: req.body.choice3ImageURL 
-            },
-            {
-                choiceText: req.body.choice4Text,
-                choiceImageURL: req.body.choice4ImageURL 
-            },
-        ]
+      questionText: req.body.questionText,
+      questionImageURL: req.body.questionImageURL,
+      correctChoice: req.body.correctChoice,
+      choices: [
+        {
+          choiceText: req.body.choice1Text,
+          choiceImageURL: req.body.choice1ImageURL,
+        },
+        {
+          choiceText: req.body.choice2Text,
+          choiceImageURL: req.body.choice2ImageURL,
+        },
+        {
+          choiceText: req.body.choice3Text,
+          choiceImageURL: req.body.choice3ImageURL,
+        },
+        {
+          choiceText: req.body.choice4Text,
+          choiceImageURL: req.body.choice4ImageURL,
+        },
+      ],
     };
-  
+
     const result = await Topic.updateOne(
-      { "modules.moduleTitle": req.body.moduleTitle },
-      { $push: { "modules.$.questions": newQuestion } },
+      { "modules.moduleID": req.body.moduleID },
+      { $push: { "modules.$.questions": newQuestion } }
     );
 
-    res.status(201).send("Successfully added");
+    // Get all topics with topicID and topicTitle and modules fields only
+    const topics = await Topic.find({}, "topicID topicTitle modules");
+
+    res.status(201).send(topics);
   } catch (err) {
     next(err);
     console.log(err);
