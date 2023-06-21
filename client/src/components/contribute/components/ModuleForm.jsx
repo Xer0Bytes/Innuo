@@ -1,19 +1,19 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Dropdown } from "./Dropdown";
 import InputField from "./InputField";
-import { useNavigate } from "react-router-dom";
 import newRequest from "../../../utils/newRequest";
 import getAllTopics from "../../../utils/getAllTopics";
 
 const ModuleForm = () => {
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
-    moduleFormTopicName: "Alphabets",
-    moduleFormModuleID: "",
+    moduleFormTopicID: null,
+    // moduleFormModuleID: "",
     moduleFormModuleName: "",
   });
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
+  const [wait, setWait] = useState(false);
   const handleInputChange = (field, value) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -28,19 +28,25 @@ const ModuleForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log("module submit hoise");
     e.preventDefault();
+    console.log(formData);
+    if (formData.moduleFormTopicID === null) {
+      setError("Fill out all required fields!");
+      return;
+    }
+    setWait(true);
     try {
       const res = await newRequest.post(
         "/module/contribute",
         {
-          topicTitle: formData.moduleFormTopicName,
-          moduleID: formData.moduleFormModuleID,
+          topicID: formData.moduleFormTopicID,
+          // moduleID: formData.moduleFormModuleID,
           moduleTitle: formData.moduleFormModuleName,
         },
         config_header
       );
-      localStorage.setItem("allModules", JSON.stringify(res.data));
+      localStorage.setItem("allTopics", JSON.stringify(res.data));
+      setWait(false);
       setSuccess(true);
       // console.log(res.data);
       //localStorage.setItem("allModules", JSON.stringify(res.data));
@@ -61,16 +67,17 @@ const ModuleForm = () => {
       setSuccess(false);
     };
 
-    if (error || success) {
+    if (error || success || wait) {
       const timer = setTimeout(clearMessages, 5000);
       return () => clearTimeout(timer);
     }
   }, [error, success]);
 
+  //All Topics from local storage
   const allTopics = getAllTopics();
-
   const topicTitles = allTopics.map((item) => item.topicTitle);
-  // console.log(topicTitles);
+  const topicIDs = allTopics.map((item) => Number(item.topicID));
+  //  console.log(topicIDs);
 
   return (
     <>
@@ -79,18 +86,20 @@ const ModuleForm = () => {
           id={"select-topic-for-module"}
           label={"Select Topic"}
           values={topicTitles}
+          valueIDs={topicIDs}
+          disabledOptionLabel={"Select A Topic"}
           onValueChange={(value) =>
-            handleInputChange("moduleFormTopicName", value)
+            handleInputChange("moduleFormTopicID", Number(value))
           }
         />
-        <InputField
+        {/* <InputField
           id={"module-id"}
           label={"Module ID"}
           onValueChange={(value) =>
             handleInputChange("moduleFormModuleID", value)
           }
           required={true}
-        />
+        /> */}
         <InputField
           id={"module-name"}
           label={"Module Name"}
@@ -100,15 +109,21 @@ const ModuleForm = () => {
           required={true}
         />
         <div className="w-full mr-auto ml-auto text-md text-center mt-6">
-          {error && (
+          {error && !wait && (
             <div className="flex items-center bg-red-300 p-4 mb-3 rounded w-full">
               <div className="flex-grow text-left  pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
                 {error}
               </div>
             </div>
           )}
-
-          {success && !error && (
+          {wait && (
+            <div className="flex items-center bg-yellow-300 p-4 mb-3 rounded w-full">
+              <div className="flex-grow text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
+                Please wait...
+              </div>
+            </div>
+          )}
+          {success && !error && !wait && (
             <div className="flex items-center bg-green-300 p-4 mb-3 rounded w-full">
               <div className="flex-grow text-left  text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
                 Information entered successfully!
@@ -116,14 +131,16 @@ const ModuleForm = () => {
             </div>
           )}
 
-          <button
-            type="submit"
-            className="savechanges_btn"
-            data-te-ripple-init
-            data-te-ripple-color="light"
-          >
-            Add Module
-          </button>
+          {!wait && (
+            <button
+              type="submit"
+              className="savechanges_btn"
+              data-te-ripple-init
+              data-te-ripple-color="light"
+            >
+              Add Module
+            </button>
+          )}
         </div>
       </form>
     </>

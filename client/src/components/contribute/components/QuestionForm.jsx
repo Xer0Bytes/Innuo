@@ -3,22 +3,21 @@ import { Dropdown } from "./Dropdown";
 import InputField from "./InputField";
 import FileUpload from "./FileUpload";
 import getAllTopics from "../../../utils/getAllTopics";
-import getAllModules from "../../../utils/getAllModules";
 import upload from "../../../utils/upload";
 import newRequest from "../../../utils/newRequest";
 
 const QuestionForm = () => {
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
-    questionFormTopicName: "Alphabets",
-    questionFormModuleName: "Module 1 : A, B & C",
-    questionFormQuestionID: "",
+    questionFormTopicID: null,
+    questionFormModuleID: null,
+    // questionFormQuestionID: "",
     questionFormQuestionText: "",
     questionFormChoice1Text: "",
     questionFormChoice2Text: "",
     questionFormChoice3Text: "",
     questionFormChoice4Text: "",
-    questionFormCorrectChoice: "",
+    questionFormCorrectChoice: 1,
     questionFormQuestionImage: null,
     questionFormChoice1Image: null,
     questionFormChoice2Image: null,
@@ -27,6 +26,7 @@ const QuestionForm = () => {
   });
 
   const [error, setError] = useState(null);
+  const [wait, setWait] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const config_header = {
@@ -46,8 +46,18 @@ const QuestionForm = () => {
   const [isChoice3ImgUploading, setIsChoice3ImgUploading] = useState(false);
   const [choice4ImgUploadProgress, setChoice4ImgUploadProgress] = useState(0);
   const [isChoice4ImgUploading, setIsChoice4ImgUploading] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData);
+    if (
+      formData.questionFormTopicID === null ||
+      formData.questionFormModuleID === null
+    ) {
+      setError("Fill out all required fields!");
+      return;
+    }
+    setWait(true);
     const onQuestionProgress = (progressQuestion) => {
       setQuestionImgUploadProgress(progressQuestion);
     };
@@ -73,40 +83,45 @@ const QuestionForm = () => {
       if (formData.questionFormQuestionImage) {
         setIsQuestionImgUploading(true);
         questionFormQuestionImage = await upload(
-          formData.questionFormQuestionImage, onQuestionProgress
+          formData.questionFormQuestionImage,
+          onQuestionProgress
         );
       }
       if (formData.questionFormChoice1Image) {
         setIsChoice1ImgUploading(true);
         questionFormChoice1Image = await upload(
-          formData.questionFormChoice1Image, onChoice1Progress
+          formData.questionFormChoice1Image,
+          onChoice1Progress
         );
       }
       if (formData.questionFormChoice2Image) {
-        setIsChoice2ImgUploading
+        setIsChoice2ImgUploading(true);
         questionFormChoice2Image = await upload(
-          formData.questionFormChoice2Image, onChoice2Progress
+          formData.questionFormChoice2Image,
+          onChoice2Progress
         );
       }
       if (formData.questionFormChoice3Image) {
-        setIsChoice3ImgUploading
+        setIsChoice3ImgUploading(true);
         questionFormChoice3Image = await upload(
-          formData.questionFormChoice3Image, onChoice3Progress
+          formData.questionFormChoice3Image,
+          onChoice3Progress
         );
       }
       if (formData.questionFormChoice4Image) {
-        setIsChoice4ImgUploading
+        setIsChoice4ImgUploading(true);
         questionFormChoice4Image = await upload(
-          formData.questionFormChoice4Image, onChoice4Progress
+          formData.questionFormChoice4Image,
+          onChoice4Progress
         );
       }
 
       const res = await newRequest.post(
         "/question/addQuestions",
         {
-          topicTitle: formData.questionFormTopicName,
-          moduleTitle: formData.questionFormModuleName,
-          questionID: formData.questionFormQuestionID,
+          topicID: formData.questionFormTopicID,
+          moduleID: formData.questionFormModuleID,
+          // questionID: formData.questionFormQuestionID,
           questionText: formData.questionFormQuestionText,
           choice1Text: formData.questionFormChoice1Text,
           choice2Text: formData.questionFormChoice2Text,
@@ -122,16 +137,26 @@ const QuestionForm = () => {
         config_header
       );
       //onsole.log(formData);
+      localStorage.setItem("allTopics", JSON.stringify(res.data));
+      setIsQuestionImgUploading(false);
+      setIsChoice1ImgUploading(false);
+      setIsChoice2ImgUploading(false);
+      setIsChoice3ImgUploading(false);
+      setIsChoice4ImgUploading(false);
+      setWait(false);
       setSuccess(true);
     } catch (err) {
+      setIsQuestionImgUploading(false);
+      setIsChoice1ImgUploading(false);
+      setIsChoice2ImgUploading(false);
+      setIsChoice3ImgUploading(false);
+      setIsChoice4ImgUploading(false);
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
         setError("An error occurred");
-        console.log(error);
       }
     }
-    console.log(formData);
   };
 
   const handleInputChange = (field, value) => {
@@ -147,7 +172,7 @@ const QuestionForm = () => {
       setSuccess(false);
     };
 
-    if (error || success) {
+    if (error || success || wait) {
       const timer = setTimeout(clearMessages, 5000);
       return () => clearTimeout(timer);
     }
@@ -156,10 +181,37 @@ const QuestionForm = () => {
   //All Topics from local storage
   const allTopics = getAllTopics();
   const topicTitles = allTopics.map((item) => item.topicTitle);
+  const topicIDs = allTopics.map((item) => Number(item.topicID));
 
-  //All Modules from local storage
-  const allModules = getAllModules();
-  const moduleTitles = allModules.map((item) => item.moduleTitle);
+  const [filteredModules, setFilteredModules] = useState([]);
+
+  useEffect(() => {
+    let tempModules = [];
+    if (formData.questionFormTopicID !== null) {
+      const topic = allTopics.find(
+        (item) => item.topicID === formData.questionFormTopicID
+      );
+      tempModules =
+        topic && topic.modules
+          ? topic.modules.map((module) => ({
+              moduleID: module.moduleID,
+              moduleName: module.moduleTitle,
+            }))
+          : [];
+    }
+    setFilteredModules(tempModules);
+    if (tempModules.length === 0)
+      handleInputChange("questionFormModuleID", null);
+  }, [formData.questionFormTopicID]);
+
+  const moduleTitles =
+    filteredModules.length > 0 && filteredModules
+      ? filteredModules.map((module) => module.moduleName)
+      : [];
+  const moduleIDs =
+    filteredModules.length > 0 && filteredModules
+      ? filteredModules.map((module) => module.moduleID)
+      : [];
 
   return (
     <>
@@ -167,27 +219,31 @@ const QuestionForm = () => {
         <Dropdown
           id={"select-topic-for-question"}
           label={"Select Topic"}
+          disabledOptionLabel={"Select A Topic"}
           values={topicTitles}
+          valueIDs={topicIDs}
           onValueChange={(value) =>
-            handleInputChange("questionFormTopicName", value)
+            handleInputChange("questionFormTopicID", Number(value))
           }
         />
         <Dropdown
           id={"select-module-for-question"}
           label={"Select Module"}
+          disabledOptionLabel={"Select A Module"}
           values={moduleTitles}
+          valueIDs={moduleIDs}
           onValueChange={(value) =>
-            handleInputChange("questionFormModuleName", value)
+            handleInputChange("questionFormModuleID", Number(value))
           }
         />
-        <InputField
+        {/* <InputField
           id={"question-id"}
           label={"Question ID"}
           onValueChange={(value) =>
             handleInputChange("questionFormQuestionID", value)
           }
           required={true}
-        />
+        /> */}
         <InputField
           id={"question-text"}
           label={"Question Text"}
@@ -204,7 +260,9 @@ const QuestionForm = () => {
           }
         />
         {isQuestionImgUploading && (
-          <div className="ml-8 my-2">Upload Progress: {questionImgUploadProgress}%</div>
+          <div className="ml-8 my-2 text-green-500">
+            Upload Progress: {questionImgUploadProgress}%
+          </div>
         )}
         <InputField
           id={"Choice1-text"}
@@ -221,7 +279,9 @@ const QuestionForm = () => {
           }
         />
         {isChoice1ImgUploading && (
-          <div className="ml-8 my-2">Upload Progress: {choice1ImgUploadProgress}%</div>
+          <div className="ml-8 my-2 text-green-500">
+            Upload Progress: {choice1ImgUploadProgress}%
+          </div>
         )}
         <InputField
           id={"Choice2-text"}
@@ -238,7 +298,9 @@ const QuestionForm = () => {
           }
         />
         {isChoice2ImgUploading && (
-          <div className="ml-8 my-2">Upload Progress: {choice2ImgUploadProgress}%</div>
+          <div className="ml-8 my-2 text-green-500">
+            Upload Progress: {choice2ImgUploadProgress}%
+          </div>
         )}
         <InputField
           id={"Choice3-text"}
@@ -255,7 +317,9 @@ const QuestionForm = () => {
           }
         />
         {isChoice3ImgUploading && (
-          <div className="ml-8 my-2">Upload Progress: {choice3ImgUploadProgress}%</div>
+          <div className="ml-8 my-2 text-green-500">
+            Upload Progress: {choice3ImgUploadProgress}%
+          </div>
         )}
         <InputField
           id={"Choice4-text"}
@@ -272,18 +336,21 @@ const QuestionForm = () => {
           }
         />
         {isChoice4ImgUploading && (
-          <div className="ml-8 my-2">Upload Progress: {choice4ImgUploadProgress}%</div>
+          <div className="ml-8 my-2 text-green-500">
+            Upload Progress: {choice4ImgUploadProgress}%
+          </div>
         )}
         <Dropdown
           id={"correct-choice"}
           label={"Correct Choice"}
-          values={["1", "2", "3", "4"]}
+          defaultValue={"1"}
+          values={[1, 2, 3, 4]}
           onValueChange={(value) =>
             handleInputChange("questionFormCorrectChoice", value)
           }
         />
         <div className="w-full mr-auto ml-auto text-md text-center mt-6">
-          {error && (
+          {error && !wait && (
             <div className="flex items-center bg-red-300 p-4 mb-3 rounded w-full">
               <div className="flex-grow text-left  pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
                 {error}
@@ -291,21 +358,31 @@ const QuestionForm = () => {
             </div>
           )}
 
-          {success && !error && (
+          {wait && (
+            <div className="flex items-center bg-yellow-300 p-4 mb-3 rounded w-full">
+              <div className="flex-grow text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
+                Please wait...
+              </div>
+            </div>
+          )}
+
+          {success && !error && !wait && (
             <div className="flex items-center bg-green-300 p-4 mb-3 rounded w-full">
               <div className="flex-grow text-left  text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
                 Information entered successfully!
               </div>
             </div>
           )}
-          <button
-            type="submit"
-            className="savechanges_btn"
-            data-te-ripple-init
-            data-te-ripple-color="light"
-          >
-            Add Question
-          </button>
+          {!wait && (
+            <button
+              type="submit"
+              className="savechanges_btn"
+              data-te-ripple-init
+              data-te-ripple-color="light"
+            >
+              Add Question
+            </button>
+          )}
         </div>
       </form>
     </>
