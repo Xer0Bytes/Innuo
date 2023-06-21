@@ -41,8 +41,9 @@ function QuizResult({ userExp, retry, previousExp, module_id }) {
           { updateExp: userExp, moduleID: module_id },
           config_header
         );
-
+        
         localStorage.setItem("currentUser", JSON.stringify(res.data));
+        console.log(res.data);
         localStorage.removeItem("currentQuizData");
       } catch (err) {
         if (err.response && err.response.data && err.response.data.message) {
@@ -56,30 +57,31 @@ function QuizResult({ userExp, retry, previousExp, module_id }) {
 
     const checkAchievement = async (currentUser) => {
       console.log("achievement being checked!");
+      console.log(userExp);
       try {
         const res = await newRequest.post(
           `/achievement/userAchievement/${currentUser._id}`,
-          { userExp: currentUser.experiencePoints },
+          { userExp: userExp },
           config_header
         );
-        console.log(res.data); 
-        localStorage.setItem("gotAchievementBruh", res.data);
+        // console.log(res.data); 
+        const prevAch = currentUser.achieved.length;
+        console.log(prevAch);
         const resUser = await newRequest.post(
           "/user/getCurrentUser",
           { id: currentUser._id },
           config_header
         );
-        // console.log("request gese!");
+        const newAch = resUser.data.achieved.length;
+        console.log(newAch);
+        
+        localStorage.setItem("gotAchievementBruh", newAch-prevAch);
         localStorage.setItem("currentUser", JSON.stringify(resUser.data));
-        // console.log(resUser.data);
-
-        //DO SOMETHING WITH RES.DATA
       } catch (err) {
         if (err.response && err.response.data && err.response.data.message) {
           setError(err.response.data.message);
         } else {
           setError("An error occurred during setting achievement.");
-          //console.log(err);
         }
       }
     };

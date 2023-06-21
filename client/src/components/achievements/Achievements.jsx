@@ -10,6 +10,7 @@ const Achievements = () => {
   const allAchievements = getAllAch();
   const currentUser = getCurrentUser();
   const userAchievements = currentUser.achieved;
+  localStorage.removeItem("gotAchievementBruh");
   return (
     <>
       <Sidebar activePage={"Achievements"} />

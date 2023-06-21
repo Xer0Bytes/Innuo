@@ -6,14 +6,11 @@ export const fetchModule = async (req, res, next) => {
   try {
     const module = await Topic.findOne(
       {
-        "modules.moduleTitle": req.params.module_name
+        "modules.moduleID": Number(req.params.module_id),
       },
-      {
-        "modules.$": 1
-      }
-    );    
-
-    const { lessons, questions } = module.modules[0];
+      "modules"
+    );
+    const { lessons, questions } = module?.modules[0];
 
     const response = [lessons, questions];
 
@@ -40,7 +37,7 @@ export const updateExpAndCompModules = async (req, res, next) => {
     const userId = req.params.id;
     const updateExp = req.body.updateExp;
     const moduleID = req.body.moduleID;
-    
+
     const user = await User.findOneAndUpdate(
       {
         _id: userId,
@@ -52,7 +49,6 @@ export const updateExpAndCompModules = async (req, res, next) => {
       },
       { new: true }
     );
-
     res.status(201).send(user);
   } catch (err) {
     next(err);
