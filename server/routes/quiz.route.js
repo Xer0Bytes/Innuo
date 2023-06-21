@@ -3,7 +3,7 @@ import { fetchModule, getExp, updateExpAndCompModules } from "../controllers/qui
 
 const router = express.Router();
 
-router.get("/:module_name", fetchModule);
+router.get("/:module_id", fetchModule);
 router.post("/exp", getExp);
 router.post("/updateExp/:id", updateExpAndCompModules);
 

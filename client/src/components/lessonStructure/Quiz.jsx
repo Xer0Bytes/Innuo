@@ -30,6 +30,7 @@ function Quiz() {
           />
         ) : (
           <JoinScreen
+            module_id={module_id}
             module_name={module_name}
             start={() => setIsQuizStarted(true)}
           />
