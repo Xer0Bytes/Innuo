@@ -16,6 +16,7 @@ export const getAllAch = async (req, res, next) => {
 
 export const areYaWinningSon = async (req, res, next) => {
   try {
+    console.log(req.body.userExp);
     //getting all ach
     const ach = await Achievement.find(
       {},

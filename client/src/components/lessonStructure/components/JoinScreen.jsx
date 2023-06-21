@@ -3,13 +3,13 @@ import animationData from "../assets/astronautJoinScreen.json";
 import newRequest from "../../../utils/newRequest";
 import { useState, useEffect } from "react";
 
-function JoinScreen({ module_name, start }) {
+function JoinScreen({ module_id, start, module_name }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchModuleData = async () => {
       try {
-        const res = await newRequest.get(`/quiz/${module_name}`);
+        const res = await newRequest.get(`/quiz/${module_id}`);
         localStorage.setItem("currentQuizData", JSON.stringify(res.data));
         setQuizData(res.data);
       } catch (err) {

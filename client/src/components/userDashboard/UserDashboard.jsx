@@ -12,11 +12,13 @@ import Notification from "./components/Notification";
 export const UserDashboard = () => {
   const currentUser = getCurrentUser();
   const [notification, setNotification] = useState(false);
-
+  const[newAch, setNewAch]=useState(null);
   useEffect(() => {
     setLocalStorage(currentUser);
     const gotAchievement = getGotAchievementBruh();
-    // console.log(gotAchievement);
+    console.log(gotAchievement);
+    setNewAch(gotAchievement);
+    
 
     const handleNotificationDelete = () => {
       setNotification(false);
@@ -24,16 +26,13 @@ export const UserDashboard = () => {
       //set gotAchievement!
     };
 
-    if (gotAchievement == false) {
+    if (gotAchievement && gotAchievement>0) {
       console.log("notun achievement!");
       setNotification(true);
-      console.log("notification is set: ");
-      console.log(notification);
       const timer = setTimeout(handleNotificationDelete, 6000);
       return () => clearTimeout(timer);
     }
   }, [localStorage]);
-
   return (
     <div>
       <Sidebar activePage={"Home"} />
@@ -41,7 +40,7 @@ export const UserDashboard = () => {
         <div className=" h-full grid place-items-center left-[270px] right-[280px] md:left-[500px]">
           {notification && (
             <Notification
-              text={"You have unlocked a new planet!"}
+              text={newAch>1?`You have unlocked ${newAch} new planets!`:`You have unlocked a new planet!`}
               setNotification={setNotification}
             />
           )}
