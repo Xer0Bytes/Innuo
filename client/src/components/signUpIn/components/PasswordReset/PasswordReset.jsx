@@ -9,7 +9,7 @@ const PasswordReset = () => {
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
   const param = useParams();
-  const url = `http://localhost:7000/api/password-reset/${param.email}/${param.token}`;
+  const url = `http://localhost:7000/api/auth/password-reset/${param.id}/${param.unique}`;
 
   useEffect(() => {
     const verifyUrl = async () => {
@@ -26,7 +26,7 @@ const PasswordReset = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(url, { password });
+      const data = await axios.post(url, { password });
       setMsg(data.message);
       setError("");
       window.location = "/login";
