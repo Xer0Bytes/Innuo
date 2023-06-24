@@ -39,7 +39,7 @@ function App() {
         <Route path="/" element={<Navigate replace to="/login" />} />
 
 
-        <Route path="/EmailVerify/:email/:token" element={<EmailVerify />} />
+        <Route path="/EmailVerify/:id/:unique" element={<EmailVerify />} />
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
 

@@ -1,32 +1,12 @@
-//models
 import User from "../models/user.model.js";
 import Verification from "../models/verification.model.js";
 import { sendVerificationEmail } from "../middleware/sendVerificationEmail.js";
-
-//pw hashing
 import bcrypt from "bcrypt";
-
-//env variable
 import dotenv from "dotenv";
-
-//token
 import jwt from "jsonwebtoken";
-
-//error handling
 import createError from "../utils/createError.js";
 
-//email handling
-import nodemailer from "nodemailer";
-
-//uuid
-import { v4 as uuidv4 } from "uuid";
-
-//path for static verified page
-import path from "path";
-
 dotenv.config();
-
-
 
 export const register = async (req, res, next) => {
   try {
@@ -63,13 +43,12 @@ export const register = async (req, res, next) => {
     newUser
       .save()
       .then((result) => {
-        //handle account verification
         sendVerificationEmail(result, res);
       })
       .catch((err) => {
+        //user not saved properly
         console.log(err);
       });
-
   } catch (err) {
     next(err);
     console.log(err);
@@ -79,82 +58,78 @@ export const register = async (req, res, next) => {
 //verify email
 export const verifyEmail = async (req, res, next) => {
   try {
-    let {userID, uniqueString} =req.params;
+    let { id, unique } = req.params;
 
-    Verification
-      .find({userID})
+    const userID = id;
+    const uniqueString = unique;
+
+    Verification.find({ userID })
       .then((result) => {
-        if(result.length > 0) {
-          const {expiresAt} = result[0];
-          const hashedUniqueString = result[0].hashedUniqueString;
+
+        if (result.length > 0) {
+
+          const { expiresAt } = result[0].expiredAt;
+          const hashedUniqueString = result[0].uniqueString;
 
           if (expiresAt < Date.now()) {
             //record has expired
-            Verification
-              .deleteOne({userID})
+            Verification.deleteOne({ userID })
               .then((result) => {
-                User
-                  .deleteOne({_id: userID})
+                User.deleteOne({ _id: userID })
                   .then()
                   .catch((error) => {
-                    console.log("error while deleting user record")
-                  })
+                    //error while deleting expired user details
+                    console.log(error);
+                  });
               })
               .catch((error) => {
-                console.log("error while deleting expired user");
-              })
+                //error while deleting expired verification details
+                console.log(error);
+              });
 
           } else {
             //valid record exists
             bcrypt
               .compare(uniqueString, hashedUniqueString)
               .then((result) => {
-                if(result) {
+                if (result) {
                   //strings match
-                  User
-                    .updateOne({_id: userID}, {verified: true})
+
+                  //user updated to verified
+                  User.updateOne({ _id: userID }, { verifiedEmail: true })
                     .then(() => {
-                      Verification
-                        .deleteOne({userID})
+                      //verification details deleted
+                      Verification.deleteOne({ userID })
                         .then(() => {
-                          res.sendFile(path.join(__dirname, "http://localhost:5173/"));
+                          res
+                            .status(200)
+                            .send({ message: "Email verified successfully" });
                         })
                         .catch((error) => {
                           console.log(error);
-                        })
+                        });
                     })
                     .catch((error) => {
-                      console.log("error while updating user");
-                    })
-
+                      //error updating user to verified
+                      console.log(error);
+                    });
                 } else {
-                  console.log("invalid verification details")
+                  //strings do not match
+                  console.log("Strings do not match!");
                 }
               })
               .catch((error) => {
-                console.log("error while comparing hashed strings");
+                //error comparing strings
+                console.log(error);
               });
           }
-
         } else {
-          console.log("No record found");
+          console.log("No record found!");
         }
       })
       .catch((error) => {
         console.log(error);
-      })
-
-  } catch(err) {
-    next(err);
-    console.log(err);
-  }
-};
-
-//verified page route
-export const redirection = async(req, res, next) => {
-  try {
-    res.sendFile(path.join(__dirname, "http://localhost:5173/"));
-  
+      });
 
   } catch (err) {
     next(err);
@@ -174,6 +149,10 @@ export const login = async (req, res, next) => {
 
     if (!isCorrect) {
       return next(createError(400, "Wrong Password or Email!"));
+    }
+
+    if(!user.verifiedEmail) {
+      return next(createError(400, "User Not Verified!"));
     }
 
     const token = jwt.sign(
