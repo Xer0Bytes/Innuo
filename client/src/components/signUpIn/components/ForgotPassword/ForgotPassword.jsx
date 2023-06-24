@@ -11,11 +11,12 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = `http://localhost:7000/api/password-reset`;
-      const { data } = await axios.post(url, { email });
+      const url = `http://localhost:7000/api/auth/forgot-password`;
+      const data = await axios.post(url, { email: email });
 
       setMsg(data.message);
       setError("");
+      
     } catch (error) {
       if (
         error.response &&
