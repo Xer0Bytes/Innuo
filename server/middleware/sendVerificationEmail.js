@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import { v4 as uuidv4 } from "uuid";
-import {emailFormat} from "./verificationEmail.js";
 
 dotenv.config();
 
@@ -27,14 +26,11 @@ transporter.verify((error, success) => {
   }
 });
 
-export const sendVerificationEmail = (result, res, next) => {
+export const sendVerificationEmail = (link, emailFormat, result, res, next) => {
   const { _id, email } = result;
-
-  //url to be used in the email
-  const currentURL = "http://localhost:5173/";
   const uniqueString = uuidv4() + _id;
   const verificationLink =
-    currentURL + "EmailVerify/" + _id + "/" + uniqueString;
+    link + _id + "/" + uniqueString;
 
   //mail option
   const mailOptions = {
