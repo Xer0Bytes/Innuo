@@ -5,6 +5,8 @@ import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import createError from "../utils/createError.js";
+import { verifyEmailFormat } from "../middleware/verificationEmail.js";
+import { resetPassEmailFormat } from "../middleware/resetPasswordEmail.js";
 
 dotenv.config();
 
@@ -43,7 +45,8 @@ export const register = async (req, res, next) => {
     newUser
       .save()
       .then((result) => {
-        sendVerificationEmail(result, res);
+        const currentURL = "http://localhost:5173/EmailVerify/";
+        sendVerificationEmail(currentURL, verifyEmailFormat, result, res);
       })
       .catch((err) => {
         //user not saved properly
@@ -65,9 +68,7 @@ export const verifyEmail = async (req, res, next) => {
 
     Verification.find({ userID })
       .then((result) => {
-
         if (result.length > 0) {
-
           const { expiresAt } = result[0].expiredAt;
           const hashedUniqueString = result[0].uniqueString;
 
@@ -86,7 +87,6 @@ export const verifyEmail = async (req, res, next) => {
                 //error while deleting expired verification details
                 console.log(error);
               });
-
           } else {
             //valid record exists
             bcrypt
@@ -130,7 +130,6 @@ export const verifyEmail = async (req, res, next) => {
       .catch((error) => {
         console.log(error);
       });
-
   } catch (err) {
     next(err);
     console.log(err);
@@ -151,7 +150,7 @@ export const login = async (req, res, next) => {
       return next(createError(400, "Wrong Password or Email!"));
     }
 
-    if(!user.verifiedEmail) {
+    if (!user.verifiedEmail) {
       return next(createError(400, "User Not Verified!"));
     }
 
@@ -184,4 +183,109 @@ export const logout = async (req, res) => {
     })
     .status(200)
     .send("User has been logged out.");
+};
+
+export const forgotPassEmail = async (req, res) => {
+  try {
+    const email = req.body.email;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      // Email format is invalid
+      return res.status(400).send("Invalid email format");
+    }
+
+    User.find({ email })
+      .then((result) => {
+        if (result.length > 0) {
+          const currentURL = "http://localhost:5173/password-reset/";
+          sendVerificationEmail(currentURL, resetPassEmailFormat, result[0], res);
+        } else {
+          console.log("No such records exist!");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } catch (error) {
+    next(error);
+    console.log(error);
+  }
+};
+
+export const resetPass = async (req, res) => {
+  try {
+    let { id, unique } = req.params;
+
+    const userID = id;
+    const uniqueString = unique;
+
+    Verification.find({ userID })
+      .then((result) => {
+        if (result.length > 0) {
+          const { expiresAt } = result[0].expiredAt;
+          const hashedUniqueString = result[0].uniqueString;
+
+          if (expiresAt < Date.now()) {
+            //record has expired
+            Verification.deleteOne({ userID })
+              .then((result) => {
+                User.deleteOne({ _id: userID })
+                  .then()
+                  .catch((error) => {
+                    //error while deleting expired user details
+                    console.log(error);
+                  });
+              })
+              .catch((error) => {
+                //error while deleting expired verification details
+                console.log(error);
+              });
+          } else {
+            //valid record exists
+            bcrypt
+              .compare(uniqueString, hashedUniqueString)
+              .then((result) => {
+                if (result) {
+                  //strings match
+
+                  //user updated to verified
+                  User.updateOne({ _id: userID }, { verifiedEmail: true })
+                    .then(() => {
+                      //verification details deleted
+                      Verification.deleteOne({ userID })
+                        .then(() => {
+                          res
+                            .status(200)
+                            .send({ message: "Email verified successfully" });
+                        })
+                        .catch((error) => {
+                          console.log(error);
+                        });
+                    })
+                    .catch((error) => {
+                      //error updating user to verified
+                      console.log(error);
+                    });
+                } else {
+                  //strings do not match
+                  console.log("Strings do not match!");
+                }
+              })
+              .catch((error) => {
+                //error comparing strings
+                console.log(error);
+              });
+          }
+        } else {
+          console.log("No record found!");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
 };
