@@ -16,7 +16,6 @@ export const UserDashboard = () => {
   useEffect(() => {
     setLocalStorage(currentUser);
     const gotAchievement = getGotAchievementBruh();
-    console.log(gotAchievement);
     setNewAch(gotAchievement);
     
 

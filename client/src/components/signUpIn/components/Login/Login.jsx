@@ -1,16 +1,29 @@
-import { useState } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import log from "../../assets/log.svg";
 import { motion } from "framer-motion";
 import newRequest from "../../../../utils/newRequest";
+import setLocalStorage from "../../../../utils/setLocalStorage";
+import getCurrentUser from "../../../../utils/getCurrentUser";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [wait, setWait] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const clearMessages = () => {
+      setError(null);
+    };
+
+    if (error) {
+      const timer = setTimeout(clearMessages, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   const config_header = {
     header: {
@@ -19,6 +32,7 @@ const Login = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setWait(true);
     try {
       const res = await newRequest.post(
         "/auth/login",
@@ -26,32 +40,10 @@ const Login = () => {
         config_header
       );
       localStorage.setItem("currentUser", JSON.stringify(res.data));
+      const currentUser = getCurrentUser();
 
-      const resTopic = await newRequest.post(
-        "/topic/getTopics",
-        {},
-        config_header
-      );
-      localStorage.setItem("allTopics", JSON.stringify(resTopic.data));
-
-      const resModule = await newRequest.post(
-        "/module/getModules",
-        {},
-        config_header
-      );
-      localStorage.setItem("allModules", JSON.stringify(resModule.data));
-
-      const resAch = await newRequest.post(
-        "/achievement/getAllAch",
-        {},
-        config_header
-      );
-      localStorage.setItem("allAch", JSON.stringify(resAch.data));
-
-      const resRanking = await newRequest.post("/user/ranking", {}, config_header);
-      localStorage.setItem("ranking", JSON.stringify(resRanking.data));
-
-
+      await setLocalStorage(currentUser);
+      setWait(false);
       navigate("/userDashboard");
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
@@ -107,6 +99,13 @@ const Login = () => {
               <p style={{ padding: "0 15px" }}>Forgot Password? Click Here!</p>
             </Link>
             {error && <div className={"error_msg"}>{error}</div>}
+            {wait && !error && (
+              <div className="flex items-center bg-yellow-300 p-4 mb-3 rounded w-full">
+                <div className="flex-grow text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
+                  Validating user...
+                </div>
+              </div>
+            )}
             <button type="submit" className={"signin_btn"}>
               Sign In
             </button>
