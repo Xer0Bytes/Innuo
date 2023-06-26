@@ -33,6 +33,13 @@ export const register = async (req, res, next) => {
       // Email format is invalid
       return res.status(400).send("Invalid email format");
     }
+
+    // Check if email already exists in the database
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).send("Email already exists");
+    }
+
     const hashedPassword = bcrypt.hashSync(password, 10);
 
     const newUser = new User({
