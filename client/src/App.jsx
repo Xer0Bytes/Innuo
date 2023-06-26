@@ -16,7 +16,7 @@ import { Contribute } from "./components/contribute/Contribute.jsx";
 
 function App() {
   // const user = localStorage.getItem("token");
-  const user=1;
+  const user = 1;
   return (
     <BrowserRouter>
       <Routes>
@@ -24,7 +24,13 @@ function App() {
         <Route path="/register" element={<Signup />}></Route>
 
         {user && <Route path="/userDashboard" exact element={<Dashboard />} />}
-        {user && <Route path="/quiz/:module_name/:module_id" exact element={<Quiz />} />}
+        {user && (
+          <Route
+            path="/quiz/:module_name/:module_id"
+            exact
+            element={<Quiz />}
+          />
+        )}
         {user && <Route path="/ranking" exact element={<Ranking />} />}
         {user && (
           <Route path="/achievements" exact element={<Achievements />} />
@@ -32,21 +38,18 @@ function App() {
         {user && <Route path="/contribute" exact element={<Contribute />} />}
         {user && <Route path="/profile" element={<Profile />} />}
 
+        {/* without login pages  */}
         <Route exact path="/" element={<LandingPage />}></Route>
         <Route path="/register" element={<Signup />}></Route>
         <Route path="/register" exact element={<Signup />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/" element={<Navigate replace to="/login" />} />
 
-
         <Route path="/EmailVerify/:id/:unique" element={<EmailVerify />} />
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
-        <Route
-          path="/password-reset/:id/:unique"
-          element={<PasswordReset />}
-        />
+        <Route path="/password-reset/:id/:unique" element={<PasswordReset />} />
 
         {/* <Route element={<NotFound />} /> */}
       </Routes>
