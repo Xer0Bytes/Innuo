@@ -1,7 +1,9 @@
 import { useEffect, useState, Fragment } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./PasswordReset.css";
+import resetPassword from "../../assets/resetPassword.svg";
+import newRequest from "../../../../utils/newRequest";
 
 const PasswordReset = () => {
   const [validUrl, setValidUrl] = useState(false);
@@ -9,27 +11,46 @@ const PasswordReset = () => {
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
   const param = useParams();
-  const url = `http://localhost:7000/api/auth/password-reset/${param.id}/${param.unique}`;
-
+  // const url = `http://localhost:7000/api/auth/password-reset/${param.id}/${param.unique}`;
+  const navigate = useNavigate();
   useEffect(() => {
     const verifyUrl = async () => {
       try {
-        await axios.get(url);
-        setValidUrl(true);
+        const res = await newRequest.get(
+          `auth/verify/${param.id}/${param.unique}`
+        );
+        if (res.status < 400) {
+          setValidUrl(true);
+          setLoading(false);
+        } else {
+          setValidUrl(false);
+          setLoading(false);
+        }
       } catch (error) {
         setValidUrl(false);
       }
     };
     verifyUrl();
-  }, [param, url]);
+  }, [param]);
+
+  const config_header = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await axios.post(url, { password });
+      console.log(password);
+      const data = await newRequest.post(
+        `auth/password-reset/${param.id}/${param.unique}`,
+        { password: password },
+        config_header
+      );
       setMsg(data.message);
       setError("");
-      window.location = "/login";
+      navigate("/login");
     } catch (error) {
       if (
         error.response &&
@@ -47,7 +68,8 @@ const PasswordReset = () => {
       {validUrl ? (
         <div className={"container"}>
           <form className={"form_container_rp"} onSubmit={handleSubmit}>
-            <h1>Ready to Reset? Let's Go!</h1>
+            <h1 className="text-center">Ready to Reset? Let's Go!</h1>
+            <img src={resetPassword} className="w-3/4 mx-auto" />
             <div className="input-field signup_input">
               <i className="fas fa-lock"></i>
               <input
@@ -57,7 +79,7 @@ const PasswordReset = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
                 required
-                className={"input"}
+                className={"signup_input"}
               />
             </div>
             {error && <div className={"error_msg"}>{error}</div>}
