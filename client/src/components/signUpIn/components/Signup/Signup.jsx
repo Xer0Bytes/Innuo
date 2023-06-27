@@ -215,11 +215,11 @@ const Signup = () => {
                   </li>
                 </ul>
 
-                {error && <div className={"error_msg"}>{error}</div>}
+                {error &&!wait && <div className={"error_msg"}>{error}</div>}
                 {msg && !error && !wait && (
                   <div className={"success_msg"}>{msg}</div>
                 )}
-                {wait &&  !error && !msg && (
+                {wait && (
                   <div className="flex items-center bg-yellow-300 p-4 mb-3 rounded w-full">
                     <div className="flex-grow text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
                       Processing registration...

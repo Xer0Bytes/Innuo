@@ -22,7 +22,7 @@ export const forgotPassEmail = async (req, res, next) => {
     //checking if user exists
     if (user.length > 0) {
       const currentURL = "http://localhost:5173/VerifyReset/";
-      sendVerificationEmail(currentURL, resetPassEmailFormat, result[0], res);
+      sendVerificationEmail(currentURL, resetPassEmailFormat, user[0], res);
 
       res.status(200).send("Email sent successfully.");
     } else {
@@ -66,11 +66,12 @@ export const verifyEmailReset = async (req, res, next) => {
           //search if user exists
           const doesExist = await User.findById(userID);
           //verification details deleted
-          const updateVerification = await Verification.deleteOne({
-            userID: userID,
-          });
+          // const updateVerification = await Verification.deleteOne({
+          //   userID: userID,
+          // });
 
-          if (doesExist && updateVerification) {
+          // if (doesExist && updateVerification) {
+          if (doesExist) {
             return res.status(200).send("Email verified successfully");
           } else {
             res.status(400).send("User not saved.");
@@ -91,30 +92,73 @@ export const verifyEmailReset = async (req, res, next) => {
 export const resetPass = async (req, res, next) => {
   try {
     const userID = req.params.id;
+    const uniqueString = req.params.unique;
     const password = req.body.password;
+    //write code for deleting validation
+    const result = await Verification.find({ userID: userID });
+    if (result.length > 0) {
+      const { expiresAt } = result[0].expiredAt;
+      const hashedUniqueString = result[0].uniqueString;
 
-    const passwordRegex =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+      //checking is link expired or not
+      if (expiresAt < Date.now()) {
+        //record has expired
+        const check = await Verification.deleteOne({ userID: userID });
 
-    if (!passwordRegex.test(password)) {
-      // Password format is invalid
-      return res.status(400).send("Invalid password format");
-    }
+        if (check) {
+          return res.status(400).send("Verification link has expired.");
+        }
+      } else {
+        //record didnt expire so valid
+        const isValid = bcrypt.compare(uniqueString, hashedUniqueString);
 
-    const hashedPassword = bcrypt.hashSync(password, Number(process.env.SALT));
-    const user = await User.findById(userID);
+        if (isValid) {
+          //strings match
 
-    if (!user) {
-      return res.status(404).send("User not found");
-    }
+          //search if user exists
+          const doesExist = await User.findById(userID);
 
-    user.password = hashedPassword;
-    const savedUser = await user.save();
+          if (doesExist) {
+            const passwordRegex =
+              /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
 
-    if (savedUser) {
-      return res.status(200).send("Password updated successfully");
+            if (!passwordRegex.test(password)) {
+              // Password format is invalid
+              return res.status(400).send("Invalid password format");
+            }
+
+            const hashedPassword = bcrypt.hashSync(
+              password,
+              Number(process.env.SALT)
+            );
+            const user = await User.findById(userID);
+
+            if (!user) {
+              return res.status(404).send("User not found");
+            }
+            //verification details deleted
+            const updateVerification = await Verification.deleteOne({
+              userID: userID,
+            });
+            user.password = hashedPassword;
+            const savedUser = await user.save();
+
+            if (savedUser) {
+              return res.status(200).send("Password updated successfully");
+            } else {
+              return res
+                .status(404)
+                .send("Something went wrong. Please try again.");
+            }
+          } else {
+            res.status(400).send("User not saved.");
+          }
+        } else {
+          res.status(400).send("Invalid verification information.");
+        }
+      }
     } else {
-      return res.status(404).send("Something went wrong. Please try again.");
+      res.status(404).send("Link does not exist!");
     }
   } catch (err) {
     next(err);

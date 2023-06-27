@@ -10,6 +10,6 @@ router.post("/login", login);
 router.post("/logout", logout);
 router.post("/forgot-password", forgotPassEmail);
 router.get("/verify-reset/:id/:unique", verifyEmailReset);
-router.post("/password-reset/:id", resetPass);
+router.post("/password-reset/:id/:unique", resetPass);
 
 export default router;

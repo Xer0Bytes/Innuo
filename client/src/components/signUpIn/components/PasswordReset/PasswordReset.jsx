@@ -1,11 +1,11 @@
 import { useEffect, useState, Fragment } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import LottiePlayer from "react-lottie-player";
-import axios from "axios";
 import "./PasswordReset.css";
 import resetPassword from "../../assets/resetPassword.svg";
 import newRequest from "../../../../utils/newRequest";
 import loadingAnimation from "../../assets/loadingAnimation.json";
+import NotFound from "../NotFound/NotFound";
 
 const PasswordReset = () => {
   const [validUrl, setValidUrl] = useState(false);
@@ -13,11 +13,25 @@ const PasswordReset = () => {
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
+  const [wait, setWait] = useState(false);
   const param = useParams();
   // const url = `http://localhost:7000/api/auth/password-reset/${param.id}/${param.unique}`;
   const navigate = useNavigate();
   useEffect(() => {
+    const clearMessages = () => {
+      setError(null);
+      setMsg(null);
+    };
+
+    if (error || msg) {
+      const timer = setTimeout(clearMessages, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error, msg]);
+
+  useEffect(() => {
     const verifyUrl = async () => {
+      console.log("carried out...");
       try {
         const res = await newRequest.get(
           `auth/verify-reset/${param.id}/${param.unique}`
@@ -45,23 +59,32 @@ const PasswordReset = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setWait(true);
       // console.log(password);
       const data = await newRequest.post(
-        `auth/password-reset/${param.id}`,
+        `auth/password-reset/${param.id}/${param.unique}`,
         { password: password },
         config_header
       );
+      setWait(false);
       setMsg(data.message);
       setError("");
       navigate("/login");
-    } catch (error) {
+    } catch (err) {
+      setWait(false);
+      setMsg("");
       if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
+        err.response &&
+        err.response.status >= 400 &&
+        err.response.status <= 500
       ) {
-        setError(error.response.data.message);
-        setMsg("");
+        if (err.response && err.response.data) {
+          setError(err.response.data);
+        } else {
+          setError("An error has occurred");
+        }
+      } else {
+        setError("An error has occurred");
       }
     }
   };
@@ -76,7 +99,7 @@ const PasswordReset = () => {
           play
         />
       ) : validUrl ? (
-        <div className={"container"}>
+        <div className={"container_rp"}>
           <form className={"form_container_rp"} onSubmit={handleSubmit}>
             <h1 className="text-center">Ready to Reset? Let's Go!</h1>
             <img src={resetPassword} className="w-3/4 mx-auto" />
@@ -93,14 +116,23 @@ const PasswordReset = () => {
               />
             </div>
             {error && <div className={"error_msg"}>{error}</div>}
-            {msg && <div className={"success_msg"}>{msg}</div>}
+            {msg && !error && !wait && (
+              <div className={"success_msg"}>{msg}</div>
+            )}
+            {wait && (
+              <div className="flex items-center bg-yellow-300 p-4 mb-3 rounded w-full">
+                <div className="flex-grow text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
+                  Resetting...
+                </div>
+              </div>
+            )}
             <button type="submit" className={"signup_btn"}>
               Submit
             </button>
           </form>
         </div>
       ) : (
-        <h1>404 Not Found</h1>
+        <NotFound />
       )}
     </Fragment>
   );
