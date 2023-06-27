@@ -17,23 +17,17 @@ export const forgotPassEmail = async (req, res, next) => {
       return res.status(400).send("Invalid email format");
     }
 
-    User.find({ email })
-      .then((result) => {
-        if (result.length > 0) {
-          const currentURL = "http://localhost:5173/VerifyReset/";
-          sendVerificationEmail(
-            currentURL,
-            resetPassEmailFormat,
-            result[0],
-            res
-          );
-        } else {
-          console.log("No such records exist!");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const user = await User.find({ email });
+
+    //checking if user exists
+    if (user.length > 0) {
+      const currentURL = "http://localhost:5173/VerifyReset/";
+      sendVerificationEmail(currentURL, resetPassEmailFormat, result[0], res);
+    } else {
+      return res.status(404).send("User does not exist!");
+    }
+
+    res.status(404).send("Email not sent. Please try again.");
   } catch (error) {
     next(error);
     console.log(error);
@@ -47,64 +41,43 @@ export const verifyEmailReset = async (req, res, next) => {
     const userID = id;
     const uniqueString = unique;
 
-    Verification.find({ userID: userID })
-      .then((result) => {
-        if (result.length > 0) {
-          const { expiresAt } = result[0].expiredAt;
-          const hashedUniqueString = result[0].uniqueString;
+    const result = await Verification.find({ userID: userID });
 
-          if (expiresAt < Date.now()) {
-            //record has expired
-            Verification.deleteOne({ userID: userID })
-              .then((result) => {
-                res.status(404).send("Something went wrong. Please try again.");
-              })
-              .catch((error) => {
-                //error while deleting expired verification details
-                console.log(error);
-              });
-          } else {
-            //valid record exists
-            bcrypt
-              .compare(uniqueString, hashedUniqueString)
-              .then((result) => {
-                if (result) {
-                  //strings match
+    //checking if such a verification link exists or not
+    if (result.length > 0) {
+      const { expiresAt } = result[0].expiredAt;
+      const hashedUniqueString = result[0].uniqueString;
 
-                  //search if user exists
-                  User.findById(userID)
-                    .then(() => {
-                      //verification details deleted
-                      // Verification.deleteOne({ userID })
-                      // .then(() => {
-                        console.log("verified");
-                      res.status(200).send("Email verified successfully");
-                      // })
-                      // .catch((error) => {
-                      //   console.log(error);
-                      // });
-                    })
-                    .catch((error) => {
-                      //error finding user
-                      console.log(error);
-                    });
-                } else {
-                  //strings do not match
-                  console.log("Strings do not match!");
-                }
-              })
-              .catch((error) => {
-                //error comparing strings
-                console.log(error);
-              });
-          }
-        } else {
-          console.log("No record found!");
+      //checking is link expired or not
+      if (expiresAt < Date.now()) {
+        //record has expired
+        const check = await Verification.deleteOne({ userID: userID });
+
+        if (check) {
+          return res.status(400).send("Verification link has expired.");
         }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      } else {
+        //record didnt expire so valid
+        const isValid = bcrypt.compare(uniqueString, hashedUniqueString);
+
+        if (isValid) {
+          //strings match
+
+          //search if user exists
+          const doesExist = await User.findById(userID);
+          //verification details deleted
+          const updateVerification = await Verification.deleteOne({
+            userID: userID,
+          });
+
+          if (doesExist && updateVerification) {
+            return res.status(200).send("Email verified successfully");
+          }
+        }
+      }
+    }
+
+    return res.status(404).send("Something went wrong. Please try again.");
   } catch (err) {
     next(err);
     console.log(err);
@@ -116,8 +89,6 @@ export const resetPass = async (req, res, next) => {
     const userID = req.params.id;
     const password = req.body.password;
 
-    console.log(userID);
-
     const passwordRegex =
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
 
@@ -127,7 +98,6 @@ export const resetPass = async (req, res, next) => {
     }
 
     const hashedPassword = bcrypt.hashSync(password, Number(process.env.SALT));
-
     const user = await User.findById(userID);
 
     if (!user) {
@@ -135,10 +105,14 @@ export const resetPass = async (req, res, next) => {
     }
 
     user.password = hashedPassword;
+    const savedUser = await user.save();
 
-    await user.save();
+    if(savedUser) {
+      return res.status(200).send("Password updated successfully");
+    }
 
-    res.status(200).send("Password updated successfully");
+    return res.status(404).send("Something went wrong. Please try again.");
+    
   } catch (err) {
     next(err);
     console.log(err);
