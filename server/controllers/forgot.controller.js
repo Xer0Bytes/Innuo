@@ -23,11 +23,11 @@ export const forgotPassEmail = async (req, res, next) => {
     if (user.length > 0) {
       const currentURL = "http://localhost:5173/VerifyReset/";
       sendVerificationEmail(currentURL, resetPassEmailFormat, result[0], res);
+
+      res.status(200).send("Email sent successfully.");
     } else {
       return res.status(404).send("User does not exist!");
     }
-
-    res.status(404).send("Email not sent. Please try again.");
   } catch (error) {
     next(error);
     console.log(error);
@@ -72,12 +72,16 @@ export const verifyEmailReset = async (req, res, next) => {
 
           if (doesExist && updateVerification) {
             return res.status(200).send("Email verified successfully");
+          } else {
+            res.status(400).send("User not saved.");
           }
+        } else {
+          res.status(400).send("Invalid verification information.");
         }
       }
+    } else {
+      res.status(404).send("Link does not exist!");
     }
-
-    return res.status(404).send("Something went wrong. Please try again.");
   } catch (err) {
     next(err);
     console.log(err);
@@ -107,12 +111,11 @@ export const resetPass = async (req, res, next) => {
     user.password = hashedPassword;
     const savedUser = await user.save();
 
-    if(savedUser) {
+    if (savedUser) {
       return res.status(200).send("Password updated successfully");
+    } else {
+      return res.status(404).send("Something went wrong. Please try again.");
     }
-
-    return res.status(404).send("Something went wrong. Please try again.");
-    
   } catch (err) {
     next(err);
     console.log(err);
