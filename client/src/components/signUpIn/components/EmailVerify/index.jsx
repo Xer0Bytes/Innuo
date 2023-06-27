@@ -1,8 +1,6 @@
 import { useEffect, useState, Fragment } from "react";
 import { useParams, Link } from "react-router-dom";
 import LottiePlayer from "react-lottie-player";
-import axios from "axios";
-import styles from "./styles.module.css";
 import NotFound from "../NotFound/NotFound";
 import mailVerified from "../../assets/mailVerified.svg";
 import loadingAnimation from "../../assets/loadingAnimation.json";

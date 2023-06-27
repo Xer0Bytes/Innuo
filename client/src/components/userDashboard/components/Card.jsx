@@ -27,7 +27,7 @@ export const Card = ({ topic_name, modules }) => {
       className=" pt-4 mb-6 pb-1 ml-[16em] lg:ml-0"
       onClick={onClickTopic}
     >
-      <div className="bg-[#B7EDDF] min-w-[50em] cursor-default p-3 border border-gray-200 rounded-lg shadow shadow-lg">
+      <div className="bg-[#B7EDDF] min-w-[44em] cursor-default p-3 border border-gray-200 rounded-lg shadow shadow-lg">
         <h5 className="mb-1 text-xl font-bold tracking-tight text-gray-900 ">
           {topic_name}
         </h5>
