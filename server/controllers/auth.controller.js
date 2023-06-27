@@ -39,7 +39,7 @@ export const register = async (req, res, next) => {
       return res.status(400).send("Email already exists");
     }
 
-    const hashedPassword = bcrypt.hashSync(password, proces.env.SALT);
+    const hashedPassword = bcrypt.hashSync(password, Number(process.env.SALT));
 
     const newUser = new User({
       name: name,
@@ -53,6 +53,8 @@ export const register = async (req, res, next) => {
     if (result) {
       const currentURL = "http://localhost:5173/EmailVerify/";
       sendVerificationEmail(currentURL, verifyEmailFormat, result, res);
+
+      res.status(200).send("Email sent successfully.");
     } else {
       res.status(400).send("Email not sent! Please try again.");
     }
@@ -73,41 +75,47 @@ export const verifyEmail = async (req, res, next) => {
     const result = await Verification.find({ userID: userID });
 
     //checking if such a verification link exists or not
-    if (result.length > 0) { 
+    if (result.length > 0) {
       const { expiresAt } = result[0].expiredAt;
       const hashedUniqueString = result[0].uniqueString;
 
       //checking is link expired or not
       if (expiresAt < Date.now()) {
         //record has expired
-        const check = await  Verification.deleteOne({ userID: userID });
+        const check = await Verification.deleteOne({ userID: userID });
 
-        if(check) {
+        if (check) {
           return res.status(400).send("Verification link has expired.");
         }
-
       } else {
         //record didnt expire so valid
         const isValid = bcrypt.compare(uniqueString, hashedUniqueString);
 
-        if(isValid) {
+        if (isValid) {
           //strings match
 
           //user updated to verified
-          const updatedUser = await User.updateOne({ _id: userID }, { verifiedEmail: true });
+          const updatedUser = await User.updateOne(
+            { _id: userID },
+            { verifiedEmail: true }
+          );
           //verification details deleted
-          const updateVerification = await Verification.deleteOne({ userID: userID });
+          const updateVerification = await Verification.deleteOne({
+            userID: userID,
+          });
 
-          if(updatedUser && updateVerification) {
-            return res.status(200).send("Email verified successfully" );
+          if (updatedUser && updateVerification) {
+            res.status(200).send("Email verified successfully");
+          } else {
+            res.status(400).send("User not updated properly.");
           }
-
+        } else {
+          res.status(400).send("Invalid verification information.");
         }
       }
+    } else {
+      res.status(404).send("Link does not exist.");
     }
-    
-    return res.status(404).send("Something went wrong. Please try again.");
-
   } catch (err) {
     next(err);
     console.log(err);
