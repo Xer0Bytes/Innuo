@@ -70,7 +70,7 @@ export const verifyEmail = async (req, res, next) => {
     const userID = id;
     const uniqueString = unique;
 
-    const result = await Verification.find({ userID });
+    const result = await Verification.find({ userID: userID });
 
     //checking if such a verification link exists or not
     if (result.length > 0) { 
@@ -80,7 +80,7 @@ export const verifyEmail = async (req, res, next) => {
       //checking is link expired or not
       if (expiresAt < Date.now()) {
         //record has expired
-        const check = await  Verification.deleteOne({ userID });
+        const check = await  Verification.deleteOne({ userID: userID });
 
         if(check) {
           return res.status(400).send("Verification link has expired.");
@@ -96,7 +96,7 @@ export const verifyEmail = async (req, res, next) => {
           //user updated to verified
           const updatedUser = await User.updateOne({ _id: userID }, { verifiedEmail: true });
           //verification details deleted
-          const updateVerification = await Verification.deleteOne({ userID });
+          const updateVerification = await Verification.deleteOne({ userID: userID });
 
           if(updatedUser && updateVerification) {
             return res.status(200).send("Email verified successfully" );
