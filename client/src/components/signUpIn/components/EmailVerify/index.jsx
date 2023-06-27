@@ -17,13 +17,15 @@ const EmailVerify = () => {
     const verifyEmailUrl = async () => {
       try {
         // const url = `http://localhost:7000/api/auth/verify/${param.id}/${param.unique}`;
-        const res = await newRequest.get(`auth/verify/${param.id}/${param.unique}`);
+        const res = await newRequest.get(
+          `auth/verify/${param.id}/${param.unique}`
+        );
         if (res.status < 400) {
           setValidUrl(true);
           setLoading(false);
         } else {
           setValidUrl(false);
-          setLoading(false);
+          setLoading(true);
         }
       } catch (error) {
         setLoading(false);
