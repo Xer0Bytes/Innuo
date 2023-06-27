@@ -49,7 +49,7 @@ function App() {
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
-        <Route path="/password-reset/:id/:unique" element={<PasswordReset />} />
+        <Route path="/VerifyReset/:id/:unique" element={<PasswordReset />} />
 
         {/* <Route element={<NotFound />} /> */}
       </Routes>
