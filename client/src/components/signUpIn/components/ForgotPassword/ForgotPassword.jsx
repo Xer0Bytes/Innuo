@@ -33,6 +33,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     // console.log(email);
     try {
+
       setWait(true);
       const res = await newRequest.post(
         "auth/forgot-password",
@@ -93,7 +94,7 @@ const ForgotPassword = () => {
         </div>
         {error && <div className={"error_msg"}>{error}</div>}
         {msg && !error && !wait && <div className={"success_msg"}>{msg}</div>}
-        {wait  && (
+        {wait && !error && (
           <div className="flex items-center bg-yellow-300 p-4 mb-3 rounded w-full">
             <div className="flex-grow text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
               Sending reset link to your mail...
