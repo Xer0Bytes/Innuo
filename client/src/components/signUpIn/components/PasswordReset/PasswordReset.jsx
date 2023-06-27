@@ -1,12 +1,15 @@
 import { useEffect, useState, Fragment } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import LottiePlayer from "react-lottie-player";
 import axios from "axios";
 import "./PasswordReset.css";
 import resetPassword from "../../assets/resetPassword.svg";
 import newRequest from "../../../../utils/newRequest";
+import loadingAnimation from "../../assets/loadingAnimation.json";
 
 const PasswordReset = () => {
   const [validUrl, setValidUrl] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
@@ -17,14 +20,14 @@ const PasswordReset = () => {
     const verifyUrl = async () => {
       try {
         const res = await newRequest.get(
-          `auth/verify/${param.id}/${param.unique}`
+          `auth/verify-reset/${param.id}/${param.unique}`
         );
         if (res.status < 400) {
           setValidUrl(true);
           setLoading(false);
         } else {
           setValidUrl(false);
-          setLoading(false);
+          setLoading(true);
         }
       } catch (error) {
         setValidUrl(false);
@@ -42,9 +45,9 @@ const PasswordReset = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(password);
+      // console.log(password);
       const data = await newRequest.post(
-        `auth/password-reset/${param.id}/${param.unique}`,
+        `auth/password-reset/${param.id}`,
         { password: password },
         config_header
       );
@@ -65,7 +68,14 @@ const PasswordReset = () => {
 
   return (
     <Fragment>
-      {validUrl ? (
+      {loading ? (
+        <LottiePlayer
+          loop={true}
+          animationData={loadingAnimation}
+          className={`w-1/2 m-auto`}
+          play
+        />
+      ) : validUrl ? (
         <div className={"container"}>
           <form className={"form_container_rp"} onSubmit={handleSubmit}>
             <h1 className="text-center">Ready to Reset? Let's Go!</h1>
