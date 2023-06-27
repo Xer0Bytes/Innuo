@@ -32,8 +32,8 @@ const Login = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setWait(true);
     try {
+    setWait(true);
       const res = await newRequest.post(
         "/auth/login",
         { email, password },
@@ -46,6 +46,7 @@ const Login = () => {
       setWait(false);
       navigate("/userDashboard");
     } catch (err) {
+      setWait(false);
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
@@ -98,8 +99,8 @@ const Login = () => {
             >
               <p style={{ padding: "0 15px" }}>Forgot Password? Click Here!</p>
             </Link>
-            {error && <div className={"error_msg"}>{error}</div>}
-            {wait && !error && (
+            {error && !wait && <div className={"error_msg"}>{error}</div>}
+            {wait  && (
               <div className="flex items-center bg-yellow-300 p-4 mb-3 rounded w-full">
                 <div className="flex-grow text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
                   Validating user...
