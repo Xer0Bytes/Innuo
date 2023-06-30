@@ -2,7 +2,7 @@ import Topic from "../models/topic.model.js";
 import createError from "../utils/createError.js";
 import Counter from "../models/counter.model.js";
 
-export const addModule = async (req, res, next) => {
+export const addModule = async (req, res) => {
   try {
     const sequence = await Counter.findOneAndUpdate(
       { _id: "moduleID" },
@@ -26,14 +26,15 @@ export const addModule = async (req, res, next) => {
     // Get all topics with topicID and topicTitle and modules fields only
     const topics = await Topic.find({}, "topicID topicTitle modules");
 
-    res.status(201).send(topics);
+    // res.status(201).send(topics);
+    res.status(201).send("Saved Successfully.");
   } catch (err) {
-    next(err);
+    //next(err);
     console.log(err);
   }
 };
 
-export const addLesson = async (req, res, next) => {
+export const addLesson = async (req, res) => {
   try {
     //checking if module exists for this topic
     const topic = await Topic.findOne({
@@ -42,7 +43,7 @@ export const addLesson = async (req, res, next) => {
     });
 
     if (!topic) {
-      return next(createError(420, "No such modules exist in that topic."));
+      return res.status(420).send("No such modules exist for this topic.");
     }
 
     const newLesson = {
@@ -57,9 +58,10 @@ export const addLesson = async (req, res, next) => {
     // Get all topics with topicID and topicTitle and modules fields only
     const topics = await Topic.find({}, "topicID topicTitle modules");
 
-    res.status(201).send(topics);
+    // res.status(201).send(topics);
+    res.status(201).send("Saved Successfully.");
   } catch (err) {
-    next(err);
+    // next(err);
     console.log(err);
   }
 };
