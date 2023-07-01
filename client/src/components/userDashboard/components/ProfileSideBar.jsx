@@ -5,7 +5,7 @@ const ProfileSideBar = () => {
   const currentUser = getCurrentUser();
   return (
     <div
-      className="bg-[#FFC6CD] min-w-[300px] min-h-full fixed top-0 right-0 p-3 hidden lg:block"
+      className={` ${currentUser.isContributer? "bg-[#CAA3DA]":"bg-[#FFC6CD]"}  min-w-[300px] min-h-full fixed top-0 right-0 p-3 hidden lg:block`}
     >
       <h3 className="text-center text-[2.15em] font-bold leading-normal pt-2 text-blueGray-700">
         Welcome Back!
