@@ -54,7 +54,7 @@ export const register = async (req, res, next) => {
       const currentURL = "http://localhost:5173/EmailVerify/";
       sendVerificationEmail(currentURL, verifyEmailFormat, result, res);
 
-      res.status(200).send("Email sent successfully.");
+      // res.status(200).send("Email sent successfully.");
     } else {
       res.status(400).send("Email not sent! Please try again.");
     }

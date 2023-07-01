@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const PopUp = ({message, button1Text, button2Text, setModalVisibility }) => {
+const PopUp = ({message, redButtonText, normalButtonText, setModalVisibility, redButtonFunction, normalButtonFunction }) => {
   return (
     <>
     
@@ -44,33 +44,34 @@ const PopUp = ({message, button1Text, button2Text, setModalVisibility }) => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                 ></path>
               </svg>
               <h3 className="mb-5 text-lg font-normal text-gray-500 ">
                {message}
               </h3>
-              <Link to="/userDashboard">
                 <button
                   data-modal-hide="popup-modal"
                   type="button"
                   className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-lg inline-flex items-center px-5 py-2.5 text-center mr-2"
+                  onClick={() => {
+                    redButtonFunction()
+                  }}
                 >
-                 {button1Text}
+                 {redButtonText}
                 </button>
-              </Link>
               <button
                 data-modal-hide="popup-modal"
                 type="button"
                 className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-lg font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 "
                 onClick={() => {
-                  setModalVisibility(false);
+                  normalButtonFunction()
                 }}
               >
-                {button2Text}
+                {normalButtonText}
               </button>
             </div>
           </div>
