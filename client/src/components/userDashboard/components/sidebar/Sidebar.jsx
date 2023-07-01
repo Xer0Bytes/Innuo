@@ -25,7 +25,7 @@ const Sidebar = ({ activePage}) => {
 
   return (
     <>
-      <nav className={"nav-menu"}>
+      <nav className={`nav-menu ${currentUser.isContributer? "contributor-nav-menu":""}`}>
         <img src={logo} className="sidebar_logo" />
         <ul className="nav-menu-items">
           <div>
@@ -36,7 +36,7 @@ const Sidebar = ({ activePage}) => {
               return (
                 <li
                   key={index}
-                  className={`${item.cName}`}
+                  className={`${item.cName} ${currentUser.isContributer? "contributor-nav-text":""}`}
                   onClick={item.title === "Log out" ? handleLogout : null}
                 >
                   <Link to={item.path} className={`${liClassName}`}>
