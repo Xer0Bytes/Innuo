@@ -12,20 +12,15 @@ function MCQFormat({
   return (
     <form className="main">
       <div className="title">
-        {/* insert condition here instead of 1 ================================ */}
-        {1 ? (
-          <span>
-            <p>{currQuestion.questionText}</p>
-            <span className="question-img">
-              <img
-                src={currQuestion.questionImageURL}
-                className="w-[200px] rounded-lg"
-              />
-            </span>
+        <span>
+          <p>{currQuestion.questionText}</p>
+          <span className="question-img">
+            <img
+              src={currQuestion.questionImageURL}
+              className="w-[200px] rounded-lg"
+            />
           </span>
-        ) : (
-          ""
-        )}
+        </span>
       </div>
       <div className="options">
         {currQuestion.choices.map((choice, index) => {

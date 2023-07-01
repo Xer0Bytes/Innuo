@@ -15,7 +15,7 @@ const Lesson = ({ lesson, currLessonIndex, changeIndex, total }) => {
         <div className="question_content">
           <div className="main">
             <div className="title">
-              <span className="m-2">
+              <span className="my-2">
                 <p className="text-[#333] text-bold text-[1.6em]">
                   {lesson.lessonText}
                 </p>
