@@ -24,7 +24,7 @@ export const forgotPassEmail = async (req, res, next) => {
       const currentURL = "http://localhost:5173/VerifyReset/";
       sendVerificationEmail(currentURL, resetPassEmailFormat, user[0], res);
 
-      res.status(200).send("Email sent successfully.");
+      // res.status(200).send("Email sent successfully.");
     } else {
       return res.status(404).send("User does not exist!");
     }

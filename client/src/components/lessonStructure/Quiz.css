@@ -56,9 +56,9 @@
 }
 
 .quiz-screen .question .question_content {
-  min-height: 90%;
+  min-height: 80%;
   border: 1px solid #eee;
-  margin-top: 2em;
+  margin-top: 0.5em;
   padding:.5em;
   box-shadow: 0px 2px 5px 2px rgb(77, 114, 152, 0.3);
   border-radius: 20px;
@@ -84,7 +84,7 @@
 }
 
 .quiz-screen .question .main {
-  padding: 20px 40px;
+  padding: 10px 10px;
 }
 
 .quiz-screen .question .main .title span {
@@ -95,7 +95,6 @@
 
 .quiz-screen .question .main .title p {
   font-size: 1.6em;
-  margin-top: 5px;
   color: #333;
 }
 

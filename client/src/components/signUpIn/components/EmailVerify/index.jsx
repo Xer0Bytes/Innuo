@@ -10,25 +10,29 @@ const EmailVerify = () => {
   const [validUrl, setValidUrl] = useState(false);
   const param = useParams();
   const [loading, setLoading] = useState(true);
+  let sth = 0;
 
   useEffect(() => {
     const verifyEmailUrl = async () => {
-      try {
-        // const url = `http://localhost:7000/api/auth/verify/${param.id}/${param.unique}`;
-        const res = await newRequest.get(
-          `auth/verify/${param.id}/${param.unique}`
-        );
-        if (res.status < 400) {
-          setValidUrl(true);
+      if (validUrl !== true && sth===0) {
+        try {
+          sth=1;
+          // const url = `http://localhost:7000/api/auth/verify/${param.id}/${param.unique}`;
+          const res = await newRequest.get(
+            `auth/verify/${param.id}/${param.unique}`
+          );
+          if (res.status < 400) {
+            setValidUrl(true);
+            setLoading(false);
+          } else {
+            setValidUrl(false);
+            setLoading(true);
+          }
+        } catch (error) {
           setLoading(false);
-        } else {
           setValidUrl(false);
-          setLoading(true);
+          console.log(error);
         }
-      } catch (error) {
-        setLoading(false);
-        setValidUrl(false);
-        console.log(error);
       }
     };
     verifyEmailUrl();

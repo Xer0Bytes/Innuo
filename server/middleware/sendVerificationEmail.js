@@ -60,7 +60,7 @@ export const sendVerificationEmail = (link, emailFormat, result, res, next) => {
             .sendMail(mailOptions)
             .then(() => {
               //mail sent and verification info saved
-              res.status(201).send("Email sent SUCESSFULLYYYYYY");
+              res.status(201).send("Email sent successfully.");
               //   next();
             })
             .catch((error) => {

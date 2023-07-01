@@ -10,6 +10,10 @@
   align-items: center;
 }
 
+.navbar_dashboard.contributor-dashboard{
+  background-color: #CAA3DA;
+}
+
 .menu-bars {
   margin-left: 2rem;
   font-size: 2rem;
@@ -39,6 +43,10 @@
   left: 0;
   height: 100vh; /* Adjust the height as needed */
   overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.nav-menu.contributor-nav-menu{
+  background-color: #CAA3DA;
 }
 
 /* .nav-menu.active {
@@ -77,6 +85,10 @@
 
 .nav-text a:hover , .nav-text .active{
   background-color: #FA9BAF;
+}
+
+.nav-text.contributor-nav-text a:hover , .nav-text.contributor-nav-text .active{
+  background-color: #a343c9;
 }
 
 .nav-menu-items {

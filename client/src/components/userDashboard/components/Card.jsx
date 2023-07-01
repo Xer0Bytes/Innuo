@@ -10,23 +10,20 @@ export const Card = ({ topic_name, modules }) => {
     ? currentUser.modulesCompleted
     : ""; //array of module id
 
-    const onClickTopic= () =>{
-      if(modules && modules.length > 0){
-        setIsOpen(!isOpen);
-      } else{
-        setIsOpen(true);
-        const removeNotification = () =>{
-          setIsOpen(false);
-        }
-        const timer = setTimeout(removeNotification, 3000);
-        return () => clearTimeout(timer);
-      }
+  const onClickTopic = () => {
+    if (modules && modules.length > 0) {
+      setIsOpen(!isOpen);
+    } else {
+      setIsOpen(true);
+      const removeNotification = () => {
+        setIsOpen(false);
+      };
+      const timer = setTimeout(removeNotification, 3000);
+      return () => clearTimeout(timer);
     }
+  };
   return (
-    <div
-      className=" pt-4 mb-6 pb-1 ml-[16em] lg:ml-0"
-      onClick={onClickTopic}
-    >
+    <div className=" pt-4 mb-6 pb-1 ml-[16em] lg:ml-0" onClick={onClickTopic}>
       <div className="bg-[#B7EDDF] min-w-[44em] cursor-default p-3 border border-gray-200 rounded-lg shadow shadow-lg">
         <h5 className="mb-1 text-xl font-bold tracking-tight text-gray-900 ">
           {topic_name}
@@ -44,6 +41,9 @@ export const Card = ({ topic_name, modules }) => {
                     completedModules.includes(module.moduleID)
                       ? "green-300"
                       : "white"
+                  }
+                  completed={
+                    completedModules.includes(module.moduleID) ? true : false
                   }
                 />
               ))}
