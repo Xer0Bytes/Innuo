@@ -15,8 +15,9 @@ const PasswordReset = () => {
   const [error, setError] = useState("");
   const [wait, setWait] = useState(false);
   const param = useParams();
-  // const url = `http://localhost:7000/api/auth/password-reset/${param.id}/${param.unique}`;
   const navigate = useNavigate();
+  let sth = 0;
+
   useEffect(() => {
     const clearMessages = () => {
       setError(null);
@@ -30,21 +31,35 @@ const PasswordReset = () => {
   }, [error, msg]);
 
   useEffect(() => {
+    const stopLoading = () =>{
+      if(!validUrl) setLoading(false);
+    }
+
+    const cancelLoadingTimer = setTimeout(stopLoading, 15000);
+    return () => clearTimeout(cancelLoadingTimer);
+  }, []);
+
+  useEffect(() => {
     const verifyUrl = async () => {
-      console.log("carried out...");
-      try {
-        const res = await newRequest.get(
-          `auth/verify-reset/${param.id}/${param.unique}`
-        );
-        if (res.status < 400) {
-          setValidUrl(true);
-          setLoading(false);
-        } else {
+      console.log(param.id);
+      console.log(param.unique);
+      if (validUrl !== true && sth === 0) {
+        try {
+          sth = 1;          
+          const res = await newRequest.get(
+            `auth/verify-reset/${param.id}/${param.unique}`
+          );
+          console.log("carried out....");
+          if (res.status < 400) {
+            setValidUrl(true);
+            setLoading(false);
+          } else {
+            setValidUrl(false);
+            setLoading(false);
+          }
+        } catch (error) {
           setValidUrl(false);
-          setLoading(true);
         }
-      } catch (error) {
-        setValidUrl(false);
       }
     };
     verifyUrl();
@@ -73,6 +88,7 @@ const PasswordReset = () => {
     } catch (err) {
       setWait(false);
       setMsg("");
+      console.log(err);
       if (
         err.response &&
         err.response.status >= 400 &&
