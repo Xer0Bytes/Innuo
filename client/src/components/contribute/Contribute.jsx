@@ -6,7 +6,7 @@ import ModuleForm from "./components/ModuleForm";
 import TopicForm from "./components/TopicForm";
 import LessonForm from "./components/LessonForm";
 
-export const Contribute = () => {
+const Contribute = () => {
   const [formType, setFormType] = useState("topic");
   return (
     <>
@@ -46,3 +46,5 @@ export const Contribute = () => {
     </>
   );
 };
+
+export default Contribute;
