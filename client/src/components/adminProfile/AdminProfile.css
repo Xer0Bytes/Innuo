@@ -1,0 +1,34 @@
+:root {
+    /* --primary-bg: #333; */
+    --blue: #b7eddf;
+    --black2: #333;
+    --grey: #cecece;
+    --white: white;
+    --primary-text-color: #333;
+    /* --secondary-text-color: #cecece; */
+    --border-radius: 10px;
+    /* --speed: 500ms; */
+  }
+  
+
+.editadminprofile_btn, .saveadminchanges_btn {
+    max-width: 10em;
+    width: 100%;
+    background-color: var(--blue);
+    border: 3px solid var(--primary-text-color);
+    outline: none;
+    height: 40px;
+    border-radius: 45px;
+    color: var(--black2);
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  
+  
+  .editadminprofile_btn:hover, .saveadminchanges_btn:hover {
+    transform: translateY(-5px);
+    border-bottom-width: var(--border-radius);
+  }
