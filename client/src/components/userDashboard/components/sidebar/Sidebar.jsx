@@ -1,14 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SidebarData } from "./SidebarData.js";
 import "./Sidebar.css";
 import logo from "../../assets/logo.png";
 import { AiFillFileAdd } from "react-icons/ai";
-import getCurrentUer from '../../../../utils/getCurrentUser.js'
+import getCurrentUser from '../../../../utils/getCurrentUser.js'
 
 const Sidebar = ({ activePage}) => {
-  const currentUser = getCurrentUer();
+  const currentUser = getCurrentUser();
+  const navigate = useNavigate();
   const handleLogout = () => {
+    navigate("/");
     localStorage.clear();
   };
   const modifiedSidebarData = [...SidebarData];

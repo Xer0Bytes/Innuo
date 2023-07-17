@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SidebarData } from "./SidebarData.js";
 import "../../../userDashboard/components/sidebar/Sidebar.css";
 import logo from "../../../userDashboard/assets/logo.png";
@@ -9,20 +9,11 @@ import '../../../userDashboard/components/sidebar/Sidebar.css'
 
 const Sidebar = ({ activePage}) => {
   const currentUser = getCurrentUer();
+  const navigate = useNavigate();
   const handleLogout = () => {
+    navigate("/");
     localStorage.clear();
   };
-  const modifiedSidebarData = [...SidebarData];
-//   if (currentUser.isContributer === true) {
-//     const contributeItem = {
-//       title: "Contribute",
-//       path: "/contribute",
-//       icon: AiFillFileAdd,
-//       cName: "nav-text",
-//     };
-//     const insertIndex = modifiedSidebarData.length - 1;
-//     modifiedSidebarData.splice(insertIndex, 0, contributeItem);
-//   }
 
   return (
     <>
@@ -30,7 +21,7 @@ const Sidebar = ({ activePage}) => {
         <img src={logo} className="sidebar_logo" />
         <ul className="nav-menu-items">
           <div>
-            {modifiedSidebarData.map((item, index) => {
+            {SidebarData.map((item, index) => {
               const Icon = item.icon;
               const isActive = item.title === activePage;
               const liClassName = ` ${isActive ? "active" : ""}`;

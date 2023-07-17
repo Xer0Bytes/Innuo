@@ -82,6 +82,22 @@
   transition: 0.5s;
 }
 
+.editcontributorprofile_btn {
+  max-width: 10em;
+  width: 100%;
+  background-color: var(--purple);
+  border: 3px solid var(--primary-text-color);
+  outline: none;
+  height: 40px;
+  border-radius: 45px;
+  color: var(--black2);
+  text-transform: uppercase;
+  font-size: 1.2em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
 .deleteaccount_btn{
   
   max-width: 10em;
