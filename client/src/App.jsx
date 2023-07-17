@@ -65,9 +65,11 @@ function PublicUser ({children}){
   const currentUser = getCurrentUser();
   if(currentUser===null || currentUser===undefined){
     return <>{children}</>
-  } else if(currentUser?.isAdmin) {
+  } else if(currentUser.isAdmin) {
     return <Navigate to="/adminDashboard"/>
-  }else if(currentUser?.isContributer) {
+  }else if(currentUser.isContributer) {
+    return <Navigate to="/userDashboard"/>
+  }else {
     return <Navigate to="/userDashboard"/>
   }
 }
@@ -76,12 +78,13 @@ function NormalUser ({children}){
   //is user;
   const currentUser = getCurrentUser();
   if(currentUser!==null && currentUser!==undefined && currentUser.isAdmin===false){
-    console.log(currentUser);
     return <>{children}</>
   } else if(currentUser===null || currentUser===undefined) {
     return <Navigate to="/login"/>
   } else if(currentUser.isAdmin===true){
     return <Navigate to="/adminDashboard"/>
+  }else {
+    return <Navigate to="/userDashboard"/>
   }
 }
 
@@ -94,6 +97,8 @@ function ContributorUser ({children}){
     return <Navigate to="/login"/>
   } else if(currentUser.isAdmin===true){
     return <Navigate to="/adminDashboard"/>
+  } else {
+    return <Navigate to="/userDashboard"/>
   }
 }
 
@@ -105,6 +110,8 @@ function AdminUser ({children}){
   } else if(currentUser===null || currentUser===undefined) {
     return <Navigate to="/login"/>
   } else if(currentUser.isContributer===true){
+    return <Navigate to="/userDashboard"/>
+  }else {
     return <Navigate to="/userDashboard"/>
   }
 }
