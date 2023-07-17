@@ -134,7 +134,7 @@ const ModuleForm = () => {
           {!wait && (
             <button
               type="submit"
-              className="savechanges_btn"
+              className="editcontributorprofile_btn"
               data-te-ripple-init
               data-te-ripple-color="light"
             >
