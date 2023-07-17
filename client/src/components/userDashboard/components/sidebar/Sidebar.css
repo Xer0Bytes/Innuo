@@ -2,16 +2,16 @@
   margin-left:270px;
 }
 
-.navbar_dashboard {
-  background-color: #FFC6CD ;
+.navbar_dashboard{
+  background-color: #CEE69A;
   height: 80px;
   display: flex;
   justify-content: space-between; /* add this */
   align-items: center;
 }
 
-.navbar_dashboard.contributor-dashboard{
-  background-color: #CAA3DA;
+.navbar_dashboard.contributor-dashboard {
+  background-color: #FFC6CD ;
 }
 
 .navbar_dashboard.admin-dashboard{
@@ -29,10 +29,8 @@
   margin-top: auto;
 }
 
-.nav-menu {
-  /* background-color: #FED885 ; */
-  /* background-color:rgb(254, 216, 133, 0.6); */
-  background-color:rgb(255, 198, 205, 0.8);
+.nav-menu{
+  background-color: #CEE69A;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px); /* for Safari */
   width: 270px;
@@ -50,7 +48,7 @@
 }
 
 .nav-menu.contributor-nav-menu{
-  background-color: #CAA3DA;
+  background-color:rgb(255, 198, 205, 0.8);
 }
 .nav-menu.admin-nav-menu{
   background-color: #B7EDDF;
@@ -91,11 +89,11 @@
 }
 
 .nav-text a:hover , .nav-text .active{
-  background-color: #FA9BAF;
+  background-color: #9bd71a;
 }
 
 .nav-text.contributor-nav-text a:hover , .nav-text.contributor-nav-text .active{
-  background-color: #a343c9;
+  background-color: #FA9BAF;
 }
 
 .nav-text.admin-nav-text a:hover , .nav-text.admin-nav-text .active{

@@ -6,6 +6,7 @@
   --black2: #333;
   --grey: #cecece;
   --white: white;
+  --green: #CEE69A;
   --primary-text-color: #333;
   /* --secondary-text-color: #cecece; */
   --border-radius: 10px;
@@ -66,7 +67,7 @@
   padding: 1.2em;
 }
 
-.editprofile_btn, .savechanges_btn {
+.editcontributorprofile_btn {
   max-width: 10em;
   width: 100%;
   background-color: var(--pink);
@@ -82,10 +83,10 @@
   transition: 0.5s;
 }
 
-.editcontributorprofile_btn {
+.editprofile_btn, .savechanges_btn {
   max-width: 10em;
   width: 100%;
-  background-color: var(--purple);
+  background-color: var(--green);
   border: 3px solid var(--primary-text-color);
   outline: none;
   height: 40px;
@@ -115,7 +116,7 @@
   transition: 0.5s;
 }
 
-.editprofile_btn:hover, .savechanges_btn:hover, .deleteaccount_btn:hover {
+.editprofile_btn:hover, .savechanges_btn:hover, .deleteaccount_btn:hover, .editcontributorprofile_btn:hover {
   transform: translateY(-5px);
   border-bottom-width: var(--border-radius);
 }
