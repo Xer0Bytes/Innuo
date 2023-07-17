@@ -14,6 +14,10 @@
   background-color: #CAA3DA;
 }
 
+.navbar_dashboard.admin-dashboard{
+  background-color: #B7EDDF;
+}
+
 .menu-bars {
   margin-left: 2rem;
   font-size: 2rem;
@@ -47,6 +51,9 @@
 
 .nav-menu.contributor-nav-menu{
   background-color: #CAA3DA;
+}
+.nav-menu.admin-nav-menu{
+  background-color: #B7EDDF;
 }
 
 /* .nav-menu.active {
@@ -89,6 +96,10 @@
 
 .nav-text.contributor-nav-text a:hover , .nav-text.contributor-nav-text .active{
   background-color: #a343c9;
+}
+
+.nav-text.admin-nav-text a:hover , .nav-text.admin-nav-text .active{
+  background-color: #78E4CC;
 }
 
 .nav-menu-items {
