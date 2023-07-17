@@ -16,8 +16,6 @@ const EditProfile = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
 
- 
-
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
     editProfileName: currentUser.name,
@@ -62,8 +60,7 @@ const EditProfile = () => {
       setError(null);
       setSuccess(false);
     };
-    if(success) 
-      window.location.reload();
+    if (success) window.location.reload();
     if (error || success) {
       const timer = setTimeout(clearMessages, 5000);
       return () => clearTimeout(timer);
@@ -124,7 +121,11 @@ const EditProfile = () => {
           </div>
           {showEditProfileButton && (
             <button
-              className="editprofile_btn min-w-[8em] col-span-1 justify-right mb-auto ml-auto mt-auto"
+              className={` ${
+                currentUser.isContributer
+                  ? "editcontributorprofile_btn"
+                  : "editprofile_btn"
+              }  min-w-[8em] col-span-1 justify-right mb-auto ml-auto mt-auto`}
               onClick={revealForm}
             >
               Edit Profile
@@ -207,7 +208,7 @@ const EditProfile = () => {
                 </div>
               </div>
               {isUploading && (
-                <div className="text-center">
+                 <div className="text-center text-green-500">
                   Upload Progress: {uploadProgress}%
                 </div>
               )}
@@ -231,7 +232,11 @@ const EditProfile = () => {
                 )}
                 <button
                   type="submit"
-                  className="savechanges_btn"
+                  className={` ${
+                    currentUser.isContributer
+                      ? "editcontributorprofile_btn"
+                      : "savechanges_btn"
+                  } `}
                   data-te-ripple-init
                   data-te-ripple-color="light"
                 >
