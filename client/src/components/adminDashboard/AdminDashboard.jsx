@@ -146,7 +146,7 @@ const AdminDashboard = () => {
             </div>
 
             {filterSelected === "Processed" && (
-              <div className="w-full mx-auto text-center">
+              <div className="w-full mx-auto text-right">
                 <button
                   onClick={() => {
                     setVisibleDeleteModal(true);
