@@ -12,12 +12,11 @@ import Notification from "./components/Notification";
 export const UserDashboard = () => {
   const currentUser = getCurrentUser();
   const [notification, setNotification] = useState(false);
-  const[newAch, setNewAch]=useState(null);
+  const [newAch, setNewAch] = useState(null);
   useEffect(() => {
     setLocalStorage(currentUser);
     const gotAchievement = getGotAchievementBruh();
     setNewAch(gotAchievement);
-    
 
     const handleNotificationDelete = () => {
       setNotification(false);
@@ -25,7 +24,7 @@ export const UserDashboard = () => {
       //set gotAchievement!
     };
 
-    if (gotAchievement && gotAchievement>0) {
+    if (gotAchievement && gotAchievement > 0) {
       console.log("notun achievement!");
       setNotification(true);
       const timer = setTimeout(handleNotificationDelete, 6000);
@@ -36,25 +35,33 @@ export const UserDashboard = () => {
     <div>
       <Sidebar activePage={"Home"} />
       <div>
-        <div className=" h-full grid place-items-center left-[270px] right-[280px] md:left-[500px]">
-          {notification && (
-            <Notification
-              text={newAch>1?`You have unlocked ${newAch} new planets!`:`You have unlocked a new planet!`}
-              setNotification={setNotification}
-            />
-          )}
-          <PageHeader
-            title={"Lessons"}
-            lottieAnimationData={AnimatedAstronautDashboard}
-            isLooped={true}
-            width={"w-[23em]"}
-            titleMargin={"-mt-6"}
-            titleColor={"#000"}
-          />
-          <CardContainer />
-        </div>
-        <div>
-          <ProfileSideBar />
+        <div className="move_left ">
+          <div className="p-2">
+            <div className="p-2 items-center rounded-lg w-full lg:w-3/4 mt-3 items-center">
+              {notification && (
+                <Notification
+                  text={
+                    newAch > 1
+                      ? `You have unlocked ${newAch} new planets!`
+                      : `You have unlocked a new planet!`
+                  }
+                  setNotification={setNotification}
+                />
+              )}
+              <PageHeader
+                title={"Lessons"}
+                lottieAnimationData={AnimatedAstronautDashboard}
+                isLooped={true}
+                width={"w-[23em]"}
+                titleMargin={"-mt-6"}
+                titleColor={"#000"}
+              />
+              <CardContainer />
+            </div>
+            <div>
+              <ProfileSideBar />
+            </div>
+          </div>
         </div>
       </div>
     </div>
