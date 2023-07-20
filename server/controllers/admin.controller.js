@@ -1,52 +1,64 @@
-import Admin from "../models/user.model.js";
+import Admin from "../models/admin.model.js";
 import createError from "../utils/createError.js";
 import { addQuestions } from "./question.controller.js";
 import { addModule, addLesson } from "./module.controller.js";
 import { addTopic } from "./topic.controller.js";
 
-export const saveContribution = async (req, res, next) => {
+export const approveContribution = async (req, res, next) => {
   try {
-    const reqProperties = Object.keys(req.body);
+    const input = req.body.data;
 
     const conditions = [
       {
-        properties: ["questionText"],
-        action: () => {
+        type: "question",
+        action: (input) => {
           // addQuestion
-          addQuestions(req, res); 
+          addQuestions(input, res);
         },
       },
       {
-        properties: ["lessonText"],
-        action: () => {
+        type: "lesson",
+        action: (input) => {
           // addLesson
-          addLesson(req, res); 
+          addLesson(input, res);
         },
       },
       {
-        properties: ["moduleTitle"],
-        action: () => {
+        type: "module",
+        action: (input) => {
           // addModule
-          addModule(req, res); 
+          addModule(input, res);
         },
       },
       {
-        properties: ["topicTitle"],
-        action: () => {
+        type: "topic",
+        action: (input) => {
           // addTopic
-          addTopic(req, res);
+          addTopic(input, res);
         },
       },
     ];
 
-    const matchedCondition = conditions.find((condition) =>
-      condition.properties.every((property) => reqProperties.includes(property))
+    const contributionType = req.body.type;
+    const matchedCondition = conditions.find(
+      (condition) => condition.type === contributionType
     );
 
     if (matchedCondition) {
-      matchedCondition.action();
+      //checking and updating status
+      const updatedDocument = await Admin.updateOne(
+        { _id: req.params.id },
+        { $set: { status: "approved" } } 
+      );
+
+      if (!updatedDocument) {
+        return res.status(420).send("No such modules exist for this topic.");
+      }
+
+      matchedCondition.action(input);
+
     } else {
-      res.status(404).send("Invalid contribution data."); 
+      res.status(404).send("Invalid contribution data.");
     }
   } catch (err) {
     next(err);
@@ -62,8 +74,26 @@ export const editContribution = async (req, res, next) => {
   }
 };
 
-export const deleteContribution = async (req, res, next) => {
+export const rejectContribution = async (req, res, next) => {
   try {
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+};
+
+export const deleteAllPastRequests = async (req, res, next) => {
+  try {
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+};
+
+export const getAllContributions = async (req, res, next) => {
+  try {
+    const cons = await Admin.find({});
+    res.status(200).send(cons);
   } catch (err) {
     next(err);
     console.log(err);
