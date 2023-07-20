@@ -6,7 +6,7 @@ const config_header = {
   },
 };
 
-const setLocalStorage = async (currUser) => {
+const setAdminLocalStorage = async (currUser) => {
   try {
     const res = await newRequest.post(
       "/user/getCurrentUser",
@@ -15,9 +15,13 @@ const setLocalStorage = async (currUser) => {
     );
     localStorage.setItem("currentUser", JSON.stringify(res.data));
 
-    // console.log("current user set");
-
     //fetch all requests
+    const getAllCons = await newRequest.post(
+      "/admin/getAllCons",
+      config_header
+    );
+    localStorage.setItem("allCons", JSON.stringify(getAllCons.data));
+
   } catch (err) {
     if (err.response && err.response.data && err.response.data.message) {
       setError(err.response.data.message);
@@ -27,4 +31,4 @@ const setLocalStorage = async (currUser) => {
     }
   }
 };
-export default setLocalStorage;
+export default setAdminLocalStorage;
