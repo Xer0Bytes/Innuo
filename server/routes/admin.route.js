@@ -1,10 +1,18 @@
 import express from "express";
-import { saveContribution, editContribution, deleteContribution } from "../controllers/admin.controller.js";
+import {
+  approveContribution,
+  editContribution,
+  rejectContribution,
+  getAllContributions,
+  deleteAllPastRequests,
+} from "../controllers/admin.controller.js";
 
 const router = express.Router();
 
-router.post("/save", saveContribution);
+router.get("/approve/:id", approveContribution);
 router.post("/edit", editContribution);
-router.post("/delete", deleteContribution);
+router.post("/reject", rejectContribution);
+router.post("/delete", deleteAllPastRequests);
+router.post("/getAllCons", getAllContributions);
 
 export default router;
