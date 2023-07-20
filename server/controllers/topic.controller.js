@@ -15,7 +15,7 @@ export const addTopic = async (req, res) => {
     // Add new topic with topicID
     const newTopic = new Topic({
       topicID: nextTopicID,
-      topicTitle: req.body.topicTitle,
+      topicTitle: req.topicTitle,
     });
 
     // Validate and save the new topic
