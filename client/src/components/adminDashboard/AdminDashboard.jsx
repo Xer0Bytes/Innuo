@@ -4,7 +4,6 @@ import TopicRequestCard from "./components/TopicRequestCard";
 import ModuleRequestCard from "./components/ModuleRequestCard";
 import LessonRequestCard from "./components/LessonRequestCard";
 import QuestionRequestCard from "./components/QuestionRequestCard";
-import requestData from "./reqdata.json";
 import PopUp from "../lessonStructure/components/PopUp";
 import getAllCons from "../../utils/getAllCons.js";
 
@@ -160,7 +159,7 @@ const AdminDashboard = () => {
                 </button>
               </div>
             )}
-            {requestData.map((request) => renderRequestCard(request))}
+            {allCons.map((request) => renderRequestCard(request))}
           </div>
         </div>
       </div>

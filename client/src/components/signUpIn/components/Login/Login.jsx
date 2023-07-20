@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import newRequest from "../../../../utils/newRequest";
 import setLocalStorage from "../../../../utils/setLocalStorage";
 import getCurrentUser from "../../../../utils/getCurrentUser";
+import setAdminLocalStorage from "../../../../utils/setAdminLocalStorage";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -42,12 +43,16 @@ const Login = () => {
       localStorage.setItem("currentUser", JSON.stringify(res.data));
       const currentUser = getCurrentUser();
 
-      await setLocalStorage(currentUser);
+      
       const admin = currentUser ? currentUser.isAdmin : false;
-      setWait(false);
+      
       if (admin) {
+        await setAdminLocalStorage(currentUser);
+        setWait(false);
         navigate("/adminDashboard");
       } else {
+        await setLocalStorage(currentUser);
+        setWait(false);
         navigate("/userDashboard");
       }
     } catch (err) {
