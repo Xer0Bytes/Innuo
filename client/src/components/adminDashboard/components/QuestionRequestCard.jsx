@@ -4,8 +4,9 @@ import PopUp from "../../lessonStructure/components/PopUp";
 import FileInput from "./FileInput";
 import FileViewer from "./FileViewer";
 import { FiChevronsDown, FiChevronsUp } from "react-icons/fi";
+import newRequest from "../../../utils/newRequest";
 
-const QuestionRequestCard = ({ data, status ,statusColor}) => {
+const QuestionRequestCard = ({ id, data, status, statusColor }) => {
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
     questionText: data.questionText,
@@ -55,18 +56,64 @@ const QuestionRequestCard = ({ data, status ,statusColor}) => {
     document.getElementById("choice4ImageFile").value = "";
   };
 
-  // connect with backend====================================
-  const handleApprove = (e) => {
-    e.preventDefault();
-    setInputDisabled(true);
-    console.log(formData);
+  const config_header = {
+    header: {
+      "Content-Type": "application/json",
+    },
   };
 
-  // connect with backend====================================
-  const handleReject = () => {
+  const handleApprove = async (e) => {
+    e.preventDefault();
     setInputDisabled(true);
-    console.log(formData);
+    console.log("success");
+
+    try {
+      const res = await newRequest.post(
+        `/admin/approve/${id}`,
+        {
+          type: "question",
+          data: {
+            topicID: data.topicID,
+            topicTitle: data.topicTitle,
+            moduleID: data.moduleID,
+            moduleTitle: data.moduleTitle,
+            questionText: formData.questionText,
+            choice1Text: formData.choice1Text,
+            choice2Text: formData.choice2Text,
+            choice3Text: formData.choice3Text,
+            choice4Text: formData.choice4Text,
+            correctChoice: formData.correctChoice,
+            questionImageURL: formData.questionImage,
+            choice1ImageURL: formData.choice1Image,
+            choice2ImageURL: formData.choice2Image,
+            choice3ImageURL: formData.choice3Image,
+            choice4ImageURL: formData.choice4Image,
+          },
+          status: status,
+        },
+        config_header
+      );
+
+      localStorage.setItem("allCons", JSON.stringify(res.data));
+    } catch (err) {
+      console.log(err);
+    }
   };
+
+  const handleReject = async () => {
+    setInputDisabled(true);
+    setVisibleRejectModal(false);
+    console.log("success");
+
+    try {
+      const res = await newRequest.post(`/admin/reject/${id}`, config_header);
+
+      localStorage.setItem("allCons", JSON.stringify(res.data));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="mb-6 lg:ml-0  text-gray-900 ">
       <div className="cursor-default p-3 border border-gray-200 rounded-xl shadow shadow-lg">
@@ -83,7 +130,12 @@ const QuestionRequestCard = ({ data, status ,statusColor}) => {
           />
         )}
         <h5 className="mb-1 text-2xl inline-block w-full font-bold tracking-tight text-[#41CDDA] ">
-          Request to add a question <span className={`px-2 text-lg text-white ml-1 bg-${statusColor} uppercase rounded-lg font-normal`}>{status}</span>
+          Request to add a question{" "}
+          <span
+            className={`px-2 text-lg text-white ml-1 bg-${statusColor} uppercase rounded-lg font-normal`}
+          >
+            {status}
+          </span>
           {expanded ? (
             <FiChevronsUp
               onClick={() => setExpanded(false)}
@@ -292,26 +344,30 @@ const QuestionRequestCard = ({ data, status ,statusColor}) => {
               </div>
             )}
             {/* subcard end  */}
-            {status==="pending" && (<><hr className="text-gray-900 my-2" />
+            {status === "pending" && (
+              <>
+                <hr className="text-gray-900 my-2" />
 
-            <button
-              onClick={(e) => handleApprove(e)}
-              className={`bg-green-300 ${buttonClass}`}
-            >
-              Approve
-            </button>
-            <button
-              onClick={() => setInputDisabled(!inputDisabled)}
-              className={`bg-transparent ${buttonClass}`}
-            >
-              {inputDisabled ? "Edit" : "Save Changes"}
-            </button>
-            <button
-              onClick={() => setVisibleRejectModal(true)}
-              className={`bg-red-300 ${buttonClass}`}
-            >
-              Reject
-            </button></>)}
+                <button
+                  onClick={(e) => handleApprove(e)}
+                  className={`bg-green-300 ${buttonClass}`}
+                >
+                  Approve
+                </button>
+                <button
+                  onClick={() => setInputDisabled(!inputDisabled)}
+                  className={`bg-transparent ${buttonClass}`}
+                >
+                  {inputDisabled ? "Edit" : "Save Changes"}
+                </button>
+                <button
+                  onClick={() => setVisibleRejectModal(true)}
+                  className={`bg-red-300 ${buttonClass}`}
+                >
+                  Reject
+                </button>
+              </>
+            )}
           </>
         )}
       </div>
