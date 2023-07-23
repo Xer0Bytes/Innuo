@@ -10,8 +10,8 @@ import {
 const router = express.Router();
 
 router.get("/approve/:id", approveContribution);
-router.post("/edit", editContribution);
-router.post("/reject", rejectContribution);
+router.get("/edit/:id", editContribution);
+router.get("/reject/:id", rejectContribution);
 router.post("/delete", deleteAllPastRequests);
 router.post("/getAllCons", getAllContributions);
 
