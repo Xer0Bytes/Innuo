@@ -6,7 +6,7 @@ import LessonRequestCard from "./components/LessonRequestCard";
 import QuestionRequestCard from "./components/QuestionRequestCard";
 import PopUp from "../lessonStructure/components/PopUp";
 import getAllCons from "../../utils/getAllCons.js";
-import newRequest from "../../../utils/newRequest";
+import newRequest from "../../utils/newRequest.js";
 
 const AdminDashboard = () => {
   const allCons = getAllCons();
@@ -37,7 +37,8 @@ const AdminDashboard = () => {
         case "topic":
           return (
             <TopicRequestCard
-              key={request._id.$oid}
+              key={request._id}
+              id={request._id}
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
@@ -46,7 +47,8 @@ const AdminDashboard = () => {
         case "module":
           return (
             <ModuleRequestCard
-              key={request._id.$oid}
+              key={request._id}
+              id={request._id}
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
@@ -55,7 +57,8 @@ const AdminDashboard = () => {
         case "lesson":
           return (
             <LessonRequestCard
-              key={request._id.$oid}
+              key={request._id}
+              id={request._id}
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
@@ -64,7 +67,8 @@ const AdminDashboard = () => {
         case "question":
           return (
             <QuestionRequestCard
-              key={request._id.$oid}
+              key={request._id}
+              id={request._id}
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
@@ -100,8 +104,7 @@ const AdminDashboard = () => {
     },
   };
 
-  const handleDeleteAll = async(e) => {
-    e.preventDefault();
+  const handleDeleteAll = async() => {
 
     try {
       const res = await newRequest.post(
@@ -112,13 +115,10 @@ const AdminDashboard = () => {
       localStorage.setItem("allCons", JSON.stringify(res.data));
 
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.message) {
-        setError(err.response.data.message);
-      } else {
-        setError("An error occurred");
-      }
+      console.log(err);
     }
-    console.log(formData);
+
+    setVisibleDeleteModal(false);
   };
 
   return (
