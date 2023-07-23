@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PopUp from "../../lessonStructure/components/PopUp";
 import InputField from "./InputField";
 import { FiChevronsDown, FiChevronsUp } from "react-icons/fi";
+import newRequest from "../../../utils/newRequest.js";
 
-const TopicRequestCard = ({data, status,statusColor}) => {
+const TopicRequestCard = ({id, data, status, statusColor}) => {
   const [topicName, setTopicName] = useState(data.topicTitle);
   const [inputDisabled, setInputDisabled] = useState(true);
   const [visibleRejectModal, setVisibleRejectModal] = useState(false);
@@ -15,18 +16,56 @@ const TopicRequestCard = ({data, status,statusColor}) => {
   };
 
   // connect with backend====================================
-  const handleApprove = (e) => {
+
+  const config_header = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const handleApprove = async(e) => {
     e.preventDefault();
     setInputDisabled(true);
     console.log(topicName);
+
+    try {
+      const res = await newRequest.post(
+        `/admin/approve/${id}`,
+        {
+          type: "topic",
+          data: {
+            topicTitle: topicName,
+          },
+          status: status,
+        },
+        config_header
+      );
+
+      localStorage.setItem("allCons", JSON.stringify(res.data));
+
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  // connect with backend====================================
-  const handleReject = () => {
+  const handleReject = async() => {
     setInputDisabled(true);
     setVisibleRejectModal(false);
     console.log(topicName);
+
+    try {
+      const res = await newRequest.post(
+        `/admin/reject/${id}`,
+        config_header
+      );
+
+      localStorage.setItem("allCons", JSON.stringify(res.data));
+
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   return (
     <div className="mb-6 lg:ml-0  text-gray-900 ">
       <div className="cursor-default p-3 border border-gray-200 rounded-xl shadow shadow-lg">

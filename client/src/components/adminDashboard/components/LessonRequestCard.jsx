@@ -4,8 +4,9 @@ import InputField from "./InputField";
 import FileInput from "./FileInput";
 import FileViewer from "./FileViewer";
 import { FiChevronsDown, FiChevronsUp } from "react-icons/fi";
+import newRequest from "../../../utils/newRequest";
 
-const LessonRequestCard = ({ data, status, statusColor }) => {
+const LessonRequestCard = ({ id, data, status, statusColor }) => {
   const [lessonText, setLessonText] = useState(data.lessonText);
   const [lessonImage, setLessonImage] = useState(data.lessonImageURL);
   const [inputDisabled, setInputDisabled] = useState(true);
@@ -20,19 +21,58 @@ const LessonRequestCard = ({ data, status, statusColor }) => {
     document.getElementById("lessonImageFile").value = "";
   };
 
-  // connect with backend====================================
-  const handleApprove = (e) => {
+  const config_header = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const handleApprove = async(e) => {
     e.preventDefault();
     setInputDisabled(true);
     console.log(lessonText);
-    console.log(lessonImage);
+
+    try {
+      const res = await newRequest.post(
+        `/admin/approve/${id}`,
+        {
+          type: "lesson",
+          data: {
+            topicID: data.topicID,
+            topicTitle: data.topicTitle,
+            moduleID: data.moduleID,
+            moduleTitle: data.moduleTitle,
+            lessonText: lessonText,
+            lessonImageURL: lessonImage,
+          },
+          status: status,
+        },
+        config_header
+      );
+
+      localStorage.setItem("allCons", JSON.stringify(res.data));
+
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  // connect with backend====================================
-  const handleReject = () => {
+  const handleReject = async() => {
     setInputDisabled(true);
+    setVisibleRejectModal(false);
     console.log(lessonText);
-    console.log(lessonImage);
+
+    try {
+      const res = await newRequest.post(
+        `/admin/reject/${id}`,
+        config_header
+      );
+
+      localStorage.setItem("allCons", JSON.stringify(res.data));
+
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import PopUp from "../../lessonStructure/components/PopUp";
 import InputField from "./InputField";
 import {FiChevronsDown, FiChevronsUp} from 'react-icons/fi'
+import newRequest from "../../../utils/newRequest";
 
-const ModuleRequestCard = ({ data, status,statusColor }) => {
+const ModuleRequestCard = ({ id, data, status,statusColor }) => {
   const [moduleName, setModuleName] = useState(data.moduleTitle);
   const [inputDisabled, setInputDisabled] = useState(true);
   const [visibleRejectModal, setVisibleRejectModal] = useState(false);
@@ -15,18 +16,55 @@ const ModuleRequestCard = ({ data, status,statusColor }) => {
     setModuleName(data.moduleTitle);
   };
 
-  // connect with backend====================================
-  const handleApprove = (e) => {
+  const config_header = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const handleApprove = async(e) => {
     e.preventDefault();
     setInputDisabled(true);
     console.log(moduleName);
+
+    try {
+      const res = await newRequest.post(
+        `/admin/approve/${id}`,
+        {
+          type: "module",
+          data: {
+            topicID: data.topicID,
+            topicTitle: data.topicTitle,
+            moduleTitle: moduleName,
+          },
+          status: status,
+        },
+        config_header
+      );
+
+      localStorage.setItem("allCons", JSON.stringify(res.data));
+
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  // connect with backend====================================
-  const handleReject = () => {
+  const handleReject = async() => {
     setInputDisabled(true);
     setVisibleRejectModal(false);
     console.log(moduleName);
+
+    try {
+      const res = await newRequest.post(
+        `/admin/reject/${id}`,
+        config_header
+      );
+
+      localStorage.setItem("allCons", JSON.stringify(res.data));
+
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className="mb-6 lg:ml-0  text-gray-900 ">
