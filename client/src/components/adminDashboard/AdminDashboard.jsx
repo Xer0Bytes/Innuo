@@ -6,6 +6,7 @@ import LessonRequestCard from "./components/LessonRequestCard";
 import QuestionRequestCard from "./components/QuestionRequestCard";
 import PopUp from "../lessonStructure/components/PopUp";
 import getAllCons from "../../utils/getAllCons.js";
+import newRequest from "../../../utils/newRequest";
 
 const AdminDashboard = () => {
   const allCons = getAllCons();
@@ -92,7 +93,33 @@ const AdminDashboard = () => {
 
   //=========================connect with backend
   //deletes all requests
-  const handleDeleteAll = () => {};
+
+  const config_header = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const handleDeleteAll = async(e) => {
+    e.preventDefault();
+
+    try {
+      const res = await newRequest.post(
+        "/admin/delete",
+        config_header
+      );
+
+      localStorage.setItem("allCons", JSON.stringify(res.data));
+
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("An error occurred");
+      }
+    }
+    console.log(formData);
+  };
 
   return (
     <div>
