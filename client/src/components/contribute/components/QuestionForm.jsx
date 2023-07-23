@@ -119,25 +119,27 @@ const QuestionForm = () => {
       const res = await newRequest.post(
         "/question/addQuestions",
         {
-          topicID: formData.questionFormTopicID,
-          moduleID: formData.questionFormModuleID,
-          // questionID: formData.questionFormQuestionID,
-          questionText: formData.questionFormQuestionText,
-          choice1Text: formData.questionFormChoice1Text,
-          choice2Text: formData.questionFormChoice2Text,
-          choice3Text: formData.questionFormChoice3Text,
-          choice4Text: formData.questionFormChoice4Text,
-          correctChoice: formData.questionFormCorrectChoice,
-          questionImageURL: questionFormQuestionImage,
-          choice1ImageURL: questionFormChoice1Image,
-          choice2ImageURL: questionFormChoice2Image,
-          choice3ImageURL: questionFormChoice3Image,
-          choice4ImageURL: questionFormChoice4Image,
+          type: "question",
+          data: {
+            topicID: formData.questionFormTopicID,
+            moduleID: formData.questionFormModuleID,
+            questionText: formData.questionFormQuestionText,
+            choice1Text: formData.questionFormChoice1Text,
+            choice2Text: formData.questionFormChoice2Text,
+            choice3Text: formData.questionFormChoice3Text,
+            choice4Text: formData.questionFormChoice4Text,
+            correctChoice: formData.questionFormCorrectChoice,
+            questionImageURL: questionFormQuestionImage,
+            choice1ImageURL: questionFormChoice1Image,
+            choice2ImageURL: questionFormChoice2Image,
+            choice3ImageURL: questionFormChoice3Image,
+            choice4ImageURL: questionFormChoice4Image,
+          },
+          status: "pending",
         },
         config_header
       );
       //onsole.log(formData);
-      localStorage.setItem("allTopics", JSON.stringify(res.data));
       setIsQuestionImgUploading(false);
       setIsChoice1ImgUploading(false);
       setIsChoice2ImgUploading(false);

@@ -33,15 +33,16 @@ const TopicForm = () => {
       const res = await newRequest.post(
         "/topic/contribute",
         {
-          // topicID: formData.topicFormTopicID,
-          topicTitle: formData.topicFormTopicName,
+          type: "topic",
+          data: {
+            topicTitle: formData.topicFormTopicName,
+          },
+          status: "pending",
         },
-
         config_header
       );
       setWait(false);
       setSuccess(true);
-      localStorage.setItem("allTopics", JSON.stringify(res.data));
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
@@ -50,7 +51,6 @@ const TopicForm = () => {
         setError("An error occurred!");
       }
     }
-    console.log(formData);
   };
 
   useEffect(() => {
