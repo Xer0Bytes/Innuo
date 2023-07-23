@@ -24,8 +24,8 @@ export const addTopic = async (req, res) => {
     // Get all topics with topicID and topicTitle fields only
     const topics = await Topic.find({}, "topicID topicTitle modules");
 
-    // res.status(201).send(topics);
-    res.status(201).send("Saved Successfully.");
+    const cons = await Admin.find({});
+    res.status(200).send(cons);
   } catch (err) {
     //next(err);
     console.log(err);
@@ -44,11 +44,10 @@ export const getAllTopics = async (req, res, next) => {
   }
 };
 
-export const sendAdmin = async (req, res, next) => {
+export const sendAdminTopic = async (req, res, next) => {
   try {
-    const newContribution = new Admin(req.body);
-    const saved = await newContribution.save();
-
+    const saved = await Admin.create(req.body);
+    
     if(saved) {
       res.status(201).send("Saved Successfully.");
     } else {

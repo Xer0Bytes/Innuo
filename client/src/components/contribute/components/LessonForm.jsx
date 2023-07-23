@@ -71,15 +71,17 @@ const LessonForm = () => {
       const res = await newRequest.post(
         "/module/lesson",
         {
-          topicID: formData.lessonFormTopicID,
-          moduleID: formData.lessonFormModuleID,
-          // lessonID: formData.lessonFormLessonID,
-          lessonText: formData.lessonFormLessonText,
-          lessonImageURL: url,
+          type: "lesson",
+          data: {
+            topicID: formData.lessonFormTopicID,
+            moduleID: formData.lessonFormModuleID,
+            lessonText: formData.lessonFormLessonText,
+            lessonImageURL: url,
+          },
+          status: "pending",
         },
         config_header
       );
-      localStorage.setItem("allTopics", JSON.stringify(res.data));
       setIsUploading(false);
       setWait(false);
       setSuccess(true);
@@ -91,7 +93,7 @@ const LessonForm = () => {
         setError("An error occurred");
       }
     }
-    
+
     console.log(formData);
   };
 

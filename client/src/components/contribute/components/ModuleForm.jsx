@@ -39,13 +39,15 @@ const ModuleForm = () => {
       const res = await newRequest.post(
         "/module/contribute",
         {
-          topicID: formData.moduleFormTopicID,
-          // moduleID: formData.moduleFormModuleID,
-          moduleTitle: formData.moduleFormModuleName,
+          type: "module",
+          data: {
+            topicID: formData.moduleFormTopicID,
+            moduleTitle: formData.moduleFormModuleName,
+          },
+          status: "pending",
         },
         config_header
       );
-      localStorage.setItem("allTopics", JSON.stringify(res.data));
       setWait(false);
       setSuccess(true);
       // console.log(res.data);
