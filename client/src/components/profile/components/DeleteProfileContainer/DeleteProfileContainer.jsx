@@ -1,14 +1,36 @@
 import React, { useState } from "react";
 import getCurrentUser from "../../../../utils/getCurrentUser";
 import PopUp from "../../../lessonStructure/components/PopUp";
+import newRequest from "../../../../utils/newRequest";
 
 const DeleteProfile = () => {
   const currentUser = getCurrentUser();
   const [visibleDeleteModal, setVisibleDeleteModal] = useState(false);
+  const [error, setError] = useState("");
 
   //===============connect with backend
-  const handleDeleteAccount = () => {
+  const config_header = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const handleDeleteAccount = async () => {
     console.log(currentUser._id);
+    try {
+      const res = await newRequest.post(
+        `/user/delete/${currentUser._id}`,
+        config_header
+      );
+
+      setVisibleDeleteModal(false);
+      localStorage.clear();
+
+       // Redirect to login page
+      window.location.href = "http://localhost:5173/login";
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
