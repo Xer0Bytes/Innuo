@@ -6,13 +6,12 @@ import { useNavigate } from "react-router-dom";
 import newRequest from "../../../utils/newRequest";
 import getCurrentUser from "../../../utils/getCurrentUser";
 
-function QuizResult({ userExp, retry, previousExp, module_id }) {
+function QuizResult({ userExp, retry, previousExp, module_id, completed }) {
   const [err, setError] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(completed ? false : true);
+  console.log(completed);
 
   console.log("user exp in quizresult.jsx: " + userExp);
-  // useEffect(() => {
-  // }, [userExp]);
 
   const navigate = useNavigate();
   const navigateToDashboard = () => {
@@ -41,7 +40,7 @@ function QuizResult({ userExp, retry, previousExp, module_id }) {
           { updateExp: userExp, moduleID: module_id },
           config_header
         );
-        
+
         localStorage.setItem("currentUser", JSON.stringify(res.data));
         console.log(res.data);
         localStorage.removeItem("currentQuizData");
@@ -64,7 +63,7 @@ function QuizResult({ userExp, retry, previousExp, module_id }) {
           { userExp: userExp },
           config_header
         );
-        // console.log(res.data); 
+        // console.log(res.data);
         const prevAch = currentUser.achieved.length;
         console.log(prevAch);
         const resUser = await newRequest.post(
@@ -73,9 +72,10 @@ function QuizResult({ userExp, retry, previousExp, module_id }) {
           config_header
         );
         const newAch = resUser.data.achieved.length;
+        console.log("this is new Ach");
         console.log(newAch);
-        
-        localStorage.setItem("gotAchievementBruh", newAch-prevAch);
+
+        localStorage.setItem("gotAchievementBruh", newAch - prevAch);
         localStorage.setItem("currentUser", JSON.stringify(resUser.data));
       } catch (err) {
         if (err.response && err.response.data && err.response.data.message) {
@@ -87,13 +87,18 @@ function QuizResult({ userExp, retry, previousExp, module_id }) {
     };
 
     const waitTime = () => {
-      const currentUser = getCurrentUser();
-      console.log(userExp + " sent for update");
-      setUserExp(currentUser);
-      checkAchievement(currentUser);
+      if (!completed) {
+        const currentUser = getCurrentUser();
+        console.log(userExp + " sent for update");
+        setUserExp(currentUser);
+        checkAchievement(currentUser);
+      }
     };
-
-    const sendReqTimer = setTimeout(waitTime, 2000);
+    let sendReqTimer = null;
+    if (!completed) {
+      sendReqTimer = setTimeout(waitTime, 2000);
+    }
+    // const sendReqTimer = setTimeout(waitTime, 2000);
     return () => clearTimeout(sendReqTimer);
   }, [userExp]);
 
@@ -131,13 +136,17 @@ function QuizResult({ userExp, retry, previousExp, module_id }) {
           <LottiePlayer
             loop={true}
             animationData={endQuizAnimation}
-            segments={[0,120]}
+            segments={[0, 120]}
             play
             className="w-[30em]"
           />
           <span className="-mt-[7em]">
             <h2 className="text-2xl">
-            You earned {expEarned ? (expEarned < 0 ? "" : "+") + expEarned : 0} XP!
+              {completed
+                ? "Quiz completed!"
+                : `You earned ${
+                    expEarned ? (expEarned < 0 ? "" : "+") + expEarned : 0
+                  } XP!`}
             </h2>
             <button
               onClick={navigateToDashboard}
