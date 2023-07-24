@@ -11,7 +11,7 @@ import Notification from "./components/Notification";
 
 export const UserDashboard = () => {
   const currentUser = getCurrentUser();
-  const [notification, setNotification] = useState(true);
+  const [notification, setNotification] = useState(false);
   const [newAch, setNewAch] = useState(null);
   useEffect(() => {
     setLocalStorage(currentUser);
