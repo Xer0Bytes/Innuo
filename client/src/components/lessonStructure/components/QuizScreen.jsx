@@ -3,6 +3,7 @@ import QuizResult from "./QuizResult";
 import Question from "./Question";
 import Lesson from "./Lesson";
 import getCurrentQuizData from "../../../utils/getCurrentQuizData.js";
+import getCurrentUser from "../../../utils/getCurrentUser";
 
 function QuizScreen({ expSystem, retry, userExp, setUserExp, previousExp, module_id }) {
   const currentQuizData = getCurrentQuizData();
@@ -18,6 +19,14 @@ function QuizScreen({ expSystem, retry, userExp, setUserExp, previousExp, module
     new Array(QuestionList.length)
   );
   const isQuestionEnd = currentQuestionIndex === QuestionList.length;
+
+  const currentUser = getCurrentUser()
+  const completedModules = currentUser.modulesCompleted
+    ? currentUser.modulesCompleted
+    : ""; //array of module id
+
+    console.log(completedModules);
+
 
   //ignore this function since we dont calculate result
   function calculatedResult() {
@@ -43,6 +52,9 @@ function QuizScreen({ expSystem, retry, userExp, setUserExp, previousExp, module
           result={calculatedResult()}
           retry={retry}
           module_id={module_id}
+          completed={
+            completedModules.includes(Number(module_id)) ? true : false
+          }
         />
       ) : (
         <>
