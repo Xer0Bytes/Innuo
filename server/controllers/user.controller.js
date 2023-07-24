@@ -33,8 +33,11 @@ export const updateUser = async (req, res, next) => {
 
 export const getAllUsers = async (req, res, next) => {
   try {
-    //all users
-    const users = await User.find({}, { name: 1, experiencePoints: 1, difficulty: 1 });
+    //all users for ranking
+    const users = await User.find(
+      { isAdmin: false },
+      { name: 1, experiencePoints: 1, difficulty: 1 }
+    );
 
     res.status(200).send(users);
   } catch (err) {
@@ -43,7 +46,7 @@ export const getAllUsers = async (req, res, next) => {
   }
 };
 
-export const getCurrentUser = async(req, res, next) => {
+export const getCurrentUser = async (req, res, next) => {
   try {
     //all users
     const user = await User.findById(req.body.id);
