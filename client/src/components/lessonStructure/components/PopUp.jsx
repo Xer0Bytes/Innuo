@@ -1,10 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const PopUp = ({message, redButtonText, normalButtonText, setModalVisibility, redButtonFunction, normalButtonFunction }) => {
+const PopUp = ({
+  message,
+  redButtonText,
+  normalButtonText,
+  setModalVisibility,
+  redButtonFunction,
+  normalButtonFunction,
+}) => {
   return (
     <>
-    
       <div
         id="popup-modal"
         tabIndex="-1"
@@ -51,27 +57,28 @@ const PopUp = ({message, redButtonText, normalButtonText, setModalVisibility, re
                 ></path>
               </svg>
               <h3 className="mb-5 text-lg font-normal text-gray-500 ">
-               {message}
+                {message}
               </h3>
-                <button
-                  data-modal-hide="popup-modal"
-                  type="button"
-                  className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-lg inline-flex items-center px-5 py-2.5 text-center mr-2"
-                  onClick={() => {
-                    redButtonFunction()
-                  }}
-                >
-                 {redButtonText}
-                </button>
+
               <button
                 data-modal-hide="popup-modal"
                 type="button"
-                className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-lg font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 "
+                className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-lg font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10  mr-2"
                 onClick={() => {
-                  normalButtonFunction()
+                  normalButtonFunction();
                 }}
               >
                 {normalButtonText}
+              </button>
+              <button
+                data-modal-hide="popup-modal"
+                type="button"
+                className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-lg inline-flex items-center px-5 py-2.5 text-center"
+                onClick={() => {
+                  redButtonFunction();
+                }}
+              >
+                {redButtonText}
               </button>
             </div>
           </div>
