@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import getCurrentUser from "../../../../utils/getCurrentUser";
+import PopUp from "../../../lessonStructure/components/PopUp";
 
 const DeleteProfile = () => {
+  const currentUser = getCurrentUser();
+  const [visibleDeleteModal, setVisibleDeleteModal] = useState(false);
+
+  //===============connect with backend
+  const handleDeleteAccount = () => {
+    console.log(currentUser._id);
+  };
+
   return (
     <div className="w-full mb-8">
+      {visibleDeleteModal && (
+        <PopUp
+          message={
+            "Are you sure you want to reject this request? This will result in the topic not being added to the database!"
+          }
+          redButtonText={"Delete Account"}
+          normalButtonText={"Cancel Deletion"}
+          normalButtonFunction={() => setVisibleDeleteModal(false)}
+          redButtonFunction={() => handleDeleteAccount()}
+          setModalVisibility={setVisibleDeleteModal}
+        />
+      )}
       <div className="w-[80%] mr-auto ml-auto block rounded-[10px] bg-white p-8 pt-4 pb-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.2),0_10px_20px_-2px_rgba(0,0,0,0.04)]">
         <span className="text-bold grid grid-cols-3 mb-2">
           <div className="col-span-2 my-auto">
@@ -24,10 +46,13 @@ const DeleteProfile = () => {
             {/* <!--Submit button--> */}
             <div className="w-full mr-auto ml-auto text-md text-center mt-2">
               <button
-                type="submit"
-                className="deleteaccount_btn bg-red-300" 
+                className="deleteaccount_btn bg-red-300"
                 data-te-ripple-init
                 data-te-ripple-color="light"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setVisibleDeleteModal(true);
+                }}
               >
                 Delete Account
               </button>
