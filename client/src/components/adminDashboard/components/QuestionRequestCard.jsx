@@ -5,8 +5,9 @@ import FileInput from "./FileInput";
 import FileViewer from "./FileViewer";
 import { FiChevronsDown, FiChevronsUp } from "react-icons/fi";
 import newRequest from "../../../utils/newRequest";
+import getAllCons from "../../../utils/getAllCons";
 
-const QuestionRequestCard = ({ id, data, status, statusColor }) => {
+const QuestionRequestCard = ({ id, data, status, statusColor, setCons }) => {
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
     questionText: data.questionText,
@@ -14,7 +15,7 @@ const QuestionRequestCard = ({ id, data, status, statusColor }) => {
     choice2Text: data.choice2Text,
     choice3Text: data.choice3Text,
     choice4Text: data.choice4Text,
-    correctChoice: 3,
+    correctChoice: data.correctChoice,
     questionImage: data.questionImageURL,
     choice1Image: data.choice1ImageURL,
     choice2Image: data.choice2ImageURL,
@@ -25,28 +26,24 @@ const QuestionRequestCard = ({ id, data, status, statusColor }) => {
   const [inputDisabled, setInputDisabled] = useState(true);
   const [visibleRejectModal, setVisibleRejectModal] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [wait, setWait] = useState(false);
   const buttonClass =
     "inline-flex items-center px-5 py-1.5 border-[2px] border-[#333] outline-none rounded-[45px] text-[#333] uppercase text-md font-semibold cursor-pointer transition-all duration-500 ease-in-out transform hover:-translate-y-[5px] mr-2 mb-2 hover:border-b-[10px]";
 
   //reset button function
   const resetQuestionInfo = () => {
     setFormData({
-      questionText: "This is question text",
-      choice1Text: "This is choice 1",
-      choice2Text: "This is choice 2",
-      choice3Text: "This is choice 3",
-      choice4Text: "This is choice 4",
-      correctChoice: 3,
-      questionImage:
-        "https://res.cloudinary.com/dgcmjva7h/image/upload/v1687366183/Innuo/bz98pbdmgdznm34ilvcr.gif",
-      choice1Image:
-        "https://res.cloudinary.com/dgcmjva7h/image/upload/v1687360075/Innuo/azla43ycvmqjep1xpt02.gif",
-      choice2Image:
-        "https://res.cloudinary.com/dgcmjva7h/image/upload/v1687360019/Innuo/oncayyjqubmwmjrl3b8f.gif",
-      choice3Image:
-        "https://res.cloudinary.com/dgcmjva7h/image/upload/v1687354107/Innuo/igvuftrqbwfeir7mqvxr.gif",
-      choice4Image:
-        "https://res.cloudinary.com/dgcmjva7h/image/upload/v1684698784/Innuo/yzukpraradn1rzbwg38m.gif",
+      questionText: data.questionText,
+      choice1Text: data.choice1Text,
+      choice2Text: data.choice2Text,
+      choice3Text: data.choice3Text,
+      choice4Text: data.choice4Text,
+      correctChoice: data.correctChoice,
+      questionImage: data.questionImageURL,
+      choice1Image: data.choice1ImageURL,
+      choice2Image: data.choice2ImageURL,
+      choice3Image: data.choice3ImageURL,
+      choice4Image: data.choice4ImageURL,
     });
 
     document.getElementById("questionImageFile").value = "";
@@ -65,7 +62,7 @@ const QuestionRequestCard = ({ id, data, status, statusColor }) => {
   const handleApprove = async (e) => {
     e.preventDefault();
     setInputDisabled(true);
-    console.log("success");
+    setWait(true);
 
     try {
       const res = await newRequest.post(
@@ -95,22 +92,28 @@ const QuestionRequestCard = ({ id, data, status, statusColor }) => {
       );
 
       localStorage.setItem("allCons", JSON.stringify(res.data));
+      setCons(getAllCons());
+      setWait(false);
     } catch (err) {
       console.log(err);
+      setWait(false);
     }
   };
 
   const handleReject = async () => {
     setInputDisabled(true);
     setVisibleRejectModal(false);
-    console.log("success");
+    setWait(true);
 
     try {
       const res = await newRequest.post(`/admin/reject/${id}`, config_header);
 
       localStorage.setItem("allCons", JSON.stringify(res.data));
+      setCons(getAllCons());
+      setWait(false);
     } catch (err) {
       console.log(err);
+      setWait(false);
     }
   };
 
@@ -148,9 +151,9 @@ const QuestionRequestCard = ({ id, data, status, statusColor }) => {
             />
           )}
         </h5>
-        <h5 className="mb-1 text-sm font-normal tracking-tight text-gray-900 ">
+        {/* <h5 className="mb-1 text-sm font-normal tracking-tight text-gray-900 ">
           User: Contributor#3
-        </h5>
+        </h5> */}
         <h2 className="text-lg tracking-tight">Topic: {data.topicTitle}</h2>
         <h2 className="text-lg tracking-tight">
           Module Title: {data.moduleTitle}
@@ -348,24 +351,40 @@ const QuestionRequestCard = ({ id, data, status, statusColor }) => {
               <>
                 <hr className="text-gray-900 my-2" />
 
-                <button
-                  onClick={(e) => handleApprove(e)}
-                  className={`bg-green-300 ${buttonClass}`}
-                >
-                  Approve
-                </button>
-                <button
-                  onClick={() => setInputDisabled(!inputDisabled)}
-                  className={`bg-transparent ${buttonClass}`}
-                >
-                  {inputDisabled ? "Edit" : "Save Changes"}
-                </button>
-                <button
-                  onClick={() => setVisibleRejectModal(true)}
-                  className={`bg-red-300 ${buttonClass}`}
-                >
-                  Reject
-                </button>
+                {wait && (
+                  <div className="flex items-center bg-yellow-300 p-4 mb-3 rounded w-full">
+                    <div className="flex-grow text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
+                      Please wait...
+                    </div>
+                  </div>
+                )}
+
+                {!wait && (
+                  <>
+                    {inputDisabled && (
+                      <button
+                        onClick={(e) => handleApprove(e)}
+                        className={`bg-green-300 ${buttonClass}`}
+                      >
+                        Approve
+                      </button>
+                    )}
+                    <button
+                      onClick={() => setInputDisabled(!inputDisabled)}
+                      className={`bg-transparent ${buttonClass}`}
+                    >
+                      {inputDisabled ? "Edit" : "Save Changes"}
+                    </button>
+                    {inputDisabled && (
+                      <button
+                        onClick={() => setVisibleRejectModal(true)}
+                        className={`bg-red-300 ${buttonClass}`}
+                      >
+                        Reject
+                      </button>
+                    )}
+                  </>
+                )}
               </>
             )}
           </>

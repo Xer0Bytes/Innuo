@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./components/sidebar/Sidebar";
 import TopicRequestCard from "./components/TopicRequestCard";
 import ModuleRequestCard from "./components/ModuleRequestCard";
@@ -7,10 +7,16 @@ import QuestionRequestCard from "./components/QuestionRequestCard";
 import PopUp from "../lessonStructure/components/PopUp";
 import getAllCons from "../../utils/getAllCons.js";
 import newRequest from "../../utils/newRequest.js";
+import setAdminLocalStorage from "../../utils/setAdminLocalStorage";
+import getCurrentUser from "../../utils/getCurrentUser";
 
 const AdminDashboard = () => {
-  const allCons = getAllCons();
+  useEffect(() => {
+    setAdminLocalStorage(getCurrentUser());
+  }, []);
 
+  const allCons = getAllCons();
+  const [cons, setCons] = useState(allCons);
   const [filterSelected, setFilterSelected] = useState("All");
   const [visibleDeleteModal, setVisibleDeleteModal] = useState(false);
 
@@ -19,6 +25,12 @@ const AdminDashboard = () => {
   const buttonSelectedClass = "bg-[#78E4CC] font-bold";
   const deleteAllButtonClass =
     "inline-flex items-center px-5 py-1.5 border-[2px] border-red-300 outline-none rounded-[45px] text-[#333] font-bold text-md cursor-pointer mr-2 mb-2 bg-red-400 hover:border-red-400 hover:bg-red-500";
+  const pendingRequests = cons.filter(
+    (request) => request.status === "pending"
+  );
+  const processedRequests = cons.filter(
+    (request) => request.status === "approved" || request.status === "rejected"
+  );
 
   const filterCheck = (status) => {
     if (filterSelected === "All") {
@@ -31,7 +43,7 @@ const AdminDashboard = () => {
       return false;
     }
   };
-  const renderRequestCard = (request) => {
+  const renderRequestCard = (request, setCons) => {
     if (filterCheck(request.status)) {
       switch (request.type) {
         case "topic":
@@ -42,6 +54,7 @@ const AdminDashboard = () => {
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
+              setCons={setCons}
             />
           );
         case "module":
@@ -52,6 +65,7 @@ const AdminDashboard = () => {
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
+              setCons={setCons}
             />
           );
         case "lesson":
@@ -62,6 +76,7 @@ const AdminDashboard = () => {
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
+              setCons={setCons}
             />
           );
         case "question":
@@ -72,6 +87,7 @@ const AdminDashboard = () => {
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
+              setCons={setCons}
             />
           );
         default:
@@ -104,16 +120,12 @@ const AdminDashboard = () => {
     },
   };
 
-  const handleDeleteAll = async() => {
-
+  const handleDeleteAll = async () => {
     try {
-      const res = await newRequest.post(
-        "/admin/delete",
-        config_header
-      );
+      const res = await newRequest.post("/admin/delete", config_header);
 
       localStorage.setItem("allCons", JSON.stringify(res.data));
-
+      setCons(getAllCons());
     } catch (err) {
       console.log(err);
     }
@@ -174,7 +186,7 @@ const AdminDashboard = () => {
               </button>
             </div>
 
-            {filterSelected === "Processed" && (
+            {filterSelected === "Processed" && processedRequests.length>0 && (
               <div className="w-full mx-auto text-right">
                 <button
                   onClick={() => {
@@ -186,7 +198,22 @@ const AdminDashboard = () => {
                 </button>
               </div>
             )}
-            {allCons.map((request) => renderRequestCard(request))}
+            {/* Conditional rendering based on pending requests */}
+            {(pendingRequests.length === 0 && filterSelected === "Pending") ||
+            (processedRequests.length === 0 &&
+              filterSelected === "Processed") ||
+            (cons.length === 0 && filterSelected === "All") ? (
+              <div
+                className={`text-3xl mt-5 text-[#41CDDA]  font-bold w-full text-center text-uppercase`}
+              >
+              No requests in selected category
+              </div>
+            ) : (
+              <div>
+                {/* Render the request cards */}
+                {cons.map((request) => renderRequestCard(request, setCons))}
+              </div>
+            )}
           </div>
         </div>
       </div>
