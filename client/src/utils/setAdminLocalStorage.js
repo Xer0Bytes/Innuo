@@ -32,3 +32,4 @@ const setAdminLocalStorage = async (currUser) => {
   }
 };
 export default setAdminLocalStorage;
+

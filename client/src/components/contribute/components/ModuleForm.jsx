@@ -128,7 +128,7 @@ const ModuleForm = () => {
           {success && !error && !wait && (
             <div className="flex items-center bg-green-300 p-4 mb-3 rounded w-full">
               <div className="flex-grow text-left  text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
-                Information entered successfully!
+              Request submitted successfully!
               </div>
             </div>
           )}
@@ -140,7 +140,7 @@ const ModuleForm = () => {
               data-te-ripple-init
               data-te-ripple-color="light"
             >
-              Add Module
+              Submit Request
             </button>
           )}
         </div>

@@ -5,13 +5,15 @@ import FileInput from "./FileInput";
 import FileViewer from "./FileViewer";
 import { FiChevronsDown, FiChevronsUp } from "react-icons/fi";
 import newRequest from "../../../utils/newRequest";
+import getAllCons from "../../../utils/getAllCons";
 
-const LessonRequestCard = ({ id, data, status, statusColor }) => {
+const LessonRequestCard = ({ id, data, status, statusColor, setCons }) => {
   const [lessonText, setLessonText] = useState(data.lessonText);
   const [lessonImage, setLessonImage] = useState(data.lessonImageURL);
   const [inputDisabled, setInputDisabled] = useState(true);
   const [visibleRejectModal, setVisibleRejectModal] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [wait, setWait] = useState(false);
   const buttonClass =
     "inline-flex items-center px-5 py-1.5 border-[2px] border-[#333] outline-none rounded-[45px] text-[#333] uppercase text-md font-semibold cursor-pointer transition-all duration-500 ease-in-out transform hover:-translate-y-[5px] mr-2 mb-2 hover:border-b-[10px]";
 
@@ -27,11 +29,11 @@ const LessonRequestCard = ({ id, data, status, statusColor }) => {
     },
   };
 
-  const handleApprove = async(e) => {
+  const handleApprove = async (e) => {
     e.preventDefault();
     setInputDisabled(true);
     console.log(lessonText);
-
+    setWait(true);
     try {
       const res = await newRequest.post(
         `/admin/approve/${id}`,
@@ -51,26 +53,27 @@ const LessonRequestCard = ({ id, data, status, statusColor }) => {
       );
 
       localStorage.setItem("allCons", JSON.stringify(res.data));
-
+      setCons(getAllCons());
+      setWait(false);
     } catch (err) {
+      setWait(false);
       console.log(err);
     }
   };
 
-  const handleReject = async() => {
+  const handleReject = async () => {
     setInputDisabled(true);
     setVisibleRejectModal(false);
     console.log(lessonText);
-
+    setWait(true);
     try {
-      const res = await newRequest.post(
-        `/admin/reject/${id}`,
-        config_header
-      );
+      const res = await newRequest.post(`/admin/reject/${id}`, config_header);
 
       localStorage.setItem("allCons", JSON.stringify(res.data));
-
+      setCons(getAllCons());
+      setWait(false);
     } catch (err) {
+      setWait(false);
       console.log(err);
     }
   };
@@ -109,9 +112,9 @@ const LessonRequestCard = ({ id, data, status, statusColor }) => {
             />
           )}
         </h5>
-        <h5 className="mb-1 text-sm font-normal tracking-tight text-gray-900 ">
+        {/* <h5 className="mb-1 text-sm font-normal tracking-tight text-gray-900 ">
           User: Contributor#3
-        </h5>
+        </h5> */}
         <h2 className="text-lg tracking-tight">Topic: {data.topicTitle}</h2>
         <h2 className="text-lg tracking-tight">
           Module Title: {data.moduleTitle}
@@ -149,25 +152,40 @@ const LessonRequestCard = ({ id, data, status, statusColor }) => {
             {status === "pending" && (
               <>
                 <hr className="text-gray-900 my-2" />
+                {wait && (
+                  <div className="flex items-center bg-yellow-300 p-4 mb-3 rounded w-full">
+                    <div className="flex-grow text-center pl-5 text-[#333] text-bold rounded-[7px]  text-[1.2em]">
+                      Please wait...
+                    </div>
+                  </div>
+                )}
 
-                <button
-                  onClick={(e) => handleApprove(e)}
-                  className={`bg-green-300 ${buttonClass}`}
-                >
-                  Approve
-                </button>
-                <button
-                  onClick={() => setInputDisabled(!inputDisabled)}
-                  className={`bg-transparent ${buttonClass}`}
-                >
-                  {inputDisabled ? "Edit" : "Save Changes"}
-                </button>
-                <button
-                  onClick={() => setVisibleRejectModal(true)}
-                  className={`bg-red-300 ${buttonClass}`}
-                >
-                  Reject
-                </button>
+                {!wait && (
+                  <>
+                    {inputDisabled && (
+                      <button
+                        onClick={(e) => handleApprove(e)}
+                        className={`bg-green-300 ${buttonClass}`}
+                      >
+                        Approve
+                      </button>
+                    )}
+                    <button
+                      onClick={() => setInputDisabled(!inputDisabled)}
+                      className={`bg-transparent ${buttonClass}`}
+                    >
+                      {inputDisabled ? "Edit" : "Save Changes"}
+                    </button>
+                    {inputDisabled && (
+                      <button
+                        onClick={() => setVisibleRejectModal(true)}
+                        className={`bg-red-300 ${buttonClass}`}
+                      >
+                        Reject
+                      </button>
+                    )}
+                  </>
+                )}
               </>
             )}
           </>
