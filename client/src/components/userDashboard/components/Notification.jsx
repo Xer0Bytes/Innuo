@@ -11,7 +11,7 @@ const Notification = ({ text, setNotification }) => {
   return (
     <div
       id="toast-default"
-      className="mt-2 flex items-center w-full max-w-md p-4 text-black bg-white rounded-lg shadow "
+      className="mt-2 mx-auto flex items-center w-full max-w-md p-4 text-black bg-white rounded-lg shadow "
       role="alert"
     >
       <div className="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-black bg-[#FFC6CD] rounded-lg">

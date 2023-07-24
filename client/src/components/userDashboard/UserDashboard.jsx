@@ -11,7 +11,7 @@ import Notification from "./components/Notification";
 
 export const UserDashboard = () => {
   const currentUser = getCurrentUser();
-  const [notification, setNotification] = useState(false);
+  const [notification, setNotification] = useState(true);
   const [newAch, setNewAch] = useState(null);
   useEffect(() => {
     setLocalStorage(currentUser);
@@ -37,18 +37,18 @@ export const UserDashboard = () => {
       <div>
         <div className="move_left ">
           <div className="p-2">
-            <div className="p-2 items-center rounded-lg w-full lg:w-3/4 mt-3 items-center">
-              {notification && (
-                <Notification
-                  text={
-                    newAch > 1
-                      ? `You have unlocked ${newAch} new planets!`
-                      : `You have unlocked a new planet!`
-                  }
-                  setNotification={setNotification}
-                />
-              )}
-              <PageHeader
+            <div className="px-2 items-center rounded-lg w-full lg:w-3/4 mt-3 items-center">
+              
+            {notification && (
+              <Notification
+                text={
+                  newAch > 1
+                    ? `You have unlocked ${newAch} new planets!`
+                    : `You have unlocked a new planet!`
+                }
+                setNotification={setNotification}
+              />
+            )}<PageHeader
                 title={"Lessons"}
                 lottieAnimationData={AnimatedAstronautDashboard}
                 isLooped={true}
