@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import Admin   from "../models/admin.model.js";
 import createError from "../utils/createError.js";
 
 export const deleteUser = async (req, res, next) => {
@@ -52,6 +53,31 @@ export const getCurrentUser = async (req, res, next) => {
     const user = await User.findById(req.body.id);
 
     res.status(200).send(user);
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+};
+
+export const getConNotifs = async (req, res, next) => {
+  try {
+    //checking if current user exists
+    const user = await User.findById(req.params.id);
+
+    if(user) {
+      const contributions = await Admin.find({con_id: req.params.id});
+
+      if(contributions.length > 0) {
+        res.status(200).send(contributions);
+
+      } else {
+        res.status(404).send("No contributions found!");
+      }
+
+    } else {
+      res.status(404).send("No such users exist!");
+    }
+
   } catch (err) {
     next(err);
     console.log(err);
