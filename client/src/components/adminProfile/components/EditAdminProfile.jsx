@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import FileUpload from "../../contribute/components/FileUpload";
+import FileUpload from "../../contributionForms/components/FileUpload"
 import getCurrentUser from "../../../utils/getCurrentUser";
 import upload from "../../../utils/upload";
 import newRequest from "../../../utils/newRequest";
