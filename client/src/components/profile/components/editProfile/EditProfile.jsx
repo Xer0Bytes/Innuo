@@ -4,7 +4,7 @@ import getCurrentUser from "../../../../utils/getCurrentUser";
 import "./editProfile.css";
 import upload from "../../../../utils/upload";
 import newRequest from "../../../../utils/newRequest";
-import FileUpload from "../../../contribute/components/FileUpload";
+import FileUpload from "../../../contributionForms/components/FileUpload";
 
 const EditProfile = () => {
   const currentUser = getCurrentUser();
