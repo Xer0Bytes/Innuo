@@ -6,6 +6,7 @@ const AchievementCard = ({
   title,
   image,
   description,
+  condition,
   border_color,
   title_color,
   description_color,
@@ -38,6 +39,9 @@ const AchievementCard = ({
         </h5>
         <p className={`mb-3 text-xl text-${description_color}`}>
           {description}
+        </p>
+        <p className={`mb-3 text-sm text-${description_color}`}>
+          {condition}
         </p>
       </div>
     </div>
