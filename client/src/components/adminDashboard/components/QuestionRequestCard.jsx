@@ -7,7 +7,7 @@ import { FiChevronsDown, FiChevronsUp } from "react-icons/fi";
 import newRequest from "../../../utils/newRequest";
 import getAllCons from "../../../utils/getAllCons";
 
-const QuestionRequestCard = ({ id, data, status, statusColor, setCons }) => {
+const QuestionRequestCard = ({ id, data, status, statusColor, setCons, con_name }) => {
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
     questionText: data.questionText,
@@ -151,9 +151,9 @@ const QuestionRequestCard = ({ id, data, status, statusColor, setCons }) => {
             />
           )}
         </h5>
-        {/* <h5 className="mb-1 text-sm font-normal tracking-tight text-gray-900 ">
-          User: Contributor#3
-        </h5> */}
+        <h5 className="mb-1 text-sm font-normal tracking-tight text-gray-900 ">
+          User: {con_name}
+        </h5>
         <h2 className="text-lg tracking-tight">Topic: {data.topicTitle}</h2>
         <h2 className="text-lg tracking-tight">
           Module Title: {data.moduleTitle}
@@ -164,7 +164,7 @@ const QuestionRequestCard = ({ id, data, status, statusColor, setCons }) => {
             <h2 className="text-xl font-bold tracking-tight mt-2">Question</h2>
             {/* subcard start  */}
             <div
-              className={`px-2 py-1 border rounded-lg shadow w-full m-auto items-center`}
+              className={`px-2 `}
             >
               <InputField
                 value={formData.questionText}

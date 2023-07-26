@@ -5,7 +5,7 @@ import { FiChevronsDown, FiChevronsUp } from "react-icons/fi";
 import newRequest from "../../../utils/newRequest.js";
 import getAllCons from "../../../utils/getAllCons";
 
-const TopicRequestCard = ({ id, data, status, statusColor, setCons }) => {
+const TopicRequestCard = ({ id, data, status, statusColor, setCons, con_name }) => {
   const [topicName, setTopicName] = useState(data.topicTitle);
   const [inputDisabled, setInputDisabled] = useState(true);
   const [visibleRejectModal, setVisibleRejectModal] = useState(false);
@@ -105,9 +105,9 @@ const TopicRequestCard = ({ id, data, status, statusColor, setCons }) => {
             />
           )}
         </h5>
-        {/* <h5 className="mb-1 text-sm font-normal tracking-tight text-gray-900 ">
-          User: Contributor#1
-        </h5> */}
+        <h5 className="mb-1 text-sm font-normal tracking-tight text-gray-900 ">
+          User: {con_name}
+        </h5>
         {expanded && (
           <>
             <h2 className="text-xl font-bold tracking-tight">Topic Title</h2>
