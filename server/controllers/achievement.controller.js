@@ -4,7 +4,7 @@ import Exp from "../models/exp.model.js";
 
 export const getAllAch = async (req, res, next) => {
   try {
-    //all chieves
+    //all achieves
     const ach = await Achievement.find({});
 
     res.status(200).send(ach);
@@ -56,3 +56,22 @@ export const areYaWinningSon = async (req, res, next) => {
     console.log(err);
   }
 };
+
+export const getExp = async (req, res, next) => {
+  try {
+    // Getting user difficulty points
+    const user = await User.findById(req.params.id);
+    const exp = await Exp.findOne({ difficulty: user.difficulty });
+    const points = exp.correctPoints;
+
+    if (!points) {
+      return res.status(404).send("Can't find user! Please try again.");
+    }
+
+    return res.status(200).send(points.toString());
+  } catch (err) {
+    next(err);
+    console.log(err);
+  }
+};
+
