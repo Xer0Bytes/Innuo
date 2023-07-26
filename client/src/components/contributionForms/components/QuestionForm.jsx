@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown } from "./Dropdown";
+import Dropdown from "./Dropdown";
 import InputField from "./InputField";
 import FileUpload from "./FileUpload";
 import getAllTopics from "../../../utils/getAllTopics";
@@ -139,12 +139,13 @@ const QuestionForm = () => {
         },
         config_header
       );
-      //onsole.log(formData);
+      //localStorage.setItem("userConns", JSON.stringify(res.data));
       setIsQuestionImgUploading(false);
       setIsChoice1ImgUploading(false);
       setIsChoice2ImgUploading(false);
       setIsChoice3ImgUploading(false);
       setIsChoice4ImgUploading(false);
+      
       setWait(false);
       setSuccess(true);
     } catch (err) {

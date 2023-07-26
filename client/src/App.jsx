@@ -14,7 +14,7 @@ import Quiz from "./components/lessonStructure/Quiz";
 import Profile from "./components/profile/Profile.jsx";
 import Ranking from "./components/ranking/Ranking.jsx";
 import Achievements from "./components/achievements/Achievements.jsx";
-import Contribute from "./components/contribute/Contribute.jsx";
+import ContributePage from "./components/contributePage/ContributePage.jsx"
 import NotFound from "./components/signUpIn/components/NotFound/NotFound.jsx";
 import AdminDashboard from "./components/adminDashboard/AdminDashboard.jsx";
 import AdminProfile from "./components/adminProfile/AdminProfile.jsx";
@@ -37,7 +37,7 @@ function App() {
         <Route path="/quiz/:module_name/:module_id" element={<NormalUser><Quiz /></NormalUser>} />
         <Route path="/ranking" element={<NormalUser><Ranking /></NormalUser>} />
         <Route path="/achievements" element={<NormalUser><Achievements /></NormalUser>} />
-        <Route path="/contribute"  element={<ContributorUser><Contribute /></ContributorUser>} />
+        <Route path="/contribute"  element={<ContributorUser><ContributePage /></ContributorUser>} />
         <Route path="/profile" element={<NormalUser><Profile /></NormalUser>} />
 
         {/* admin routes  */}

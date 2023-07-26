@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export const Dropdown = ({
+const Dropdown = ({
   id,
   label,
   defaultValue,
@@ -59,3 +59,5 @@ export const Dropdown = ({
     </>
   );
 };
+
+export default Dropdown

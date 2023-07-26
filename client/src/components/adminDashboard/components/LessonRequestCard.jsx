@@ -7,7 +7,7 @@ import { FiChevronsDown, FiChevronsUp } from "react-icons/fi";
 import newRequest from "../../../utils/newRequest";
 import getAllCons from "../../../utils/getAllCons";
 
-const LessonRequestCard = ({ id, data, status, statusColor, setCons }) => {
+const LessonRequestCard = ({ id, data, status, statusColor, setCons, con_name }) => {
   const [lessonText, setLessonText] = useState(data.lessonText);
   const [lessonImage, setLessonImage] = useState(data.lessonImageURL);
   const [inputDisabled, setInputDisabled] = useState(true);
@@ -112,9 +112,9 @@ const LessonRequestCard = ({ id, data, status, statusColor, setCons }) => {
             />
           )}
         </h5>
-        {/* <h5 className="mb-1 text-sm font-normal tracking-tight text-gray-900 ">
-          User: Contributor#3
-        </h5> */}
+        <h5 className="mb-1 text-sm font-normal tracking-tight text-gray-900 ">
+          User: {con_name}
+        </h5>
         <h2 className="text-lg tracking-tight">Topic: {data.topicTitle}</h2>
         <h2 className="text-lg tracking-tight">
           Module Title: {data.moduleTitle}
