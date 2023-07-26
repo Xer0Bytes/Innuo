@@ -1,0 +1,113 @@
+[{
+    "achieveID": 1,
+    "achieveTitle": "Astro Sign Rookie",
+    "achieveDesc": "Embark on your cosmic communication journey!",
+    "achieveimageURL": "https://res.cloudinary.com/dgcmjva7h/image/upload/v1684674568/Innuo/a1_nhzydc.jpg",
+    "achieveCondition": 1
+  },
+  {
+    "achieveID": 2,
+    "achieveTitle": "Sign Nebula Apprentice",
+    "achieveDesc": "Navigate the interstellar sign nebula!",
+    "achieveimageURL": "https://res.cloudinary.com/dgcmjva7h/image/upload/v1684674569/Innuo/a2_v164fu.jpg",
+    "achieveCondition": 2
+  },
+  {
+    "achieveID": 3,
+    "achieveTitle": "Astro Handshape Trainee",
+    "achieveDesc": "Master the celestial handshapes of the cosmos!",
+    "achieveimageURL": "https://res.cloudinary.com/dgcmjva7h/image/upload/v1684674568/Innuo/a3_vjozyp.jpg",
+    "achieveCondition": 4
+  },
+  {
+    "achieveID": 4,
+    "achieveTitle": "Fluent Finger Cosmonaut",
+    "achieveDesc": "Command the cosmic lexicon with your nimble fingers!",
+    "achieveimageURL": "https://res.cloudinary.com/dgcmjva7h/image/upload/v1684674568/Innuo/a4_goldtv.jpg",
+    "achieveCondition": 6
+  },
+  {
+    "achieveID": 5,
+    "achieveTitle": "Astro Dexterity Pilot",
+    "achieveDesc": "Reach astronomical levels of manual dexterity!",
+    "achieveimageURL": "https://res.cloudinary.com/dgcmjva7h/image/upload/v1684674569/Innuo/a5_oeq0oq.jpg",
+    "achieveCondition": 8
+  },
+  {
+    "achieveID": 6,
+    "achieveTitle": "Celestial Stargazer",
+    "achieveDesc": "Reach astronomical heights by gazing into the depths of the cosmos!",
+    "achieveimageURL": null,
+    "achieveCondition": 10
+  },
+  {
+    "achieveID": 7,
+    "achieveTitle": "Galactic Spacefarer",
+    "achieveDesc": "Embark on cosmic voyages and explore the wonders of distant galaxies!",
+    "achieveimageURL": null,
+    "achieveCondition": 12
+  },
+  {
+    "achieveID": 8,
+    "achieveTitle": "Astro Warp Navigator",
+    "achieveDesc": "Navigate space-time with precision as a master of astro warp travel!",
+    "achieveimageURL": null,
+    "achieveCondition": 14
+  },
+  {
+    "achieveID": 9,
+    "achieveTitle": "Cosmic Nebula Artisan",
+    "achieveDesc": "Craft celestial wonders using the artistic prowess of a cosmic nebula artisan!",
+    "achieveimageURL": null,
+    "achieveCondition": 16
+  },
+  {
+    "achieveID": 10,
+    "achieveTitle": "Lunar Serenity Seeker",
+    "achieveDesc": "Discover serenity among the lunar landscapes and become a lunar seeker!",
+    "achieveimageURL": null,
+    "achieveCondition": 18
+  },
+  {
+    "achieveID": 11,
+    "achieveTitle": "Stellar Comet Trailblazer",
+    "achieveDesc": "Trailblaze through the stars like a stellar comet, leaving a dazzling mark!",
+    "achieveimageURL": null,
+    "achieveCondition": 20
+  },
+  {
+    "achieveID": 12,
+    "achieveTitle": "Nebula Particle Manipulator",
+    "achieveDesc": "Master the manipulation of nebula particles and harness their power!",
+    "achieveimageURL": null,
+    "achieveCondition": 22
+  },
+  {
+    "achieveID": 13,
+    "achieveTitle": "Solar Flare Dynamo",
+    "achieveDesc": "Ignite your potential as a solar flare dynamo, channeling solar energies!",
+    "achieveimageURL": null,
+    "achieveCondition": 24
+  },
+  {
+    "achieveID": 14,
+    "achieveTitle": "Meteor Shower Acrobat",
+    "achieveDesc": "Perform acrobatic feats amidst meteor showers and astonish the cosmos!",
+    "achieveimageURL": null,
+    "achieveCondition": 26
+  },
+  {
+    "achieveID": 15,
+    "achieveTitle": "Astronautic Explorer Extraordinaire",
+    "achieveDesc": "Become an extraordinary explorer, venturing deep into the astronautic realms!",
+    "achieveimageURL": null,
+    "achieveCondition": 28
+  },
+  {
+    "achieveID": 16,
+    "achieveTitle": "Astrograce Guardian",
+    "achieveDesc": "Guard the universe with grace and strength, earning the title of Astrograce Guardian!",
+    "achieveimageURL": null,
+    "achieveCondition": 30
+  }
+]
