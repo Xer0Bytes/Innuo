@@ -7,6 +7,7 @@ import AnimatedAstronautDashboard from "./assets/astronautDashboard.json";
 import getCurrentUser from "../../utils/getCurrentUser";
 import getGotAchievementBruh from "../../utils/getDidGetAchievement";
 import setLocalStorage from "../../utils/setLocalStorage";
+import setContributorLocalStorage from "../../utils/setContributorLocalStorage";
 import Notification from "./components/Notification";
 
 export const UserDashboard = () => {
@@ -14,7 +15,11 @@ export const UserDashboard = () => {
   const [notification, setNotification] = useState(false);
   const [newAch, setNewAch] = useState(null);
   useEffect(() => {
-    setLocalStorage(currentUser);
+    if (currentUser.isContributer) {
+      setContributorLocalStorage(currentUser);
+    } else {
+      setLocalStorage(currentUser);
+    }
     const gotAchievement = getGotAchievementBruh();
     setNewAch(gotAchievement);
 
@@ -38,17 +43,17 @@ export const UserDashboard = () => {
         <div className="move_left ">
           <div className="p-2">
             <div className="px-2 items-center rounded-lg w-full lg:w-3/4 mt-3 items-center">
-              
-            {notification && (
-              <Notification
-                text={
-                  newAch > 1
-                    ? `You have unlocked ${newAch} new planets!`
-                    : `You have unlocked a new planet!`
-                }
-                setNotification={setNotification}
-              />
-            )}<PageHeader
+              {notification && (
+                <Notification
+                  text={
+                    newAch > 1
+                      ? `You have unlocked ${newAch} new planets!`
+                      : `You have unlocked a new planet!`
+                  }
+                  setNotification={setNotification}
+                />
+              )}
+              <PageHeader
                 title={"Lessons"}
                 lottieAnimationData={AnimatedAstronautDashboard}
                 isLooped={true}

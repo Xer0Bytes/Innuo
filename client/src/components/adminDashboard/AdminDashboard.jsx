@@ -51,6 +51,7 @@ const AdminDashboard = () => {
             <TopicRequestCard
               key={request._id}
               id={request._id}
+              con_name={request.con_name}
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
@@ -62,6 +63,7 @@ const AdminDashboard = () => {
             <ModuleRequestCard
               key={request._id}
               id={request._id}
+              con_name={request.con_name}
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
@@ -73,6 +75,7 @@ const AdminDashboard = () => {
             <LessonRequestCard
               key={request._id}
               id={request._id}
+              con_name={request.con_name}
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
@@ -84,6 +87,7 @@ const AdminDashboard = () => {
             <QuestionRequestCard
               key={request._id}
               id={request._id}
+              con_name={request.con_name}
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
@@ -186,7 +190,7 @@ const AdminDashboard = () => {
               </button>
             </div>
 
-            {filterSelected === "Processed" && processedRequests.length>0 && (
+            {filterSelected === "Processed" && processedRequests.length > 0 && (
               <div className="w-full mx-auto text-right">
                 <button
                   onClick={() => {
@@ -206,7 +210,7 @@ const AdminDashboard = () => {
               <div
                 className={`text-3xl mt-5 text-[#41CDDA]  font-bold w-full text-center text-uppercase`}
               >
-              No requests in selected category
+                No requests in selected category
               </div>
             ) : (
               <div>

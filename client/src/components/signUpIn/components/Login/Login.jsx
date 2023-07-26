@@ -7,6 +7,7 @@ import newRequest from "../../../../utils/newRequest";
 import setLocalStorage from "../../../../utils/setLocalStorage";
 import getCurrentUser from "../../../../utils/getCurrentUser";
 import setAdminLocalStorage from "../../../../utils/setAdminLocalStorage";
+import setContributorLocalStorage from "../../../../utils/setContributorLocalStorage";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -43,15 +44,19 @@ const Login = () => {
       localStorage.setItem("currentUser", JSON.stringify(res.data));
       const currentUser = getCurrentUser();
 
-      
       const admin = currentUser ? currentUser.isAdmin : false;
-      
+      const contributor = currentUser ? currentUser.isContributer : false;
+
       if (admin) {
         await setAdminLocalStorage(currentUser);
         setWait(false);
         navigate("/adminDashboard");
       } else {
-        await setLocalStorage(currentUser);
+        if (contributor) {
+          await setContributorLocalStorage(currentUser);
+        } else {
+          await setLocalStorage(currentUser);
+        }
         setWait(false);
         navigate("/userDashboard");
       }

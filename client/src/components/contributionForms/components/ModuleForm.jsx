@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Dropdown } from "./Dropdown";
+import  Dropdown  from "./Dropdown";
 import InputField from "./InputField";
 import newRequest from "../../../utils/newRequest";
 import getAllTopics from "../../../utils/getAllTopics";
@@ -50,9 +50,7 @@ const ModuleForm = () => {
       );
       setWait(false);
       setSuccess(true);
-      // console.log(res.data);
-      //localStorage.setItem("allModules", JSON.stringify(res.data));
-      // navigate("/contribute");
+      //localStorage.setItem("userConns", JSON.stringify(res.data));
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
