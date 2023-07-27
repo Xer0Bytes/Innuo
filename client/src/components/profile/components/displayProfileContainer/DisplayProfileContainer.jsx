@@ -32,7 +32,7 @@ const Container = () => {
                 </div>
                 <div className="mb-6 text-blueGray-600 mt-2 text-xl">
                   <i className="fas fa-trophy mr-2 text-lg text-blueGray-400"></i>
-                  Achievement Unlocked:{currentUser.achieved?currentUser.achieved.length: 0}
+                  Achievement Unlocked: {currentUser.achieved?currentUser.achieved.length: 0}
                 </div>
               </div>
             </span>
