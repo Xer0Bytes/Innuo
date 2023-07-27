@@ -5,8 +5,10 @@ import FileUpload from "./FileUpload";
 import getAllTopics from "../../../utils/getAllTopics";
 import upload from "../../../utils/upload";
 import newRequest from "../../../utils/newRequest";
+import getCurrentUser from "../../../utils/getCurrentUser";
 
 const QuestionForm = () => {
+  const currentUser = getCurrentUser();
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
     questionFormTopicID: null,
@@ -119,6 +121,8 @@ const QuestionForm = () => {
       const res = await newRequest.post(
         "/question/addQuestions",
         {
+          con_id: currentUser._id,
+          con_name: currentUser.name,
           type: "question",
           data: {
             topicID: formData.questionFormTopicID,
@@ -139,7 +143,12 @@ const QuestionForm = () => {
         },
         config_header
       );
-      //localStorage.setItem("userConns", JSON.stringify(res.data));
+      const getUserConns = await newRequest.post(
+        `/user/conNotifs/${currentUser._id}`,
+        config_header
+      );
+      localStorage.setItem("userConns", JSON.stringify(getUserConns.data));
+
       setIsQuestionImgUploading(false);
       setIsChoice1ImgUploading(false);
       setIsChoice2ImgUploading(false);
