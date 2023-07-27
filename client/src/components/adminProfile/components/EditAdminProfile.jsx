@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import FileUpload from "../../contributionForms/components/FileUpload"
+import FileUpload from "../../contributionForms/components/FileUpload";
 import getCurrentUser from "../../../utils/getCurrentUser";
 import upload from "../../../utils/upload";
 import newRequest from "../../../utils/newRequest";
-import '../AdminProfile.css'
+import "../AdminProfile.css";
 
 const EditAdminProfile = () => {
-  
   const currentUser = getCurrentUser();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -59,8 +58,7 @@ const EditAdminProfile = () => {
       setError(null);
       setSuccess(false);
     };
-    if(success) 
-      window.location.reload();
+    if (success) window.location.reload();
     if (error || success) {
       const timer = setTimeout(clearMessages, 5000);
       return () => clearTimeout(timer);
@@ -72,7 +70,7 @@ const EditAdminProfile = () => {
     const onProgress = (progress) => {
       setUploadProgress(progress);
     };
-    let url = null;
+    let url = currentUser.pfpLink;
 
     if (formData.editProfileImage) {
       setIsUploading(true);
@@ -190,7 +188,7 @@ const EditAdminProfile = () => {
                   </div>
                 </div>
                 {isUploading && (
-                  <div className="text-center">
+                  <div className="text-left text-green-500">
                     Upload Progress: {uploadProgress}%
                   </div>
                 )}
