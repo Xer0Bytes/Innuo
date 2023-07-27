@@ -87,7 +87,8 @@ const Achievements = () => {
               description={achievement.achieveDesc}
               condition={`You have earned ${
                 expSystem.correctPoints * achievement.achieveCondition
-              } XP`}
+              } XP!`}
+              achieveCondition = {achievement.achieveCondition}
               isCompleted={
                 userAchievements
                   ? userAchievements.includes(achievement.achieveID)
