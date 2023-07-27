@@ -67,12 +67,12 @@ export const getConNotifs = async (req, res, next) => {
     if(user) {
       const contributions = await Admin.find({con_id: req.params.id});
 
-      if(contributions.length > 0) {
+      // if(contributions.length > 0) {
         res.status(200).send(contributions);
 
-      } else {
-        res.status(404).send("No contributions found!");
-      }
+      // } else {
+      //   res.status(404).send("No contributions found!");
+      // }
 
     } else {
       res.status(404).send("No such users exist!");

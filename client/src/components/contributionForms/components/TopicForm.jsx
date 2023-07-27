@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import InputField from "./InputField";
 import newRequest from "../../../utils/newRequest";
+import getCurrentUser from "../../../utils/getCurrentUser";
 
 const TopicForm = () => {
+  const currentUser = getCurrentUser();
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
     // topicFormTopicID: "",
@@ -33,6 +35,8 @@ const TopicForm = () => {
       const res = await newRequest.post(
         "/topic/contribute",
         {
+          con_id: currentUser._id,
+          con_name: currentUser.name,
           type: "topic",
           data: {
             topicTitle: formData.topicFormTopicName,
@@ -41,8 +45,12 @@ const TopicForm = () => {
         },
         config_header
       );
-
-      // localStorage.setItem("userConns", JSON.stringify(res.data));
+      const getUserConns = await newRequest.post(
+        `/user/conNotifs/${currentUser._id}`,
+        config_header
+      );
+      console.log(getUserConns.data);
+      localStorage.setItem("userConns", JSON.stringify(getUserConns.data));
       setWait(false);
       setSuccess(true);
     } catch (err) {

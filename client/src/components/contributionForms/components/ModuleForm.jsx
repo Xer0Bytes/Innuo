@@ -3,8 +3,10 @@ import  Dropdown  from "./Dropdown";
 import InputField from "./InputField";
 import newRequest from "../../../utils/newRequest";
 import getAllTopics from "../../../utils/getAllTopics";
+import getCurrentUser from "../../../utils/getCurrentUser";
 
 const ModuleForm = () => {
+  const currentUser = getCurrentUser();
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
     moduleFormTopicID: null,
@@ -39,6 +41,8 @@ const ModuleForm = () => {
       const res = await newRequest.post(
         "/module/contribute",
         {
+          con_id: currentUser._id,
+          con_name: currentUser.name,
           type: "module",
           data: {
             topicID: formData.moduleFormTopicID,
@@ -48,9 +52,14 @@ const ModuleForm = () => {
         },
         config_header
       );
+      
+      const getUserConns = await newRequest.post(
+        `/user/conNotifs/${currentUser._id}`,
+        config_header
+      );
+      localStorage.setItem("userConns", JSON.stringify(getUserConns.data));
       setWait(false);
       setSuccess(true);
-      //localStorage.setItem("userConns", JSON.stringify(res.data));
     } catch (err) {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);

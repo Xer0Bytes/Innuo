@@ -1,5 +1,6 @@
 import React from "react";
 import getCurrentUser from "../../../utils/getCurrentUser";
+import adminDefaultPfp from "../assets/adminDefaultPfp.png"
 
 const AdminProfileContainer = () => {
   const currentUser = getCurrentUser();
@@ -21,8 +22,7 @@ const AdminProfileContainer = () => {
                       <img
                         alt="..."
                         src={
-                          currentUser.pfpLink ||
-                          "https://res.cloudinary.com/dgcmjva7h/image/upload/v1689588248/employee_ctx2dx.png"
+                          currentUser.pfpLink || adminDefaultPfp
                         }
                         className="shadow-xl rounded-full w-[150px] h-[150px] align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px] bg-white"
                       />

@@ -6,8 +6,10 @@ import getAllTopics from "../../../utils/getAllTopics";
 // import getAllModules from "../../../utils/getAllModules";
 import newRequest from "../../../utils/newRequest";
 import upload from "../../../utils/upload";
+import getCurrentUser from "../../../utils/getCurrentUser";
 
 const LessonForm = () => {
+  const currentUser = getCurrentUser();
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
     lessonFormTopicID: null,
@@ -32,11 +34,6 @@ const LessonForm = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const [wait, setWait] = useState(false);
-
-  // const getValues = (e) => {
-  //   e.preventDefault();
-  //   console.log(formData);
-  // };
 
   const config_header = {
     header: {
@@ -64,13 +61,13 @@ const LessonForm = () => {
     try {
       setIsUploading(true);
       const url = await upload(formData.lessonFormLessonImage, onProgress);
-      // console.log(url);
       setIsUploading(false);
-      //handle and convert it into base 64
 
       const res = await newRequest.post(
         "/module/lesson",
         {
+          con_id: currentUser._id,
+          con_name: currentUser.name,
           type: "lesson",
           data: {
             topicID: formData.lessonFormTopicID,
@@ -82,7 +79,12 @@ const LessonForm = () => {
         },
         config_header
       );
-      //localStorage.setItem("userConns", JSON.stringify(res.data));
+      const getUserConns = await newRequest.post(
+        `/user/conNotifs/${currentUser._id}`,
+        config_header
+      );
+      localStorage.setItem("userConns", JSON.stringify(getUserConns.data));
+
       setIsUploading(false);
       setWait(false);
       setSuccess(true);
