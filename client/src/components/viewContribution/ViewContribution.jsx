@@ -18,7 +18,6 @@ const ViewContribution = () => {
     (request) => request.status === "approved" || request.status === "rejected"
   );
 
-
   const filterCheck = (status) => {
     if (filterSelected === "All") {
       return true;
@@ -37,7 +36,7 @@ const ViewContribution = () => {
         case "topic":
           return (
             <ViewTopicRequest
-              id={request._id}
+              key={request._id}
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
@@ -46,7 +45,7 @@ const ViewContribution = () => {
         case "module":
           return (
             <ViewModuleRequest
-              id={request._id}
+              key={request._id}
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
@@ -55,7 +54,7 @@ const ViewContribution = () => {
         case "lesson":
           return (
             <ViewLessonRequest
-              id={request._id}
+              key={request._id}
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}
@@ -64,7 +63,7 @@ const ViewContribution = () => {
         case "question":
           return (
             <ViewQuestionRequest
-              id={request._id}
+              key={request._id}
               data={request.data}
               status={request.status}
               statusColor={statusColor(request.status)}

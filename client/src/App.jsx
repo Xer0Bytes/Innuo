@@ -37,8 +37,10 @@ function App() {
         <Route path="/quiz/:module_name/:module_id" element={<NormalUser><Quiz /></NormalUser>} />
         <Route path="/ranking" element={<NormalUser><Ranking /></NormalUser>} />
         <Route path="/achievements" element={<NormalUser><Achievements /></NormalUser>} />
-        <Route path="/contribute"  element={<ContributorUser><ContributePage /></ContributorUser>} />
         <Route path="/profile" element={<NormalUser><Profile /></NormalUser>} />
+
+        {/* contributor user */}
+        <Route path="/contribute"  element={<ContributorUser><ContributePage /></ContributorUser>} />
 
         {/* admin routes  */}
         <Route path="/adminDashboard" element={<AdminUser><AdminDashboard /></AdminUser>} />
@@ -48,9 +50,9 @@ function App() {
         <Route path="/" element={<PublicUser><LandingPage /></PublicUser>} />
         <Route path="/register" element={<PublicUser><Signup /></PublicUser>} />
         <Route path="/login" element={<PublicUser><Login /></PublicUser>} />
-        <Route path="/EmailVerify/:id/:unique" element={<PublicUser><EmailVerify /></PublicUser>} />
+        <Route path="/EmailVerify/:id/:unique" element={<ExceptionRoutes><EmailVerify /></ExceptionRoutes>} />
         <Route path="/forgot-password" element={<PublicUser><ForgotPassword /></PublicUser>} />
-        <Route path="/VerifyReset/:id/:unique" element={<PublicUser><PasswordReset /></PublicUser>} />
+        <Route path="/VerifyReset/:id/:unique" element={<ExceptionRoutes><PasswordReset /></ExceptionRoutes>} />
 
         
       </Routes>
@@ -114,6 +116,14 @@ function AdminUser ({children}){
   }else {
     return <Navigate to="/userDashboard"/>
   }
+}
+
+function ExceptionRoutes ({children}){
+  const currentUser = getCurrentUser();
+  if(currentUser!==null && currentUser!==undefined){
+    localStorage.clear();
+  }
+  return <PublicUser>{children}</PublicUser>
 }
 
 

@@ -53,6 +53,8 @@ const setContributorLocalStorage = async (currUser) => {
       config_header
     );
     localStorage.setItem("userConns", JSON.stringify(getUserConns.data));
+
+    localStorage.setItem("gotAchievementBruh", 0);
   } catch (err) {
     if (err.response && err.response.data && err.response.data.message) {
     } else {

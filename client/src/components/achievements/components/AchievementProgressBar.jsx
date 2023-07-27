@@ -24,7 +24,7 @@ const barBgColor = "gray-200"
         <div className={`overflow-hidden h-2 mb-4 text-xs flex rounded bg-${barBgColor}`}>
           <div
             style={{ width: `${width}%` }}
-            class={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[${progressBgColor}]`}
+            className={`shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[${progressBgColor}]`}
           ></div>
         </div>
       </div>
