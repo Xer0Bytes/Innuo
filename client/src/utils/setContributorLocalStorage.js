@@ -6,7 +6,7 @@ const config_header = {
   },
 };
 
-const setAdminLocalStorage = async (currUser) => {
+const setContributorLocalStorage = async (currUser) => {
   try {
     const res = await newRequest.post(
       "/user/getCurrentUser",
@@ -56,14 +56,13 @@ const setAdminLocalStorage = async (currUser) => {
       config_header
     );
     localStorage.setItem("userConns", JSON.stringify(getUserConns.data));
-    // console.log(currentUser);
   } catch (err) {
     if (err.response && err.response.data && err.response.data.message) {
-      setError(err.response.data.message);
+      console.log(err.response.data.message);
     } else {
-      // console.log(err);
-      setError("An error occurred during login.");
+      console.log(err);
+      // setError("An error occurred during login.");
     }
   }
 };
-export default setAdminLocalStorage;
+export default setContributorLocalStorage;
