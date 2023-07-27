@@ -66,19 +66,20 @@ const EditProfile = () => {
       return () => clearTimeout(timer);
     }
   }, [error, success]);
+
   // handleSubmit function define for the form
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData);
     const onProgress = (progress) => {
       setUploadProgress(progress);
     };
-    let url = null;
-
+    let url = currentUser.pfpLink;
+    console.log(formData.editProfileImage)
     if (formData.editProfileImage) {
       setIsUploading(true);
       url = await upload(formData.editProfileImage, onProgress);
     }
-    console.log("url korte parse: " + url);
 
     try {
       const res = await newRequest.post(
@@ -93,9 +94,7 @@ const EditProfile = () => {
       );
 
       localStorage.setItem("currentUser", JSON.stringify(res.data));
-      console.log(res);
       setSuccess(true);
-      console.log(success);
 
       document.querySelector(".editprofile_form").reset();
       setIsUploading(false);
@@ -107,7 +106,6 @@ const EditProfile = () => {
         setError("An error occurred!");
       }
     }
-    console.log(formData);
   };
 
   return (
@@ -152,7 +150,6 @@ const EditProfile = () => {
                     name="editProfileName"
                     onChange={handleChange}
                     defaultValue={currentUser.name}
-                    //=================GIVE THE USERNAME IN THE DEFFAULT VALUE FIELD!!!!!!!!===========
                     className=" text-md editprofile_input text-[#333] peer block w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none"
                   />
                 </div>
@@ -184,9 +181,8 @@ const EditProfile = () => {
                   id="difficulty"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   defaultValue={currentUser.difficulty}
-                  onChange={(event) =>
-                    handleChange(event.target.value, "editProfileDifficulty")
-                  }
+                  name="editProfileDifficulty"
+                  onChange={handleChange}
                 >
                   <option value="beginner">Beginner</option>
                   <option value="intermediate">Intermediate</option>
