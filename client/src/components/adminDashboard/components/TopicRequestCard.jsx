@@ -29,7 +29,6 @@ const TopicRequestCard = ({ id, data, status, statusColor, setCons, con_name }) 
   const handleApprove = async (e) => {
     e.preventDefault();
     setInputDisabled(true);
-    console.log(topicName);
 
     setWait(true);
     try {
@@ -50,14 +49,12 @@ const TopicRequestCard = ({ id, data, status, statusColor, setCons, con_name }) 
       setWait(false);
     } catch (err) {
       setWait(false);
-      console.log(err);
     }
   };
 
   const handleReject = async () => {
     setInputDisabled(true);
     setVisibleRejectModal(false);
-    console.log(topicName);
     setWait(true);
     try {
       const res = await newRequest.post(`/admin/reject/${id}`, config_header);
@@ -67,7 +64,6 @@ const TopicRequestCard = ({ id, data, status, statusColor, setCons, con_name }) 
       setWait(false);
     } catch (err) {
       setWait(false);
-      console.log(err);
     }
   };
 

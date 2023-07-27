@@ -23,7 +23,6 @@ const Ranking = () => {
           setError(err.response.data.message);
         } else {
           setError("An error occurred during ranking fetching.");
-          console.log(err);
         }
       }
     };

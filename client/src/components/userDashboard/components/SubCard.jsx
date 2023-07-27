@@ -19,7 +19,6 @@ const SubCard = ({
     e.stopPropagation();
     if (has_questions) {
       if (completed === true) {
-        console.log("is completed");
         setVisibleModal(true);
       } else {
         navigate(`/quiz/${module_name}/${module_id}`);

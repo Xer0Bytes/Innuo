@@ -31,7 +31,6 @@ const EmailVerify = () => {
         } catch (error) {
           setLoading(false);
           setValidUrl(false);
-          console.log(error);
         }
       }
     };

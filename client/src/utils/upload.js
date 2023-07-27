@@ -16,7 +16,6 @@ const upload = async (file, onProgress) => {
           );
           onProgress(progress);
           //track your progress here
-          console.log((ProgressEvent.loaded / ProgressEvent.total) * 100);
         },
       }
     );
@@ -24,7 +23,6 @@ const upload = async (file, onProgress) => {
     const { url } = res.data;
     return url;
   } catch (err) {
-    console.log(err);
   }
 };
 

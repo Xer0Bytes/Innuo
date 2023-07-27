@@ -26,7 +26,6 @@ const Achievements = () => {
         );
         localStorage.setItem("currentUser", JSON.stringify(res.data));
       } catch (err) {
-        console.log(err);
       }
     };
 
@@ -54,9 +53,7 @@ const Achievements = () => {
   //       );
   //       const cp = Number(res.data);
   //       localStorage.setItem("userExpPoints", cp);
-  //       //console.log(cp);
   //     } catch (err) {
-  //       console.log(err);
   //     }
   //   };
 
@@ -65,7 +62,6 @@ const Achievements = () => {
 
   localStorage.removeItem("gotAchievementBruh");
   // const correctPoints = localStorage.getItem("userExpPoints");
-  //console.log(correctPoints);
 
   return (
     <>

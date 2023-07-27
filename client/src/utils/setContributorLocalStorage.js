@@ -15,7 +15,6 @@ const setContributorLocalStorage = async (currUser) => {
     );
     localStorage.setItem("currentUser", JSON.stringify(res.data));
 
-    // console.log("current user set");
 
     const resTopic = await newRequest.post(
       "/topic/getTopics",
@@ -31,7 +30,6 @@ const setContributorLocalStorage = async (currUser) => {
     );
     localStorage.setItem("allAch", JSON.stringify(resAch.data));
 
-    // console.log("achievement set");
 
     const resRanking = await newRequest.post(
       "/user/ranking",
@@ -40,7 +38,6 @@ const setContributorLocalStorage = async (currUser) => {
     );
     localStorage.setItem("ranking", JSON.stringify(resRanking.data));
 
-    // console.log("ranking set");
 
     const resExp = await newRequest.post(
       "/quiz/exp",
@@ -58,9 +55,7 @@ const setContributorLocalStorage = async (currUser) => {
     localStorage.setItem("userConns", JSON.stringify(getUserConns.data));
   } catch (err) {
     if (err.response && err.response.data && err.response.data.message) {
-      console.log(err.response.data.message);
     } else {
-      console.log(err);
       // setError("An error occurred during login.");
     }
   }

@@ -9,11 +9,7 @@ import getCurrentUser from "../../../utils/getCurrentUser";
 function QuizResult({ userExp, retry, previousExp, module_id, completed }) {
   const [err, setError] = useState("");
   const [loading, setLoading] = useState(completed ? false : true);
-  console.log(completed);
 
-  console.log("user exp in quizresult.jsx: " + userExp);
-
-  const navigate = useNavigate();
   const navigateToDashboard = () => {
     const buttonOnClick = () => {
       localStorage.removeItem("CurrentQuizData");
@@ -24,7 +20,6 @@ function QuizResult({ userExp, retry, previousExp, module_id, completed }) {
     return () => clearTimeout(timer);
   };
   const expEarned = Number(userExp - previousExp);
-  // console.log("exp earned in result page: " + expEarned); //working
 
   const config_header = {
     header: {
@@ -42,38 +37,30 @@ function QuizResult({ userExp, retry, previousExp, module_id, completed }) {
         );
 
         localStorage.setItem("currentUser", JSON.stringify(res.data));
-        console.log(res.data);
         localStorage.removeItem("currentQuizData");
       } catch (err) {
         if (err.response && err.response.data && err.response.data.message) {
           setError(err.response.data.message);
         } else {
           setError("An error occurred during updating EXP.");
-          //console.log(err);
         }
       }
     };
 
     const checkAchievement = async (currentUser) => {
-      console.log("achievement being checked!");
-      console.log(userExp);
       try {
         const res = await newRequest.post(
           `/achievement/userAchievement/${currentUser._id}`,
           { userExp: userExp },
           config_header
         );
-        // console.log(res.data);
         const prevAch = currentUser.achieved.length;
-        console.log(prevAch);
         const resUser = await newRequest.post(
           "/user/getCurrentUser",
           { id: currentUser._id },
           config_header
         );
         const newAch = resUser.data.achieved.length;
-        console.log("this is new Ach");
-        console.log(newAch);
 
         localStorage.setItem("gotAchievementBruh", newAch - prevAch);
         localStorage.setItem("currentUser", JSON.stringify(resUser.data));
@@ -89,7 +76,6 @@ function QuizResult({ userExp, retry, previousExp, module_id, completed }) {
     const waitTime = () => {
       if (!completed) {
         const currentUser = getCurrentUser();
-        console.log(userExp + " sent for update");
         setUserExp(currentUser);
         checkAchievement(currentUser);
       }

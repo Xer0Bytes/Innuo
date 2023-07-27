@@ -16,7 +16,6 @@ const DeleteProfile = () => {
   };
 
   const handleDeleteAccount = async () => {
-    console.log(currentUser._id);
     try {
       const res = await newRequest.post(
         `/user/delete/${currentUser._id}`,
@@ -29,7 +28,6 @@ const DeleteProfile = () => {
        // Redirect to login page
       window.location.href = "http://localhost:5173/login";
     } catch (err) {
-      console.log(err);
     }
   };
 

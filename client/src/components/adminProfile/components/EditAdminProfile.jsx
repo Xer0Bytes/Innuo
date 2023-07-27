@@ -89,9 +89,7 @@ const EditAdminProfile = () => {
       );
 
       localStorage.setItem("currentUser", JSON.stringify(res.data));
-      console.log(res);
       setSuccess(true);
-      console.log(success);
 
       document.querySelector(".editprofile_form").reset();
       setIsUploading(false);
@@ -99,11 +97,9 @@ const EditAdminProfile = () => {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
-        console.log(err);
         setError("An error occurred!");
       }
     }
-    console.log(formData);
   };
   return (
     <>
