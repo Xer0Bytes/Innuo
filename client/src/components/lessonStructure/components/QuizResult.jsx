@@ -1,6 +1,7 @@
 import LottiePlayer from "react-lottie-player";
 import endQuizAnimation from "../assets/astronautResultScreen.json";
 import loadingResult from "../assets/resultLoading.json";
+import loadingAnimation from "../../signUpIn/assets/loadingAnimation.json"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import newRequest from "../../../utils/newRequest";
@@ -12,13 +13,13 @@ function QuizResult({ userExp, retry, previousExp, module_id, completed }) {
   const [loading, setLoading] = useState(completed ? false : true);
 
   const navigateToDashboard = () => {
-    const buttonOnClick = () => {
-      localStorage.removeItem("CurrentQuizData");
-      navigate("/userDashboard");
-    };
+    // const buttonOnClick = () => {
+    localStorage.removeItem("CurrentQuizData");
+    navigate("/userDashboard");
+    // };
 
-    const timer = setTimeout(buttonOnClick, 1000);
-    return () => clearTimeout(timer);
+    // const timer = setTimeout(buttonOnClick, 1000);
+    // return () => clearTimeout(timer);
   };
   const expEarned = Number(userExp - previousExp);
 
@@ -55,7 +56,7 @@ function QuizResult({ userExp, retry, previousExp, module_id, completed }) {
           { userExp: userExp },
           config_header
         );
-        const prevAch = currentUser.achieved.length;
+        const prevAch = currentUser.achieved ? currentUser.achieved.length : 0;
         const resUser = await newRequest.post(
           "/user/getCurrentUser",
           { id: currentUser._id },
@@ -75,27 +76,25 @@ function QuizResult({ userExp, retry, previousExp, module_id, completed }) {
     };
 
     const waitTime = () => {
-      if (!completed) {
-        const currentUser = getCurrentUser();
-        setUserExp(currentUser);
-        checkAchievement(currentUser);
-      }
+      const currentUser = getCurrentUser();
+      setUserExp(currentUser);
+      checkAchievement(currentUser);
+      setLoading(false);
     };
-    let sendReqTimer = null;
-    if (!completed) {
-      sendReqTimer = setTimeout(waitTime, 2000);
-    }
+
+    const sendReqTimer = setTimeout(waitTime, 2000);
+
     // const sendReqTimer = setTimeout(waitTime, 2000);
-    return () => clearTimeout(sendReqTimer);
+    return () => (completed ? null : clearTimeout(sendReqTimer));
   }, [userExp]);
 
-  useEffect(() => {
-    const loadingTimer = setTimeout(() => {
-      setLoading(false);
-    }, 2700);
+  // useEffect(() => {
+  //   const loadingTimer = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 3000);
 
-    return () => clearTimeout(loadingTimer);
-  }, []);
+  //   return () => clearTimeout(loadingTimer);
+  // }, []);
 
   // useEffect (()=> {
   //   const sendReqTimer = setTimeout(waitTime, 1000);
@@ -107,7 +106,7 @@ function QuizResult({ userExp, retry, previousExp, module_id, completed }) {
       {loading ? (
         <>
           <LottiePlayer
-            animationData={loadingResult}
+            animationData={loadingAnimation}
             play
             loop={false}
             segments={[0, 97]}

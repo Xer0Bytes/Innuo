@@ -55,6 +55,8 @@ const setLocalStorage = async (currUser) => {
 
     localStorage.setItem("exp", JSON.stringify(resExp.data));
 
+    localStorage.setItem("gotAchievementBruh", 0);
+
   } catch (err) {
     if (err.response && err.response.data && err.response.data.message) {
       setError(err.response.data.message);

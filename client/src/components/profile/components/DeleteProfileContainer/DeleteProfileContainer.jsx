@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import getCurrentUser from "../../../../utils/getCurrentUser";
 import PopUp from "../../../lessonStructure/components/PopUp";
 import newRequest from "../../../../utils/newRequest";
+import { useNavigate } from "react-router-dom";
 
 const DeleteProfile = () => {
   const currentUser = getCurrentUser();
+  const navigate = useNavigate();
+  let sth = 0;
   const [visibleDeleteModal, setVisibleDeleteModal] = useState(false);
   const [error, setError] = useState("");
 
@@ -16,18 +19,20 @@ const DeleteProfile = () => {
   };
 
   const handleDeleteAccount = async () => {
-    try {
-      const res = await newRequest.post(
-        `/user/delete/${currentUser._id}`,
-        config_header
-      );
+    if (sth === 0) {
+      try {
+        sth = 1;
+        const res = await newRequest.post(
+          `/user/delete/${currentUser._id}`,
+          config_header
+        );
 
-      setVisibleDeleteModal(false);
-      localStorage.clear();
+        setVisibleDeleteModal(false);
+        localStorage.clear();
 
-       // Redirect to login page
-      window.location.href = "http://localhost:5173/login";
-    } catch (err) {
+        // Redirect to login page
+        navigate("/login");
+      } catch (err) {}
     }
   };
 
