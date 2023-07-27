@@ -7,6 +7,7 @@ import newRequest from "../../../utils/newRequest";
 import getCurrentUser from "../../../utils/getCurrentUser";
 
 function QuizResult({ userExp, retry, previousExp, module_id, completed }) {
+  const navigate = useNavigate();
   const [err, setError] = useState("");
   const [loading, setLoading] = useState(completed ? false : true);
 
