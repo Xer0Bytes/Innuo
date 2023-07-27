@@ -30,13 +30,9 @@ const Container = () => {
                   <i className="fas fa-star mr-2 text-lg text-yellow"></i>
                   EXP Earned: {currentUser.experiencePoints}
                 </div>
-                <div className="mb-2 text-blueGray-600 mt-2 text-xl">
-                  <i className="fas fa-language mr-2 text-lg text-blueGray-400"></i>
-                  Languages Learned: 0
-                </div>
                 <div className="mb-6 text-blueGray-600 mt-2 text-xl">
                   <i className="fas fa-trophy mr-2 text-lg text-blueGray-400"></i>
-                  Achievement Unlocked: 0
+                  Achievement Unlocked: {currentUser.achieved.length}
                 </div>
               </div>
             </span>
