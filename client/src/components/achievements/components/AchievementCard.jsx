@@ -14,7 +14,7 @@ const AchievementCard = ({
 }) => {
   return (
     <div
-      className={`flex flex-col items-center bg-white border border-${border_color} rounded-lg shadow md:flex-row md:max-w-md hover:bg-gray-100`}
+      className={`flex flex-col items-center bg-white border border-${border_color} rounded-lg shadow md:flex-row md:max-w-md`}
     >
       {isCompleted ? (
         <img
@@ -40,9 +40,9 @@ const AchievementCard = ({
         <p className={`mb-3 text-xl text-${description_color}`}>
           {description}
         </p>
-        <p className={`mb-3 text-sm text-${description_color}`}>
+        {isCompleted && (<p className={`mb-3 text-sm text-${description_color}`}>
           {condition}
-        </p>
+        </p>)}
       </div>
     </div>
   );
