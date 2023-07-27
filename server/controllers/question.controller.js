@@ -50,7 +50,6 @@ export const addQuestions = async (req, res) => {
     res.status(200).send(cons);
   } catch (err) {
     //next(err);
-    console.log(err);
   }
 };
 
@@ -78,6 +77,5 @@ export const sendAdminQuestion = async (req, res, next) => {
     }
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };

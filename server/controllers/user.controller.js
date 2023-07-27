@@ -28,7 +28,6 @@ export const updateUser = async (req, res, next) => {
     res.status(200).send(user);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 
@@ -43,7 +42,6 @@ export const getAllUsers = async (req, res, next) => {
     res.status(200).send(users);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 
@@ -55,7 +53,6 @@ export const getCurrentUser = async (req, res, next) => {
     res.status(200).send(user);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 
@@ -80,6 +77,5 @@ export const getConNotifs = async (req, res, next) => {
 
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
