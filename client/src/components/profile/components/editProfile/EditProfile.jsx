@@ -94,6 +94,15 @@ const EditProfile = () => {
       );
 
       localStorage.setItem("currentUser", JSON.stringify(res.data));
+
+      const currUser = getCurrentUser()
+      const resExp = await newRequest.post(
+        "/quiz/exp",
+        { difficulty: currUser.difficulty },
+        config_header
+      );
+  
+      localStorage.setItem("exp", JSON.stringify(resExp.data));
       setSuccess(true);
 
       document.querySelector(".editprofile_form").reset();
