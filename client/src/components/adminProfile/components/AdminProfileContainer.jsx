@@ -7,7 +7,7 @@ const AdminProfileContainer = () => {
   return (
     <>
       <section className="relative block h-[300px]">
-        <div className="absolute top-0 w-full h-full bg-center bg-cover bg-[url('https://res.cloudinary.com/dgcmjva7h/image/upload/v1690203656/Innuo/6d4n_mx4e_230103_Convesxarted_qanyjh.png')]">
+        <div className="absolute top-0 w-full h-full bg-center bg-cover bg-[url('https://res.cloudinary.com/dgcmjva7h/image/upload/v1690460987/Innuo/Project%20Assets/profile_background_twhybv.png')]">
           </div>
         
       </section>
@@ -22,7 +22,7 @@ const AdminProfileContainer = () => {
                       <img
                         alt="..."
                         src={
-                          currentUser.pfpLink || adminDefaultPfp
+                          currentUser.pfpLink || "https://res.cloudinary.com/dgcmjva7h/image/upload/v1690461131/Innuo/Project%20Assets/admin_default_pfp_scklyq.png"
                         }
                         className="shadow-xl rounded-full w-[150px] h-[150px] align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px] bg-white"
                       />

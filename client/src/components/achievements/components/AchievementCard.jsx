@@ -1,17 +1,21 @@
 import React from "react";
 import LottiePlayer from 'react-lottie-player'
 import lockedAchievementAnimation from '../assets/lockedAchievementAnimation.json'
+import AchievementProgressBar from "./AchievementProgressBar";
+import getExp from "../../../utils/getExp";
 
 const AchievementCard = ({
   title,
   image,
   description,
   condition,
+  achieveCondition,
   border_color,
   title_color,
   description_color,
   isCompleted
 }) => {
+  const expSystem = getExp()
   return (
     <div
       className={`flex flex-col items-center bg-white border border-${border_color} rounded-lg shadow md:flex-row md:max-w-md`}
@@ -40,9 +44,9 @@ const AchievementCard = ({
         <p className={`mb-3 text-xl text-${description_color}`}>
           {description}
         </p>
-        {isCompleted && (<p className={`mb-3 text-sm text-${description_color}`}>
+        {isCompleted ? (<p className={`mb-3 text-sm text-${description_color}`}>
           {condition}
-        </p>)}
+        </p>) : (<AchievementProgressBar requiredExp={expSystem.correctPoints * achieveCondition }/>)}
       </div>
     </div>
   );
