@@ -15,7 +15,7 @@ const ContributePage = () => {
     },
   };
   useEffect(() => {
-    const getRankingData = async () => {
+    const getUserContributions = async () => {
       try {
         const getUserConns = await newRequest.post(
           `/user/conNotifs/${currentUser._id}`,
@@ -32,7 +32,7 @@ const ContributePage = () => {
       }
     };
 
-    getRankingData();
+    getUserContributions();
   }, []);
 
   const tabItems = [
