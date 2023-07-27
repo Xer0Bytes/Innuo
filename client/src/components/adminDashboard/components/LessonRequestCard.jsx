@@ -32,7 +32,6 @@ const LessonRequestCard = ({ id, data, status, statusColor, setCons, con_name })
   const handleApprove = async (e) => {
     e.preventDefault();
     setInputDisabled(true);
-    console.log(lessonText);
     setWait(true);
     try {
       const res = await newRequest.post(
@@ -57,14 +56,12 @@ const LessonRequestCard = ({ id, data, status, statusColor, setCons, con_name })
       setWait(false);
     } catch (err) {
       setWait(false);
-      console.log(err);
     }
   };
 
   const handleReject = async () => {
     setInputDisabled(true);
     setVisibleRejectModal(false);
-    console.log(lessonText);
     setWait(true);
     try {
       const res = await newRequest.post(`/admin/reject/${id}`, config_header);
@@ -74,7 +71,6 @@ const LessonRequestCard = ({ id, data, status, statusColor, setCons, con_name })
       setWait(false);
     } catch (err) {
       setWait(false);
-      console.log(err);
     }
   };
 

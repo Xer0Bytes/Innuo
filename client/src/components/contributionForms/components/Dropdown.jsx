@@ -18,13 +18,11 @@ const Dropdown = ({
     else if (selectedValue == "Add Question") setTopicValue("question");
     else if (selectedValue == "Add Lesson") setTopicValue("lesson");
     else onValueChange(event.target.value);
-    // console.log(event.target.value);
   };
   const [noOptions, setNoOptions] = useState(values.length === 0);
   useEffect(() => {
     setNoOptions(values.length === 0);
   }, [values]);
-  // console.log(valueIDs);
 
   return (
     <>

@@ -19,10 +19,8 @@ let transporter = nodemailer.createTransport({
 
 transporter.verify((error, success) => {
   if (error) {
-    console.log(error);
   } else {
     console.log("Ready for messages");
-    console.log(success);
   }
 });
 
@@ -65,7 +63,6 @@ export const sendVerificationEmail = (link, emailFormat, result, res, next) => {
             })
             .catch((error) => {
               console.log("Email not sent");
-              console.log(error);
             });
         })
         .catch((error) => {

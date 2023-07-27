@@ -41,15 +41,12 @@ const PasswordReset = () => {
 
   useEffect(() => {
     const verifyUrl = async () => {
-      console.log(param.id);
-      console.log(param.unique);
       if (validUrl !== true && sth === 0) {
         try {
           sth = 1;          
           const res = await newRequest.get(
             `auth/verify-reset/${param.id}/${param.unique}`
           );
-          console.log("carried out....");
           if (res.status < 400) {
             setValidUrl(true);
             setLoading(false);
@@ -75,7 +72,6 @@ const PasswordReset = () => {
     e.preventDefault();
     try {
       setWait(true);
-      // console.log(password);
       const data = await newRequest.post(
         `auth/password-reset/${param.id}/${param.unique}`,
         { password: password },
@@ -88,7 +84,6 @@ const PasswordReset = () => {
     } catch (err) {
       setWait(false);
       setMsg("");
-      console.log(err);
       if (
         err.response &&
         err.response.status >= 400 &&

@@ -47,7 +47,6 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(data);
     try {
       setWait(true);
       const res = await newRequest.post(
@@ -61,7 +60,6 @@ const Signup = () => {
         config_header
       );
       setWait(false);
-      console.log(res);
       setMsg("Successful");
       setRedirect(true);
     } catch (err) {

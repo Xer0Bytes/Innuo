@@ -70,12 +70,10 @@ const EditProfile = () => {
   // handleSubmit function define for the form
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     const onProgress = (progress) => {
       setUploadProgress(progress);
     };
     let url = currentUser.pfpLink;
-    console.log(formData.editProfileImage)
     if (formData.editProfileImage) {
       setIsUploading(true);
       url = await upload(formData.editProfileImage, onProgress);
@@ -111,7 +109,6 @@ const EditProfile = () => {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
-        console.log(err);
         setError("An error occurred!");
       }
     }

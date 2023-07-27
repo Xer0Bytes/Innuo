@@ -95,7 +95,6 @@ const QuestionRequestCard = ({ id, data, status, statusColor, setCons, con_name 
       setCons(getAllCons());
       setWait(false);
     } catch (err) {
-      console.log(err);
       setWait(false);
     }
   };
@@ -112,7 +111,6 @@ const QuestionRequestCard = ({ id, data, status, statusColor, setCons, con_name 
       setCons(getAllCons());
       setWait(false);
     } catch (err) {
-      console.log(err);
       setWait(false);
     }
   };

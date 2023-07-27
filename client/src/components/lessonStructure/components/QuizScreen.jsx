@@ -13,7 +13,6 @@ function QuizScreen({ expSystem, retry, userExp, setUserExp, previousExp, module
   // import question array, lesson
   const [currentLessonIndex, setCurrentLessonIndex] = useState(0);
   const isLessonEnd = currentLessonIndex === LessonList.length;
-  // console.log("lesson length: " + LessonList.length);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [markedAnswers, setMarkedAnswers] = useState(
     new Array(QuestionList.length)
@@ -24,9 +23,6 @@ function QuizScreen({ expSystem, retry, userExp, setUserExp, previousExp, module
   const completedModules = currentUser.modulesCompleted
     ? currentUser.modulesCompleted
     : ""; //array of module id
-
-    console.log(completedModules);
-
 
   //ignore this function since we dont calculate result
   function calculatedResult() {

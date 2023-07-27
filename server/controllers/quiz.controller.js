@@ -17,18 +17,15 @@ export const fetchModule = async (req, res, next) => {
     res.status(201).send(response);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 
 export const getExp = async (req, res, next) => {
   try {
     const exp = await Exp.findOne({ difficulty: req.body.difficulty });
-    //console.log(exp);
     res.status(201).send(exp);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 
@@ -52,6 +49,5 @@ export const updateExpAndCompModules = async (req, res, next) => {
     res.status(201).send(user);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };

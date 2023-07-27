@@ -29,7 +29,6 @@ const TopicForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setWait(true);
-    // console.log(formData);
     // Do something with the form data
     try {
       const res = await newRequest.post(
@@ -49,7 +48,6 @@ const TopicForm = () => {
         `/user/conNotifs/${currentUser._id}`,
         config_header
       );
-      console.log(getUserConns.data);
       localStorage.setItem("userConns", JSON.stringify(getUserConns.data));
       setWait(false);
       setSuccess(true);
@@ -57,7 +55,6 @@ const TopicForm = () => {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
-        // console.log(err);
         setError("An error occurred!");
       }
     }

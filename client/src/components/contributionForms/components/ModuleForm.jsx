@@ -31,7 +31,6 @@ const ModuleForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     if (formData.moduleFormTopicID === null) {
       setError("Fill out all required fields!");
       return;
@@ -67,7 +66,6 @@ const ModuleForm = () => {
         setError("An error occurred");
       }
     }
-    console.log(formData);
   };
 
   useEffect(() => {
@@ -86,7 +84,6 @@ const ModuleForm = () => {
   const allTopics = getAllTopics();
   const topicTitles = allTopics.map((item) => item.topicTitle);
   const topicIDs = allTopics.map((item) => Number(item.topicID));
-  //  console.log(topicIDs);
 
   return (
     <>

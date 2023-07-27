@@ -46,7 +46,6 @@ const LessonForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     if (
       formData.lessonFormTopicID === null ||
       formData.lessonFormModuleID === null
@@ -97,7 +96,6 @@ const LessonForm = () => {
       }
     }
 
-    console.log(formData);
   };
 
   useEffect(() => {

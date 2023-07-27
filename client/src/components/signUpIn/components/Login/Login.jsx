@@ -65,7 +65,6 @@ const Login = () => {
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
-        // console.log(err);
         setError("An error occurred during login.");
       }
     }

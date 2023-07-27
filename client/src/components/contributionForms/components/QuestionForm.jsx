@@ -51,7 +51,6 @@ const QuestionForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     if (
       formData.questionFormTopicID === null ||
       formData.questionFormModuleID === null
