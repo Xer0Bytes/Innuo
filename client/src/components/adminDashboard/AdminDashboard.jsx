@@ -131,7 +131,6 @@ const AdminDashboard = () => {
       localStorage.setItem("allCons", JSON.stringify(res.data));
       setCons(getAllCons());
     } catch (err) {
-      console.log(err);
     }
 
     setVisibleDeleteModal(false);

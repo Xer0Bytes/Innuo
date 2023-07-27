@@ -10,13 +10,11 @@ export const getAllAch = async (req, res, next) => {
     res.status(200).send(ach);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 
 export const areYaWinningSon = async (req, res, next) => {
   try {
-    console.log(req.body.userExp);
     //getting all ach
     const ach = await Achievement.find(
       {},
@@ -53,7 +51,6 @@ export const areYaWinningSon = async (req, res, next) => {
     res.status(200).send(didSonLose);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 
@@ -71,7 +68,6 @@ export const getExp = async (req, res, next) => {
     return res.status(200).send(points.toString());
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 

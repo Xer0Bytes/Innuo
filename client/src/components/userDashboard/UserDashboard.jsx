@@ -30,7 +30,6 @@ export const UserDashboard = () => {
     };
 
     if (gotAchievement && gotAchievement > 0) {
-      console.log("notun achievement!");
       setNotification(true);
       const timer = setTimeout(handleNotificationDelete, 6000);
       return () => clearTimeout(timer);

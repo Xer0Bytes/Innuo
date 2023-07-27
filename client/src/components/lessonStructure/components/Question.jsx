@@ -18,15 +18,12 @@ function Question({
   const [showCheckedAnswer, setShowCheckedAnswer] = useState(false); //show the checked answer message
   const [allowSelectOption, setAllowSelectOption] = useState(true); //disable/enable option selection
 
-  // console.log("type of correct choice: ");
-  // console.log(typeof(question.correctChoice));
   useEffect(() => {
     // Reset states when the question prop (parameter passed to this component) changes
     setSelectedOption(null);
     setAnswerCorrect(false);
     setShowCheckedAnswer(false);
     setAllowSelectOption(true);
-    console.log("user exp in question.jsx: " + userExp);
   }, [question]);
 
   //select option selection
@@ -58,8 +55,6 @@ function Question({
       setUserExp((updatedExp));
     }
 
-    // console.log("update howar pore: " + updatedExp); //update occuring
-    // console.log("(end of function) ekhon user exp: " + userExp); 
   };
 
 

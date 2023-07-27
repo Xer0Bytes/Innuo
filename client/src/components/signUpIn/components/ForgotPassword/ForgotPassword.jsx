@@ -31,7 +31,6 @@ const ForgotPassword = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(email);
     try {
 
       setWait(true);

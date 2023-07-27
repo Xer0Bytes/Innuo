@@ -60,7 +60,6 @@ export const register = async (req, res, next) => {
     }
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 
@@ -118,7 +117,6 @@ export const verifyEmail = async (req, res, next) => {
     }
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 
@@ -157,7 +155,6 @@ export const login = async (req, res, next) => {
       .send(info);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 

@@ -30,7 +30,6 @@ export const addModule = async (req, res) => {
     res.status(200).send(cons);
   } catch (err) {
     //next(err);
-    console.log(err);
   }
 };
 
@@ -62,7 +61,6 @@ export const addLesson = async (req, res) => {
     res.status(200).send(cons);
   } catch (err) {
     // next(err);
-    console.log(err);
   }
 };
 
@@ -77,7 +75,6 @@ export const getAllModules = async (req, res, next) => {
     res.status(200).send(modules);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 
@@ -98,7 +95,6 @@ export const sendAdminModule = async (req, res, next) => {
     }
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 
@@ -126,6 +122,5 @@ export const sendAdminLesson = async (req, res, next) => {
     }
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };

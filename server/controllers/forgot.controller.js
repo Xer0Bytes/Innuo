@@ -30,7 +30,6 @@ export const forgotPassEmail = async (req, res, next) => {
     }
   } catch (error) {
     next(error);
-    console.log(error);
   }
 };
 
@@ -85,7 +84,6 @@ export const verifyEmailReset = async (req, res, next) => {
     }
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 
@@ -162,6 +160,5 @@ export const resetPass = async (req, res, next) => {
     }
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };

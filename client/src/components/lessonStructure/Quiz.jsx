@@ -14,7 +14,6 @@ function Quiz() {
   const previousExp = currentUser.experiencePoints;
   
   const exp = getExp();
-  console.log("user exp in quiz.jsx: " + userExp);
   return (
     <>
       <div className="quiz-container">

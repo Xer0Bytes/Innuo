@@ -28,7 +28,6 @@ export const addTopic = async (req, res) => {
     res.status(200).send(cons);
   } catch (err) {
     //next(err);
-    console.log(err);
   }
 };
 
@@ -40,7 +39,6 @@ export const getAllTopics = async (req, res, next) => {
     res.status(200).send(topics);
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };
 
@@ -55,6 +53,5 @@ export const sendAdminTopic = async (req, res, next) => {
     }
   } catch (err) {
     next(err);
-    console.log(err);
   }
 };

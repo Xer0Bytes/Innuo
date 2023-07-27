@@ -27,7 +27,6 @@ const ModuleRequestCard = ({ id, data, status, statusColor, setCons,con_name }) 
   const handleApprove = async (e) => {
     e.preventDefault();
     setInputDisabled(true);
-    console.log(moduleName);
     setWait(true);
     try {
       const res = await newRequest.post(
@@ -49,14 +48,12 @@ const ModuleRequestCard = ({ id, data, status, statusColor, setCons,con_name }) 
       setCons(getAllCons());
     } catch (err) {
       setWait(false);
-      console.log(err);
     }
   };
 
   const handleReject = async () => {
     setInputDisabled(true);
     setVisibleRejectModal(false);
-    console.log(moduleName);
     setWait(true);
     try {
       const res = await newRequest.post(`/admin/reject/${id}`, config_header);
@@ -66,7 +63,6 @@ const ModuleRequestCard = ({ id, data, status, statusColor, setCons,con_name }) 
       setWait(false);
     } catch (err) {
       setWait(false);
-      console.log(err);
     }
   };
   return (
