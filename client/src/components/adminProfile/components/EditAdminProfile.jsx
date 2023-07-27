@@ -184,7 +184,7 @@ const EditAdminProfile = () => {
                   </div>
                 </div>
                 {isUploading && (
-                  <div className="text-left text-green-500">
+                  <div className="text-center text-green-500">
                     Upload Progress: {uploadProgress}%
                   </div>
                 )}
