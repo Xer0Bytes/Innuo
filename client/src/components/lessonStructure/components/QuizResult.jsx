@@ -1,7 +1,7 @@
 import LottiePlayer from "react-lottie-player";
 import endQuizAnimation from "../assets/astronautResultScreen.json";
 import loadingResult from "../assets/resultLoading.json";
-import loadingAnimation from "../../signUpIn/assets/loadingAnimation.json"
+import loadingAstronaut from "../assets/loadingAstronaut.json"
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import newRequest from "../../../utils/newRequest";
@@ -10,7 +10,7 @@ import getCurrentUser from "../../../utils/getCurrentUser";
 function QuizResult({ userExp, retry, previousExp, module_id, completed }) {
   const navigate = useNavigate();
   const [err, setError] = useState("");
-  const [loading, setLoading] = useState(completed ? false : true);
+  const [loading, setLoading] = useState(completed? false: true);
 
   const navigateToDashboard = () => {
     // const buttonOnClick = () => {
@@ -106,15 +106,15 @@ function QuizResult({ userExp, retry, previousExp, module_id, completed }) {
       {loading ? (
         <>
           <LottiePlayer
-            animationData={loadingAnimation}
+            animationData={loadingAstronaut}
             play
-            loop={false}
-            segments={[0, 97]}
-            speed={1.5}
-            className="w-[30em]"
+            loop={true}
+            // segments={[0, 97]}
+            speed={1}
+            className="w-[30em] mt-12"
           />
-          <span className="-mt-[3em]">
-            <h2 className="text-2xl">Ready for the reveal?</h2>
+          <span className="-mt-[2em] pb-1">
+            <h2 className="text-lg">Cosmic data loading... </h2>
           </span>
         </>
       ) : (

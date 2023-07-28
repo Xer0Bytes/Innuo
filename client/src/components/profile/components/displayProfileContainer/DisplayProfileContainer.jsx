@@ -16,7 +16,7 @@ const Container = () => {
                     <img
                       alt="..."
                       src= {currentUser.pfpLink || avatar}
-                      className="shadow-xl rounded-full w-[150px] h-[150px] align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
+                      className="shadow-xl rounded-full w-[150px] h-[150px] align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px] bg-white"
                     />
                   </div>
                 </div>
