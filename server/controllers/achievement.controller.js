@@ -5,7 +5,7 @@ import Exp from "../models/exp.model.js";
 export const getAllAch = async (req, res, next) => {
   try {
     //all achieves
-    const ach = await Achievement.find({});
+    const ach = await Achievement.find({}).sort({ achieveCondition: 1 });
 
     res.status(200).send(ach);
   } catch (err) {
