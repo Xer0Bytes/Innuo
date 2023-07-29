@@ -99,38 +99,37 @@ const LessonRequestCard = ({
     setWait(true);
 
     try {
-      // if (typeof lessonImage === "object") {
-      //   const onProgress = (progress) => {
-      //     setUploadProgress(progress);
-      //   };
+      if (typeof lessonImage === "object") {
+         const onProgress = (progress) => {
+          setUploadProgress(progress);
+         };
 
-      //   console.log("Testing...")
-      //   setIsUploading(true);
-      //   const url = await upload(lessonImage, onProgress);
-      //   setLessonImage(url);
-      //   setIsUploading(false);
-      // }
+        setIsUploading(true);
+        const url = await upload(lessonImage, onProgress);
+        setIsUploading(false);
 
-      const res = await newRequest.post(
-        `/admin/edit/${id}`,
-        {
-          type: "lesson",
-          data: {
-            topicID: data.topicID,
-            topicTitle: data.topicTitle,
-            moduleID: data.moduleID,
-            moduleTitle: data.moduleTitle,
-            lessonText: lessonText,
-            lessonImageURL: lessonImage,
+        const res = await newRequest.post(
+          `/admin/edit/${id}`,
+          {
+            type: "lesson",
+            data: {
+              topicID: data.topicID,
+              topicTitle: data.topicTitle,
+              moduleID: data.moduleID,
+              moduleTitle: data.moduleTitle,
+              lessonText: lessonText,
+              lessonImageURL: url,
+            },
+            status: status,
           },
-          status: status,
-        },
-        config_header
-      );
+          config_header
+        );
+  
+        localStorage.setItem("allCons", JSON.stringify(res.data));
+        setCons(getAllCons());
+        setWait(false);
+      }
 
-      localStorage.setItem("allCons", JSON.stringify(res.data));
-      setCons(getAllCons());
-      setWait(false);
     } catch (err) {
       setWait(false);
     }
