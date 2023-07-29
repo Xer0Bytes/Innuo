@@ -10,7 +10,12 @@ export const fetchModule = async (req, res, next) => {
       },
       "modules"
     );
-    const { lessons, questions } = module?.modules[0];
+
+    const matchedModule = module.modules.find(
+      (mod) => mod.moduleID === Number(req.params.module_id)
+    );
+
+    const { lessons, questions } = matchedModule;
 
     const response = [lessons, questions];
 
