@@ -99,16 +99,17 @@ const LessonRequestCard = ({
     setWait(true);
 
     try {
-      if (typeof lessonImage === "object") {
-        console.log("Testing...")
-        const onProgress = (progress) => {
-          setUploadProgress(progress);
-        };
+      // if (typeof lessonImage === "object") {
+      //   const onProgress = (progress) => {
+      //     setUploadProgress(progress);
+      //   };
 
-        setIsUploading(true);
-        const url = await upload(lessonImage, onProgress);
-        setIsUploading(false);
-      }
+      //   console.log("Testing...")
+      //   setIsUploading(true);
+      //   const url = await upload(lessonImage, onProgress);
+      //   setLessonImage(url);
+      //   setIsUploading(false);
+      // }
 
       const res = await newRequest.post(
         `/admin/edit/${id}`,
