@@ -68,7 +68,7 @@ const Achievements = () => {
       <Sidebar activePage={"Achievements"} />
       <div className="move_left p-2">
         <PageHeader
-          title={"Achievement"}
+          title={"My Achievements"}
           lottieAnimationData={AnimatedAchievement}
           isLooped={false}
           width={"w-[18em]"}

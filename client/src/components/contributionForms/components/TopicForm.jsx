@@ -75,14 +75,6 @@ const TopicForm = () => {
   return (
     <>
       <form onSubmit={handleSubmit} id="topic-form">
-        {/* <InputField
-          id={"topic-id"}
-          label={"Topic ID"}
-          onValueChange={(value) =>
-            handleInputChange("topicFormTopicID", value)
-          }
-          required={true}
-        /> */}
         <InputField
           id={"topic-name"}
           label={"Topic Name"}
