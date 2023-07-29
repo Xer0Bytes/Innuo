@@ -4,7 +4,8 @@ const { Schema } = mongoose;
 const adminSchema = new Schema(
   {},
   {
-    strict: false,
+    strict: false, 
+    timestamps: true, 
   }
 );
 
