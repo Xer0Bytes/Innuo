@@ -1,12 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Dropdown from "./components/Dropdown";
 import QuestionForm from "./components/QuestionForm";
 import ModuleForm from "./components/ModuleForm";
 import TopicForm from "./components/TopicForm";
 import LessonForm from "./components/LessonForm";
+import newRequest from "../../utils/newRequest";
+import getAllTopics from "../../utils/getAllTopics";
 
 const ContributeForms = () => {
   const [formType, setFormType] = useState("topic");
+  const [error, setError] = useState(null);
+  const [topics, setTopics]=useState(getAllTopics());
+
+  const config_header = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  useEffect(() => {
+    const getTopics = async () => {
+      try {
+        const resTopic = await newRequest.post(
+          "/topic/getTopics",
+          {},
+          config_header
+        );
+        localStorage.setItem("allTopics", JSON.stringify(resTopic.data));
+        setTopics(getAllTopics());
+      } catch (err) {
+        if (err.response && err.response.data && err.response.data.message) {
+          setError(err.response.data.message);
+        } else {
+          setError("An error occurred during ranking fetching.");
+        }
+      }
+    };
+    getTopics();
+  }, []);
+
   return (
     <>
       <div className="p-4">
@@ -36,7 +68,7 @@ const ContributeForms = () => {
           {formType === "lesson" && <LessonForm />}
 
           {/* add Question form  */}
-          {formType === "question" && <QuestionForm />}
+          {formType === "question" && <QuestionForm/>}
         </div>
       </div>
     </>
