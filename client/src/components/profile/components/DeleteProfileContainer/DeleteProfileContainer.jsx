@@ -41,7 +41,7 @@ const DeleteProfile = () => {
       {visibleDeleteModal && (
         <PopUp
           message={
-            "Are you sure you want to reject this request? This will result in the topic not being added to the database!"
+            "Are you sure you want to delete your account? All your data will be deleted!"
           }
           redButtonText={"Delete Account"}
           normalButtonText={"Cancel Deletion"}
