@@ -13,7 +13,6 @@ const QuestionForm = () => {
     //dont worry this is just all the form value ;)
     questionFormTopicID: null,
     questionFormModuleID: null,
-    // questionFormQuestionID: "",
     questionFormQuestionText: "",
     questionFormChoice1Text: "",
     questionFormChoice2Text: "",
@@ -247,14 +246,6 @@ const QuestionForm = () => {
             handleInputChange("questionFormModuleID", Number(value))
           }
         />
-        {/* <InputField
-          id={"question-id"}
-          label={"Question ID"}
-          onValueChange={(value) =>
-            handleInputChange("questionFormQuestionID", value)
-          }
-          required={true}
-        /> */}
         <InputField
           id={"question-text"}
           label={"Question Text"}
