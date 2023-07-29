@@ -74,6 +74,7 @@ export const editContribution = async (req, res, next) => {
       question: {
         topicID: data.topicID,
         topicTitle: data.topicTitle,
+        moduleID: data.moduleID,
         moduleTitle: data.moduleTitle,
         questionText: data.questionText,
         questionImageURL: data.questionImageURL || null,
