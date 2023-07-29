@@ -62,7 +62,7 @@ export const getConNotifs = async (req, res, next) => {
     const user = await User.findById(req.params.id);
 
     if(user) {
-      const contributions = await Admin.find({con_id: req.params.id});
+      const contributions = await Admin.find({con_id: req.params.id}).sort({ updatedAt: -1 });
 
       // if(contributions.length > 0) {
         res.status(200).send(contributions);
