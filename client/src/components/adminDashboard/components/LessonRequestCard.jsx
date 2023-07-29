@@ -108,28 +108,31 @@ const LessonRequestCard = ({
         setIsUploading(true);
         const url = await upload(lessonImage, onProgress);
         setIsUploading(false);
+
+        console.log(url);
+
+        const res = await newRequest.post(
+          `/admin/edit/${id}`,
+          {
+            type: "lesson",
+            data: {
+              topicID: data.topicID,
+              topicTitle: data.topicTitle,
+              moduleID: data.moduleID,
+              moduleTitle: data.moduleTitle,
+              lessonText: lessonText,
+              lessonImageURL: url,
+            },
+            status: status,
+          },
+          config_header
+        );
+  
+        localStorage.setItem("allCons", JSON.stringify(res.data));
+        setCons(getAllCons());
+        setWait(false);
       }
 
-      const res = await newRequest.post(
-        `/admin/edit/${id}`,
-        {
-          type: "lesson",
-          data: {
-            topicID: data.topicID,
-            topicTitle: data.topicTitle,
-            moduleID: data.moduleID,
-            moduleTitle: data.moduleTitle,
-            lessonText: lessonText,
-            lessonImageURL: lessonImage,
-          },
-          status: status,
-        },
-        config_header
-      );
-
-      localStorage.setItem("allCons", JSON.stringify(res.data));
-      setCons(getAllCons());
-      setWait(false);
     } catch (err) {
       setWait(false);
     }
