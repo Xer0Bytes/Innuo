@@ -129,7 +129,7 @@ const QuestionRequestCard = ({ id, data, status, statusColor, setCons, con_name 
       const res = await newRequest.post(
         `/admin/edit/${id}`,
         {
-          type: "topic",
+          type: "question",
           data: {
             topicID: data.topicID,
             topicTitle: data.topicTitle,
