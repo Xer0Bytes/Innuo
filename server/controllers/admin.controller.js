@@ -69,7 +69,7 @@ export const editContribution = async (req, res, next) => {
   try {
     const objType = req.body.type;
     const data = req.body.data;
-    
+
     const fieldUpdates = {
       question: {
         topicTitle: data.topicTitle,
@@ -116,7 +116,7 @@ export const editContribution = async (req, res, next) => {
     if (!updatedDocument) {
       return res.status(420).send("Error while updating. Please try again.");
     } else {
-      const cons = await Admin.find({}).sort({ createdAt: -1 });
+      const cons = await Admin.find({});
       res.status(200).send(cons);
     }
   } catch (err) {
@@ -136,7 +136,7 @@ export const rejectContribution = async (req, res, next) => {
     if (!updatedDocument) {
       return res.status(420).send("Error while updating. Please try again.");
     } else {
-      const cons = await Admin.find({}).sort({ createdAt: -1 });
+      const cons = await Admin.find({});
       res.status(200).send(cons);
     }
   } catch (err) {
@@ -151,7 +151,7 @@ export const deleteAllPastRequests = async (req, res, next) => {
       status: { $in: ["approved", "rejected"] },
     });
 
-    const cons = await Admin.find({}).sort({ createdAt: -1 });
+    const cons = await Admin.find({});
     res.status(200).send(cons);
   } catch (err) {
     next(err);
@@ -161,7 +161,7 @@ export const deleteAllPastRequests = async (req, res, next) => {
 
 export const getAllContributions = async (req, res, next) => {
   try {
-    const cons = await Admin.find({}).sort({ createdAt: -1 });
+    const cons = await Admin.find({});
     res.status(200).send(cons);
   } catch (err) {
     next(err);
