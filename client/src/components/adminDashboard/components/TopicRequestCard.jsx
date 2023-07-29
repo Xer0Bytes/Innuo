@@ -5,7 +5,14 @@ import { FiChevronsDown, FiChevronsUp } from "react-icons/fi";
 import newRequest from "../../../utils/newRequest.js";
 import getAllCons from "../../../utils/getAllCons";
 
-const TopicRequestCard = ({ id, data, status, statusColor, setCons, con_name }) => {
+const TopicRequestCard = ({
+  id,
+  data,
+  status,
+  statusColor,
+  setCons,
+  con_name,
+}) => {
   const [topicName, setTopicName] = useState(data.topicTitle);
   const [inputDisabled, setInputDisabled] = useState(true);
   const [visibleRejectModal, setVisibleRejectModal] = useState(false);
@@ -58,6 +65,37 @@ const TopicRequestCard = ({ id, data, status, statusColor, setCons, con_name }) 
     setWait(true);
     try {
       const res = await newRequest.post(`/admin/reject/${id}`, config_header);
+
+      localStorage.setItem("allCons", JSON.stringify(res.data));
+      setCons(getAllCons());
+      setWait(false);
+    } catch (err) {
+      setWait(false);
+    }
+  };
+
+  const handleEdit = async () => {
+    setInputDisabled((prevState) => !prevState);
+
+    if (inputDisabled) {
+      // If inputDisabled is true, return without making the async request
+      return;
+    }
+
+    // If inputDisabled is true, proceed with the async request
+    setWait(true);
+    try {
+      const res = await newRequest.post(
+        `/admin/edit/${id}`,
+        {
+          type: "topic",
+          data: {
+            topicTitle: topicName,
+          },
+          status: status,
+        },
+        config_header
+      );
 
       localStorage.setItem("allCons", JSON.stringify(res.data));
       setCons(getAllCons());
@@ -149,7 +187,7 @@ const TopicRequestCard = ({ id, data, status, statusColor, setCons, con_name }) 
                       </button>
                     )}
                     <button
-                      onClick={() => setInputDisabled(!inputDisabled)}
+                      onClick={(e) => handleEdit(e)}
                       className={`bg-transparent ${buttonClass}`}
                     >
                       {inputDisabled ? "Edit" : "Save Changes"}

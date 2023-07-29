@@ -72,6 +72,7 @@ export const editContribution = async (req, res, next) => {
 
     const fieldUpdates = {
       question: {
+        topicID: data.topicID,
         topicTitle: data.topicTitle,
         moduleTitle: data.moduleTitle,
         questionText: data.questionText,
@@ -87,12 +88,15 @@ export const editContribution = async (req, res, next) => {
         correctChoice: data.correctChoice,
       },
       lesson: {
+        topicID: data.topicID,
         topicTitle: data.topicTitle,
+        moduleID: data.moduleID,
         moduleTitle: data.moduleTitle,
         lessonText: data.lessonText,
         lessonImageURL: data.lessonImageURL,
       },
       module: {
+        topicID: data.topicID,
         topicTitle: data.topicTitle,
         moduleTitle: data.moduleTitle,
       },
