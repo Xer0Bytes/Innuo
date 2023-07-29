@@ -6,8 +6,16 @@ import FileViewer from "./FileViewer";
 import { FiChevronsDown, FiChevronsUp } from "react-icons/fi";
 import newRequest from "../../../utils/newRequest";
 import getAllCons from "../../../utils/getAllCons";
+import upload from "../../../utils/upload";
 
-const LessonRequestCard = ({ id, data, status, statusColor, setCons, con_name }) => {
+const LessonRequestCard = ({
+  id,
+  data,
+  status,
+  statusColor,
+  setCons,
+  con_name,
+}) => {
   const [lessonText, setLessonText] = useState(data.lessonText);
   const [lessonImage, setLessonImage] = useState(data.lessonImageURL);
   const [inputDisabled, setInputDisabled] = useState(true);
@@ -57,6 +65,8 @@ const LessonRequestCard = ({ id, data, status, statusColor, setCons, con_name })
     } catch (err) {
       setWait(false);
     }
+
+    console.log(lessonImage);
   };
 
   const handleReject = async () => {
@@ -65,6 +75,57 @@ const LessonRequestCard = ({ id, data, status, statusColor, setCons, con_name })
     setWait(true);
     try {
       const res = await newRequest.post(`/admin/reject/${id}`, config_header);
+
+      localStorage.setItem("allCons", JSON.stringify(res.data));
+      setCons(getAllCons());
+      setWait(false);
+    } catch (err) {
+      setWait(false);
+    }
+  };
+
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleEdit = async () => {
+    setInputDisabled((prevState) => !prevState);
+
+    if (inputDisabled) {
+      // If inputDisabled is true, return without making the async request
+      return;
+    }
+
+    // If inputDisabled is true, proceed with the async request
+    setWait(true);
+
+    try {
+      if (typeof lessonImage === "object") {
+        console.log("Testing...")
+        const onProgress = (progress) => {
+          setUploadProgress(progress);
+        };
+
+        setIsUploading(true);
+        const url = await upload(lessonImage, onProgress);
+        setIsUploading(false);
+      }
+
+      const res = await newRequest.post(
+        `/admin/edit/${id}`,
+        {
+          type: "lesson",
+          data: {
+            topicID: data.topicID,
+            topicTitle: data.topicTitle,
+            moduleID: data.moduleID,
+            moduleTitle: data.moduleTitle,
+            lessonText: lessonText,
+            lessonImageURL: lessonImage,
+          },
+          status: status,
+        },
+        config_header
+      );
 
       localStorage.setItem("allCons", JSON.stringify(res.data));
       setCons(getAllCons());
@@ -135,6 +196,13 @@ const LessonRequestCard = ({ id, data, status, statusColor, setCons, con_name })
                     setFile={setLessonImage}
                     id={"lessonImageFile"}
                   />
+
+                  {isUploading && (
+                    <div className="text-left text-green-500">
+                      Upload Progress: {uploadProgress}%
+                    </div>
+                  )}
+
                   <div
                     onClick={resetLessonImage}
                     className="cursor-pointer font-bold pl-1.5 underline mt-2"
@@ -167,7 +235,7 @@ const LessonRequestCard = ({ id, data, status, statusColor, setCons, con_name })
                       </button>
                     )}
                     <button
-                      onClick={() => setInputDisabled(!inputDisabled)}
+                      onClick={(e) => handleEdit(e)}
                       className={`bg-transparent ${buttonClass}`}
                     >
                       {inputDisabled ? "Edit" : "Save Changes"}
