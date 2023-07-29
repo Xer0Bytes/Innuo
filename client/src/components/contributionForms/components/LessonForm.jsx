@@ -14,7 +14,6 @@ const LessonForm = () => {
     //dont worry this is just all the form value ;)
     lessonFormTopicID: null,
     lessonFormModuleID: null,
-    // lessonFormLessonID: "",
     lessonFormLessonText: "",
     lessonFormLessonImage: null,
   });
@@ -168,14 +167,6 @@ const LessonForm = () => {
             handleInputChange("lessonFormModuleID", Number(value))
           }
         />
-        {/* <InputField
-          id={"lesson-id"}
-          label={"Lesson ID"}
-          onValueChange={(value) =>
-            handleInputChange("lessonFormLessonID", value)
-          }
-          required={true}
-        /> */}
         <InputField
           id={"lesson-text"}
           label={"Lesson Text"}
@@ -194,7 +185,7 @@ const LessonForm = () => {
         />
 
         {isUploading && (
-          <div className="text-left text-green-500">
+          <div className="ml-8 text-left text-green-500">
             Upload Progress: {uploadProgress}%
           </div>
         )}

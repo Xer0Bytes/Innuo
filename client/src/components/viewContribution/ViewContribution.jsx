@@ -9,8 +9,8 @@ const ViewContribution = () => {
   const userConns = getUserConns();
   const [filterSelected, setFilterSelected] = useState("All");
   const buttonClass =
-    "inline-flex items-center px-5 py-1.5 border-[2px] border-[#B7EDDF] outline-none rounded-[45px] text-[#333] text-md cursor-pointer mr-2 mb-2";
-  const buttonSelectedClass = "bg-[#78E4CC] font-bold";
+    "inline-flex items-center px-5 py-1.5 border-[2px] border-[#FFC6CD] outline-none rounded-[45px] text-[#333] text-md cursor-pointer mr-2 mb-2";
+  const buttonSelectedClass = "bg-[#FA9BAF] font-bold";
   const pendingRequests = userConns.filter(
     (request) => request.status === "pending"
   );
@@ -132,7 +132,7 @@ const ViewContribution = () => {
         (processedRequests.length === 0 && filterSelected === "Processed") ||
         (userConns.length === 0 && filterSelected === "All") ? (
           <div
-            className={`text-3xl mt-5 text-[#41CDDA]  font-bold w-full text-center text-uppercase`}
+            className={`text-3xl mt-5 text-[#FA9BAF]  font-bold w-full text-center text-uppercase`}
           >
             No requests in selected category
           </div>

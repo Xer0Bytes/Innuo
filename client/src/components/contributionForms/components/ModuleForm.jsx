@@ -10,7 +10,6 @@ const ModuleForm = () => {
   const [formData, setFormData] = useState({
     //dont worry this is just all the form value ;)
     moduleFormTopicID: null,
-    // moduleFormModuleID: "",
     moduleFormModuleName: "",
   });
   const [success, setSuccess] = useState(false);
@@ -22,7 +21,6 @@ const ModuleForm = () => {
       [field]: value,
     }));
   };
-  // const navigate = useNavigate();
   const config_header = {
     header: {
       "Content-Type": "application/json",
@@ -98,14 +96,6 @@ const ModuleForm = () => {
             handleInputChange("moduleFormTopicID", Number(value))
           }
         />
-        {/* <InputField
-          id={"module-id"}
-          label={"Module ID"}
-          onValueChange={(value) =>
-            handleInputChange("moduleFormModuleID", value)
-          }
-          required={true}
-        /> */}
         <InputField
           id={"module-name"}
           label={"Module Name"}
