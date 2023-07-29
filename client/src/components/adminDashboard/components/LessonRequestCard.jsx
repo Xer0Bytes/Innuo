@@ -100,16 +100,13 @@ const LessonRequestCard = ({
 
     try {
       if (typeof lessonImage === "object") {
-        console.log("Testing...")
-        const onProgress = (progress) => {
+         const onProgress = (progress) => {
           setUploadProgress(progress);
-        };
+         };
 
         setIsUploading(true);
         const url = await upload(lessonImage, onProgress);
         setIsUploading(false);
-
-        console.log(url);
 
         const res = await newRequest.post(
           `/admin/edit/${id}`,

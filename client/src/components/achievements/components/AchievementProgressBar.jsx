@@ -20,7 +20,7 @@ function AchievementProgressBar({ requiredExp }) {
           </div>
           <div className="text-right">
             <span className={`text-xs font-semibold inline-block text-[#333] `}>
-              {currentUser.experiencePoints}/{requiredExp}
+              {currentUser.experiencePoints}/{requiredExp} EXP
             </span>
           </div>
         </div>
