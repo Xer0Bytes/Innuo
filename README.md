@@ -1,4 +1,5 @@
-![image](https://github.com/Xer0Bytes/Innuo/assets/95132675/0dc4247f-0347-4f72-8c05-79d241e4cb0d)<!-- PROJECT LOGO -->
+
+<!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/Xer0Bytes/Innuo">
@@ -9,6 +10,7 @@
 
   <p align="center">
     A platform for learning about sign language and contributing to the community.
+    <br>
     <a href="https://innuo.netlify.app/">Innuo Website</a>
   </p>
 </div>
@@ -45,7 +47,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://media.licdn.com/dms/image/D562DAQHFsz7P9eQbLQ/profile-treasury-image-shrink_800_800/0/1710615450548?e=1711915200&v=beta&t=UudD9DoLaA8FZpbkHS5uGxKtVBe-0ROPMaEjmnepbdg)
+![image](https://github.com/Xer0Bytes/Innuo/assets/95132675/0dc4247f-0347-4f72-8c05-79d241e4cb0d)
 
 Innuo, a user-friendly website, aims to revolutionize sign language learning. Its name, derived from Latin, means "to sign." Built on the robust MERN stack (MongoDB, Express.js, React, and Node.js), Innuo ensures efficient web development, simplifying the recruitment of experienced developers due to React and Node.js's popularity.
 
