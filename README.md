@@ -145,34 +145,34 @@ You can also use the deployed website [here](https://innuo.netlify.app/).
 
 Innuo has the following functionalities:
 
-1. Users can create accounts
-  - There are three types of accounts (learner, contributor and admin)
-  - Admin accounts are strictly specified in the database (You can not create one!)
+**1. Users can create accounts**
+   - There are three types of accounts (learner, contributor and admin)
+   - Admin accounts are strictly specified in the database (You can not create one!)
 
-2. Users can participate in MCQ styled evaluation for learning
-  - Different sign languages around the world can be learnt if the lessons are added.
-  - Users learn using GIFs rather than illustrations or images since SL contains gestures.
-  - The quizzes are timed to induce a sense of competitiveness.
-  - Users can earn XP points based on their performance.
-  - Instant feedback is given to the user upon answering.
-  - Once a user completes a quiz/module, they can not earn more XP points for that module however they can still replay the quiz.
+**2. Users can participate in MCQ styled evaluation for learning**
+   - Different sign languages around the world can be learnt if the lessons are added.
+   - Users learn using GIFs rather than illustrations or images since SL contains gestures.
+   - The quizzes are timed to induce a sense of competitiveness.
+   - Users can earn XP points based on their performance.
+   - Instant feedback is given to the user upon answering.
+   - Once a user completes a quiz/module, they can not earn more XP points for that module however they can still replay the quiz.
  
-3. Users can unlock achievements
-  - Achievements are unlocked by receiving XP points.
-  - More XP points = New Achievements!
-  - Beware! It is different for different difficulty levels (set in the profile section).
+**3. Users can unlock achievements**
+   - Achievements are unlocked by receiving XP points.
+   - More XP points = New Achievements!
+   - Beware! It is different for different difficulty levels (set in the profile section).
 
-4. Users can contribute to the platform as a Contributor
-  - Add new topics, modules or questions to existing modules as a Contributor.
-  - Admins will sieve through the contributions and add the appropriate ones.
+**4. Users can contribute to the platform as a Contributor**
+   - Add new topics, modules or questions to existing modules as a Contributor.
+   - Admins will sieve through the contributions and add the appropriate ones.
 
-5. Admins can edit, reject or accept incoming contributions
+**5. Admins can edit, reject or accept incoming contributions**
    - They have the power to govern the content of the website!
 
-6. Users also have the basic account setting such as
-   - delete account
-   - reset password
-   - edit profile
+**6. Users also have the basic account setting such as**
+   - Delete account
+   - Reset password
+   - Edit profile
    
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
