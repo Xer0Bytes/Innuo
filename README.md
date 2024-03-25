@@ -47,6 +47,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+(This project was created for the academic course SWE4404 - Software Project Lab II).
+
 ![image](https://github.com/Xer0Bytes/Innuo/assets/95132675/0dc4247f-0347-4f72-8c05-79d241e4cb0d)
 
 Innuo, a user-friendly website, aims to revolutionize sign language learning. Its name, derived from Latin, means "to sign." Built on the robust MERN stack (MongoDB, Express.js, React, and Node.js), Innuo ensures efficient web development, simplifying the recruitment of experienced developers due to React and Node.js's popularity.
