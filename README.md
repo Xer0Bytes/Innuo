@@ -207,12 +207,11 @@ This project is licensed under the [MIT License](LICENSE).
 ## Contact:
 
 - **Shanta Maria**
-  - *GitHub:* [NafisaMaliyat-iut](https://github.com/NafisaMaliyat-iut)
-
-- **Nafisa Maliyat**
   - *GitHub:* [maria-iut1234](https://github.com/maria-iut1234)
 
-
+- **Nafisa Maliyat**
+  - *GitHub:* [NafisaMaliyat-iut](https://github.com/NafisaMaliyat-iut)
+    
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
